@@ -17,6 +17,8 @@
 
 # sh 스크립트 (Husky 실행 문제 방지)
 *.sh     text eol=lf
+.husky/* text eol=lf
+
 
 # 설정 파일
 package.json      text eol=lf
