@@ -1,0 +1,41 @@
+* text=auto
+
+# 텍스트 파일 LF 강제
+*.js     text eol=lf
+*.jsx    text eol=lf
+*.ts     text eol=lf
+*.tsx    text eol=lf
+*.mjs    text eol=lf
+*.cjs    text eol=lf
+*.css    text eol=lf
+*.scss   text eol=lf
+*.html   text eol=lf
+*.json   text eol=lf
+*.md     text eol=lf
+*.yaml   text eol=lf
+*.yml    text eol=lf
+
+# sh 스크립트 (Husky 실행 문제 방지)
+*.sh     text eol=lf
+
+# 설정 파일
+package.json      text eol=lf
+tsconfig.json     text eol=lf
+next.config.js    text eol=lf
+.gitignore        text eol=lf
+.npmrc            text eol=lf
+
+# .env는 줄바꿈 강제하지 않음 (환경별 설정 차이)
+.env* text
+
+# Binary 파일
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.svg   binary
+*.zip   binary
+*.tar   binary
+*.gz    binary
+*.ico   binary
