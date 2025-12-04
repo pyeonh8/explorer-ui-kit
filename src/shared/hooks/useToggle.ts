@@ -2,12 +2,16 @@
 
 import { useCallback, useState } from 'react';
 
+interface UseToggle {
+  value: boolean;
+  toggle: () => void;
+}
+
 /**
  * boolean 상태를 관리하고 상태를 토클하는 훅
- * @param {boolean} initialValue - 초기 상태 값 (기본값: false)
- * @returns {{value: boolean, toggle: () => void}} - {현재 상태, 토글 함수}
+ * 초기 상태 값 (기본값: false)
  */
-const useToggle = (initialValue = false) => {
+const useToggle = (initialValue: boolean = false): UseToggle => {
   const [value, setValue] = useState(initialValue);
 
   // 렌더링 시마다 함수 재생성 방지
