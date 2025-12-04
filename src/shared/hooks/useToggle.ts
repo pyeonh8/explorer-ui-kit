@@ -9,7 +9,7 @@ interface UseToggle {
 
 /**
  * boolean 상태를 관리하고 상태를 토클하는 훅
- * 초기 상태 값 (기본값: false)
+ * @param initialValue 초기 상태 값 (false).
  */
 const useToggle = (initialValue: boolean = false): UseToggle => {
   const [value, setValue] = useState(initialValue);
