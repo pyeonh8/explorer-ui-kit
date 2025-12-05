@@ -2,6 +2,12 @@
 
 import { useCallback, useState } from 'react';
 
+interface UseCounterOptions {
+  initialValue?: number;
+  min?: number;
+  max?: number;
+}
+
 interface UseCounter {
   count: number;
   increment: () => void;
@@ -9,15 +15,15 @@ interface UseCounter {
   reset: () => void;
 }
 
-interface UseCounterOptions {
-  initialValue?: number;
-  min?: number;
-  max?: number;
-}
-
 /**
  * 카운터 상태를 관리하고 제어하는 훅
- * @param initialValue 카운터의 초기값 (number).
+ * @param {number} [options.initialValue = 0] 카운터의 초기값.
+ * @param {number} [options.min = -Infinity] 카운터의 최소값.
+ * @param {number} [options.max = Infinity] 카운터의 최댓값.
+ * @return {function} return.count - 카운터 값
+ * @return {function} return.increment - 카운터 증가
+ * @return {function} return.decrement - 카운터 감소
+ * @return {function} return.reset - 카운터 리셋
  */
 const useCounter = (options: UseCounterOptions = {}): UseCounter => {
   const { initialValue = 0, min = -Infinity, max = Infinity } = options;
