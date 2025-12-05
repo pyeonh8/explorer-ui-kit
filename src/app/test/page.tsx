@@ -3,6 +3,7 @@
 import useToggle from '@/shared/hooks/useToggle';
 import useCounter from '@/shared/hooks/useCounter';
 import useTimer from '@/shared/hooks/useTimer';
+import useSound from '@/shared/hooks/useSound';
 
 const Test = () => {
   const { value, toggle } = useToggle();
@@ -23,6 +24,14 @@ const Test = () => {
     reset: timerReset,
   } = useTimer({ initialValue: 11, onComplete: handleTimerEnd });
 
+  const {
+    isPlaying,
+    play: soundPlay,
+    pause: soundPause,
+    toggle: soundToggle,
+    duration,
+  } = useSound({ src: '/sounds/배경음.mp3' });
+
   return (
     <div>
       <h1>테스트 페이지</h1>
@@ -41,6 +50,14 @@ const Test = () => {
         <button onClick={start}>시작</button>
         <button onClick={pause}>멈춤</button>
         <button onClick={timerReset}>리셋</button>
+      </div>
+      <hr />
+      <div className="flex gap-3">
+        {isPlaying ? 'true' : 'false'}
+        {duration}
+        <button onClick={soundPlay}>노래시작</button>
+        <button onClick={soundPause}>노래멈춤</button>
+        <button onClick={soundToggle}>노래토글</button>
       </div>
     </div>
   );
