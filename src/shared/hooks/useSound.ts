@@ -8,10 +8,11 @@ interface UseSoundOptions {
 
 interface UseSound {
   isPlaying: boolean;
-  duration: number;
   play: () => void;
   pause: () => void;
   toggle: () => void;
+  formattedCurrentTime: string;
+  formattedDuration: string;
 }
 
 /**
@@ -19,16 +20,21 @@ interface UseSound {
  * @param {string} [options.src] - 사운드 src
  * @param {number} [options.volume] - 사운드 볼륨
  * @param {boolean} [options.loop] - 사운드 반복유무
- * @return {boolean} return.isPlaying -
- * @return {function} return.play -
- * @return {function} return.pause -
- * @return {function} return.toggle -
+ * @return {boolean} return.isPlaying - 사운드 플레이 유무
+ * @return {function} return.play - 사운드 시작
+ * @return {function} return.pause - 사운드 중지
+ * @return {function} return.toggle - 사운드 토글 (시작/중지)
+ * @return {string} return.formattedCurrentTime - 현재 사운드 위치
+ * @return {string} return.formattedDuration - 사운드 총 길이
  */
 const useSound = (options: UseSoundOptions = {}): UseSound => {
   const { src, volume = 0.5, loop = false } = options;
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+
+  console.log(duration);
 
   // 재생
   const play = useCallback(() => setIsPlaying(true), []);
@@ -52,18 +58,24 @@ const useSound = (options: UseSoundOptions = {}): UseSound => {
     const handleEnd = () => setIsPlaying(false);
     audio.addEventListener('ended', handleEnd);
 
-    // 노래 길이 확인
+    // 노래 총 길이 확인
     const handleLoadedMetadata = () => {
       setDuration(audio.duration);
     };
     audio.addEventListener('loadedmetadata', handleLoadedMetadata);
 
+    // 노래 현재 위치 확인
+    const handleTimeUpdate = () => {
+      setCurrentTime(audio.currentTime);
+    };
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+
     return () => {
       audio.pause();
       audio.removeEventListener('ended', handleEnd);
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
       audioRef.current = null;
-      console.log('클린업');
     };
   }, [src]);
 
@@ -91,9 +103,30 @@ const useSound = (options: UseSoundOptions = {}): UseSound => {
     }
   }, [isPlaying]);
 
-  return { isPlaying, duration, play, pause, toggle };
+  const formattedCurrentTime = formatTime(currentTime);
+  const formattedDuration = formatTime(duration);
+
+  return {
+    isPlaying,
+    play,
+    pause,
+    toggle,
+    formattedCurrentTime,
+    formattedDuration,
+  };
 };
 
-// const formatTime = () => {};
+// 초 단위를 MM:SS 형식의 문자열로 변환
+const formatTime = (timeInSeconds: number): string => {
+  if (isNaN(timeInSeconds) || timeInSeconds < 0) return '00:00';
+  const minutes = Math.floor(timeInSeconds / 60);
+  const seconds = Math.floor(timeInSeconds % 60);
+
+  // n초 => 0n초
+  const formattedMinutes = String(minutes).padStart(2, '0');
+  const formattedSeconds = String(seconds).padStart(2, '0');
+
+  return `${formattedMinutes} : ${formattedSeconds}`;
+};
 
 export default useSound;

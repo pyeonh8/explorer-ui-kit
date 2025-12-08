@@ -29,7 +29,8 @@ const Test = () => {
     play: soundPlay,
     pause: soundPause,
     toggle: soundToggle,
-    duration,
+    formattedCurrentTime,
+    formattedDuration,
   } = useSound({ src: '/sounds/배경음.mp3' });
 
   return (
@@ -54,10 +55,11 @@ const Test = () => {
       <hr />
       <div className="flex gap-3">
         {isPlaying ? 'true' : 'false'}
-        {duration}
         <button onClick={soundPlay}>노래시작</button>
         <button onClick={soundPause}>노래멈춤</button>
         <button onClick={soundToggle}>노래토글</button>
+        <div>{formattedCurrentTime}</div>
+        <div>{formattedDuration}</div>
       </div>
     </div>
   );
