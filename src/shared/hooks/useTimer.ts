@@ -72,7 +72,6 @@ const useTimer = (options: UseTimerOptions = {}): UseTimer => {
           pause();
           // console.log('타이머가 완료됐습니다.');
           if (onCompleteRef.current) onCompleteRef.current();
-
           return 0;
         }
 

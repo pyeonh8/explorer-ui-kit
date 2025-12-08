@@ -6,7 +6,7 @@ import { useEffect } from 'react';
  * @param callback - 바깥 영역이 클릭되었을 때 실행할 함수, useCallback 사용을 권유
  */
 const useClickOutside = (
-  ref: React.RefObject<HTMLElement>,
+  ref: React.RefObject<HTMLElement | null>,
   callback: () => void
 ) => {
   useEffect(() => {
