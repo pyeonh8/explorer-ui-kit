@@ -4,6 +4,8 @@ import useToggle from '@/shared/hooks/useToggle';
 import useCounter from '@/shared/hooks/useCounter';
 import useTimer from '@/shared/hooks/useTimer';
 import useSound from '@/shared/hooks/useSound';
+import Button from '@/shared/ui/Button';
+import IconButton from '@/shared/ui/IconButton';
 
 const Test = () => {
   const { value, toggle } = useToggle();
@@ -60,6 +62,17 @@ const Test = () => {
         <button onClick={soundToggle}>노래토글</button>
         <div>{formattedCurrentTime}</div>
         <div>{formattedDuration}</div>
+      </div>
+      <hr />
+      <div className="flex gap-1 p-2">
+        <Button
+          onClick={() => {
+            alert('테스트');
+          }}
+        >
+          테스트
+        </Button>
+        <IconButton>안녕하세요</IconButton>
       </div>
     </div>
   );
