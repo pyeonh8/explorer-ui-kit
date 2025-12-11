@@ -12,7 +12,7 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,css,scss,md}": [
+    "*.{js,jsx,ts,tsx}": [
       "eslint --max-warnings=0 --fix --color",
       "prettier --write"
     ]
