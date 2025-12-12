@@ -1,13 +1,13 @@
 import { twMerge } from 'tailwind-merge';
 import Button from './Button';
-import { IconButtonProps } from '@/types/common';
+import { ButtonProps } from '@/types/common';
 
 const IconButton = ({
   children = '',
   className = '',
   ...rest
-}: IconButtonProps) => {
-  const baseStyle = '';
+}: ButtonProps) => {
+  const baseStyle = 'flex items-center gap-[4px]';
   const finalClasses = twMerge(baseStyle, className);
 
   return (

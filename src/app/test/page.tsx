@@ -6,6 +6,8 @@ import useTimer from '@/shared/hooks/useTimer';
 import useSound from '@/shared/hooks/useSound';
 import Button from '@/shared/ui/Button';
 import IconButton from '@/shared/ui/IconButton';
+import { FaLeaf } from 'react-icons/fa';
+import ToggleButton from '@/shared/ui/ToggleButton';
 
 const Test = () => {
   const { value, toggle } = useToggle();
@@ -72,7 +74,12 @@ const Test = () => {
         >
           테스트
         </Button>
-        <IconButton>안녕하세요</IconButton>
+        <IconButton>
+          <FaLeaf className="h-[25px] w-[25px]" />
+        </IconButton>
+        <ToggleButton onContent="ON" offContent="OFF">
+          <FaLeaf className="h-[25px] w-[25px]" />
+        </ToggleButton>
       </div>
     </div>
   );

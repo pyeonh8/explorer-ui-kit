@@ -1,12 +1,14 @@
 import React from 'react';
 
-//버튼
+// 버튼
 export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   children?: React.ReactNode;
   className?: string;
 };
 
-//아이콘 버튼
-export interface IconButtonProps extends ButtonProps {
-  icon?: string;
+// 토글 버튼
+export interface ToggleButtonProps extends ButtonProps {
+  initialState?: boolean;
+  onContent: React.ReactNode;
+  offContent: React.ReactNode;
 }
