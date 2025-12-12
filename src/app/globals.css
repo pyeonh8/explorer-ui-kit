@@ -1,5 +1,4 @@
 /* globals.css */
-
 @layer theme, base, utilities;
 
 @import 'tailwindcss/theme.css' layer(theme);
@@ -22,15 +21,12 @@
   --color-font: rgb(131, 113, 86);
   --color-font-secondary: rgb(131, 113, 86);
   --color-font-accent: rgb(254, 211, 3);
-
-  --font-mainFontR: 'var(--font-mainFontR)', sans-serif;
-  --font-mainFontB: 'var(--font-mainFontB)', sans-serif;
 }
 
 @layer base {
   body {
     background-color: rgb(var(--background));
     color: var(--color-font);
-    font-family: var(--font-mainFontR);
+    font-family: var(--font-mainFontR), sans-serif;
   }
 }

@@ -1,5 +1,5 @@
 import IconButton from './IconButton';
-import { ToggleButtonProps } from '@/types/common';
+import { ToggleButtonProps } from '@/types/common.types';
 import useToggle from '../hooks/useToggle';
 
 const ToggleButton = ({

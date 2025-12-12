@@ -8,6 +8,7 @@ import Button from '@/shared/ui/Button';
 import IconButton from '@/shared/ui/IconButton';
 import { FaLeaf } from 'react-icons/fa';
 import ToggleButton from '@/shared/ui/ToggleButton';
+import Modal from '@/shared/ui/Modal';
 
 const Test = () => {
   const { value, toggle } = useToggle();
@@ -40,6 +41,9 @@ const Test = () => {
   return (
     <div>
       <h1>테스트 페이지</h1>
+      <hr />
+      <Modal></Modal>
+      <hr />
       <button onClick={toggle}>{value ? 'false' : 'true'}</button>
       <hr />
       <div>

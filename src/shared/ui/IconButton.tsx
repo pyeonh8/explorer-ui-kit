@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge';
 import Button from './Button';
-import { ButtonProps } from '@/types/common';
+import { ButtonProps } from '@/types/common.types';
 
 const IconButton = ({
   children = '',

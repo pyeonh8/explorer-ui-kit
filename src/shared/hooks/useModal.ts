@@ -1,12 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import useClickOutside from './useClickOutside';
-
-interface useModal {
-  isOpen: boolean;
-  modalRef: React.RefObject<HTMLElement | null>;
-  open: () => void;
-  close: () => void;
-}
+import { useModalProps } from '@/types/hooks.types';
 
 /**
  * 모달 제어하는 훅
@@ -15,10 +9,10 @@ interface useModal {
  * @return {function} return.open - 모달의 열림
  * @return {function} return.close - 모달의 닫힘
  */
-const useModal = (): useModal => {
+const useModal = (): useModalProps => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const modalRef = useRef<HTMLElement | null>(null);
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);

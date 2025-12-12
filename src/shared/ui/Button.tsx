@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge';
-import { ButtonProps } from '@/types/common';
+import { ButtonProps } from '@/types/common.types';
 
 const Button = ({ children = '', className = '', ...rest }: ButtonProps) => {
   const baseStyle =
