@@ -2,13 +2,16 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 
-const mainFontB = localFont({
-  src: '../fonts/HakgyoansimDunggeunmisoTTF-B.woff2',
-  variable: '--font-mainFontB',
-});
 const mainFontR = localFont({
   src: '../fonts/HakgyoansimDunggeunmisoTTF-R.woff2',
   variable: '--font-mainFontR',
+  weight: '400',
+});
+
+const mainFontB = localFont({
+  src: '../fonts/HakgyoansimDunggeunmisoTTF-B.woff2',
+  variable: '--font-mainFontB',
+  weight: '700',
 });
 
 export const metadata: Metadata = {

@@ -1,5 +1,4 @@
 /* globals.css */
-
 @layer theme, base, utilities;
 
 @import 'tailwindcss/theme.css' layer(theme);
@@ -7,25 +6,27 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 
 :root {
-  /* 색상 변수는 쉼표 없는 RGB 값으로 정의 */
-  --background: 255 255 255;
-  --color-primary: 146 218 205;
-  --color-secondary: 194 230 230;
-  --color-foreground: 255 249 229;
-  --color-foreground-subtle: 255 236 158;
-  --color-foreground-inverse: 238 225 200;
+  --background: rgb(255, 255, 255);
 
-  --color-font: 131 113 86;
-  --color-font-accent: 254 211 3;
+  /* 주요 색상 */
+  --color-primary: rgb(146, 218, 205);
+  --color-secondary: rgb(194, 230, 230);
 
-  --font-mainFontR: 'var(--font-mainFontR)', sans-serif;
-  --font-mainFontB: 'var(--font-mainFontB)', sans-serif;
+  /* 전경/컨테이너 색상 */
+  --color-foreground: rgb(255, 249, 229);
+  --color-foreground-subtle: rgb(255, 236, 158);
+  --color-foreground-inverse: rgb(238, 225, 200);
+
+  /* 폰트 색상 */
+  --color-font: rgb(131, 113, 86);
+  --color-font-secondary: rgb(131, 113, 86);
+  --color-font-accent: rgb(254, 211, 3);
 }
 
 @layer base {
   body {
     background-color: rgb(var(--background));
-    color: rgb(var(--color-font));
-    font-family: var(--font-mainFontR);
+    color: var(--color-font);
+    font-family: var(--font-mainFontR), sans-serif;
   }
 }

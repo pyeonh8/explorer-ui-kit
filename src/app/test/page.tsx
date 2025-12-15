@@ -4,6 +4,11 @@ import useToggle from '@/shared/hooks/useToggle';
 import useCounter from '@/shared/hooks/useCounter';
 import useTimer from '@/shared/hooks/useTimer';
 import useSound from '@/shared/hooks/useSound';
+import Button from '@/shared/ui/Button';
+import IconButton from '@/shared/ui/IconButton';
+import { FaLeaf } from 'react-icons/fa';
+import ToggleButton from '@/shared/ui/ToggleButton';
+import Modal from '@/shared/ui/Modal';
 
 const Test = () => {
   const { value, toggle } = useToggle();
@@ -36,6 +41,9 @@ const Test = () => {
   return (
     <div>
       <h1>테스트 페이지</h1>
+      <hr />
+      <Modal></Modal>
+      <hr />
       <button onClick={toggle}>{value ? 'false' : 'true'}</button>
       <hr />
       <div>
@@ -60,6 +68,22 @@ const Test = () => {
         <button onClick={soundToggle}>노래토글</button>
         <div>{formattedCurrentTime}</div>
         <div>{formattedDuration}</div>
+      </div>
+      <hr />
+      <div className="flex gap-1 p-2">
+        <Button
+          onClick={() => {
+            alert('테스트');
+          }}
+        >
+          테스트
+        </Button>
+        <IconButton>
+          <FaLeaf className="h-[25px] w-[25px]" />
+        </IconButton>
+        <ToggleButton onContent="ON" offContent="OFF">
+          <FaLeaf className="h-[25px] w-[25px]" />
+        </ToggleButton>
       </div>
     </div>
   );
