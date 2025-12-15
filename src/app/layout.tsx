@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
+import Providers from './providers';
 
 const mainFontR = localFont({
   src: '../fonts/HakgyoansimDunggeunmisoTTF-R.woff2',
@@ -27,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${mainFontB.variable} ${mainFontR.variable}`}>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
