@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { amiiboService } from '@/shared/api/amiiboService';
 import { Amiibo } from '@/types/api.types';
 import Image from 'next/image';
+import kRkoVillagers from '@/shared/utils/kRkoVillagers';
 
 const AmiiboList = () => {
   const [amiibos, setAmiibos] = useState<Amiibo[]>([]);
@@ -53,7 +54,7 @@ const AmiiboList = () => {
   console.log();
   return (
     <div className="grid grid-cols-4 gap-3">
-      {finalAmiibo.slice(0, 50).map((amiibo) => (
+      {finalAmiibo.map((amiibo) => (
         <div key={amiibo.head + amiibo.tail}>
           <div className="overflow- relative aspect-[69/97] w-full rounded-[5px] bg-[var(--color-secondary)]">
             <Image
@@ -64,7 +65,10 @@ const AmiiboList = () => {
               className="object-contain"
             />
           </div>
-          <div className="text-center font-bold">{amiibo.character}</div>
+          <div className="text-center font-bold">
+            {/* {amiibo.character} */}
+            {kRkoVillagers(amiibo.character)}
+          </div>
         </div>
       ))}
     </div>
