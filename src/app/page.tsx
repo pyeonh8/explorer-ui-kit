@@ -1,4 +1,4 @@
-import AmiiboList from '@/features/AmiiboList';
+import AmiiboList from '@/features/AmiiboCardList';
 
 export default function Home() {
   return (
