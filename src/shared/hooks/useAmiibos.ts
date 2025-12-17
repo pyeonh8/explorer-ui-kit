@@ -25,9 +25,10 @@ const useAmiibos = (): useAmiibosProps => {
   }, []);
 
   const finalAmiibo = useMemo(() => {
-    // 타입 필터링
-    const cardOnlyAmiibos = amiibos.filter((amiibo) =>
-      amiibo.type.includes('Card')
+    // 카드 타입 필터링, Timmy & Tommy 삭제
+    const cardOnlyAmiibos = amiibos.filter(
+      (amiibo) =>
+        amiibo.type.includes('Card') && amiibo.character !== 'Timmy & Tommy'
     );
 
     // 타입 필터된 배열에서 캐릭터 중복 제거

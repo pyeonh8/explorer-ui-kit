@@ -14,6 +14,7 @@ const kRkoVillagers = (characterName: string): string => {
     'K.K. Slider': 'K.K.',
     'Spork/Crackle': 'Spork',
     'Don Resetti': 'Don',
+    OHare: "O'Hare",
   };
 
   const foundKey = Object.keys(extra).find((key) => key === characterName);

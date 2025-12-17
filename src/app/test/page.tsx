@@ -9,7 +9,7 @@ import IconButton from '@/shared/ui/IconButton';
 import { FaLeaf } from 'react-icons/fa';
 import ToggleButton from '@/shared/ui/ToggleButton';
 import Modal from '@/shared/ui/Modal';
-import AmiiboList from '@/features/AmiiboList';
+import AmiiboList from '@/features/AmiiboCard';
 
 const Test = () => {
   const { value, toggle } = useToggle();
