@@ -1,4 +1,4 @@
-export interface Amiibo {
+export interface AmiiboProps {
   amiiboSeries: string;
   character: string;
   gameSeries: string;
@@ -16,5 +16,5 @@ export interface Amiibo {
 }
 
 export interface AmiiboApiResponse {
-  amiibo: Amiibo[];
+  amiibo: AmiiboProps[];
 }

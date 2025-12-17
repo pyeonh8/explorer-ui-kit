@@ -1,7 +1,7 @@
 import { getAmiiboData } from './client';
-import { Amiibo, AmiiboApiResponse } from '@/types/api.types';
+import { AmiiboProps, AmiiboApiResponse } from '@/types/api.types';
 
-export async function amiiboService(): Promise<Amiibo[]> {
+export async function amiiboService(): Promise<AmiiboProps[]> {
   const data = await getAmiiboData<AmiiboApiResponse>(
     'amiibo/?gameseries=Animal%20Crossing'
   );
