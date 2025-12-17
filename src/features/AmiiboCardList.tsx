@@ -2,10 +2,14 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import useAmiibos from '@/shared/hooks/useAmiibo';
 import kRkoVillagers from '@/shared/utils/kRkoVillagers';
+import { AmiiboProps } from '@/types/api.types';
 
-const AmiiboList = () => {
+const AmiiboCardList = ({
+  initialAmiibo,
+}: {
+  initialAmiibo: AmiiboProps[];
+}) => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const handleSelect = (character: string) => {
@@ -21,14 +25,9 @@ const AmiiboList = () => {
   };
   console.log(selectedIds);
 
-  const { finalAmiibo, isLoading, error } = useAmiibos();
-
-  if (isLoading) return <div> 로딩 중. . . </div>;
-  if (error) return <div>{error}</div>;
-
   return (
     <div className="grid w-[600px] grid-cols-4 gap-3">
-      {finalAmiibo.slice(0, 20).map((amiibo) => {
+      {initialAmiibo?.map((amiibo) => {
         const isSelected = selectedIds.includes(amiibo.character);
 
         return (
@@ -59,4 +58,4 @@ const AmiiboList = () => {
   );
 };
 
-export default AmiiboList;
+export default AmiiboCardList;
