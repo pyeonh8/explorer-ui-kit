@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
-import kRkoVillagers from '@/shared/utils/kRkoVillagers';
+import { useCallback, useState } from 'react';
 import { AmiiboProps } from '@/types/api.types';
+import AmiiboCard from './AmiiboCard';
 
 const AmiiboCardList = ({
   initialAmiibo,
@@ -12,7 +11,7 @@ const AmiiboCardList = ({
 }) => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
-  const handleSelect = (character: string) => {
+  const handleSelect = useCallback((character: string) => {
     setSelectedIds((prev) => {
       if (prev.includes(character))
         return prev.filter((item) => item !== character);
@@ -22,7 +21,8 @@ const AmiiboCardList = ({
       }
       return [...prev, character];
     });
-  };
+  }, []);
+
   console.log(selectedIds);
 
   return (
@@ -31,27 +31,12 @@ const AmiiboCardList = ({
         const isSelected = selectedIds.includes(amiibo.character);
 
         return (
-          <button
+          <AmiiboCard
             key={amiibo.head + amiibo.tail}
-            onClick={() => {
-              handleSelect(amiibo.character);
-            }}
-            className="cursor-pointer transition-transform hover:scale-105"
-          >
-            <div className="overflow- relative aspect-[69/97] w-full rounded-[5px] bg-[var(--color-secondary)]">
-              <Image
-                src={amiibo.image}
-                alt={amiibo.character}
-                fill={true}
-                sizes="(max-width: 768px) 50vw, 25vw"
-                className="object-contain"
-              />
-            </div>
-            <div className="text-center font-bold">
-              {kRkoVillagers(amiibo.character)}
-              {isSelected ? '  선택!!' : ''}
-            </div>
-          </button>
+            amiibo={amiibo}
+            isSelected={isSelected}
+            onSelect={handleSelect}
+          />
         );
       })}
     </div>
