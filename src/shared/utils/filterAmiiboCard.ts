@@ -5,7 +5,7 @@ import { AmiiboProps } from '@/types/api.types';
  * @param {AmiiboProps[]} amiibos - 원본 아미보 배열
  * @returns {AmiiboProps[]} 필터링 및 중복 제거된 아미보 배열
  */
-const filterAmiiboCard = (amiibos: AmiiboProps[]) => {
+const filterAmiiboCard = (amiibos: AmiiboProps[]): AmiiboProps[] => {
   if (!amiibos || !Array.isArray(amiibos)) return [];
 
   const seenCharacters = new Set<string>();
