@@ -1,3 +1,4 @@
+// 아미보카드 API
 export interface AmiiboProps {
   amiiboSeries: string;
   character: string;

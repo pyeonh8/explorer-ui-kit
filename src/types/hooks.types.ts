@@ -8,15 +8,8 @@ export interface useModalProps {
   close: () => void;
 }
 
-// useSort : 필터 훅
+// useSort: 필터 훅
 export interface sortConfigProps<T> {
   key: keyof T | null;
   direction: 'asc' | 'desc';
 }
-
-// useAmiibos: 동물의 숲 아미보 카드 데이터 훅
-// export interface useAmiibosProps {
-//   finalAmiibo: AmiiboProps[];
-//   isLoading: boolean;
-//   error: string | null;
-// }
