@@ -11,7 +11,7 @@ const AmiiboCardList = ({
   selectedAmiibo: selectedIds,
   onSelect,
 }: AmiiboCardListProps) => {
-  // 한국어 이름 추가
+  // amiibo 데이터에 한국어 이름 데이터 추가
   const translatedAmiibo = useMemo(() => {
     return initialAmiibo.map((amiibo) => ({
       ...amiibo,

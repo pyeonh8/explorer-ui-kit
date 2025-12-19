@@ -9,7 +9,6 @@ export interface useModalProps {
 }
 
 // useSort : 필터 훅
-
 export interface sortConfigProps<T> {
   key: keyof T | null;
   direction: 'asc' | 'desc';

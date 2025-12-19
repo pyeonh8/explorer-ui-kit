@@ -8,7 +8,7 @@ interface extraMap {
 const kRkoVillagers = (characterName: string): string => {
   const all = [...villagers, ...npcs];
 
-  // 번외 변역
+  // 번역될 수 있게 기존 캐릭터 명 변경
   const extra: extraMap = {
     Pave: 'Pavé',
     'K.K. Slider': 'K.K.',
@@ -32,7 +32,6 @@ const kRkoVillagers = (characterName: string): string => {
     return villager.translations.kRko;
   }
 
-  console.log(characterName);
   return characterName;
 };
 
