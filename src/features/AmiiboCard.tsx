@@ -2,18 +2,14 @@
 
 import { memo } from 'react';
 import Image from 'next/image';
-import { AmiiboProps } from '@/types/api.types';
 import kRkoVillagers from '@/shared/utils/kRkoVillagers';
+import { AmiiboCardProps } from '@/types/features.type';
 
 const AmiiboCard = ({
   amiibo,
-  isSelected,
+  selectedAmiibo: isSelected,
   onSelect,
-}: {
-  amiibo: AmiiboProps;
-  isSelected: boolean;
-  onSelect: (character: string) => void;
-}) => {
+}: AmiiboCardProps) => {
   return (
     <button
       onClick={() => {
