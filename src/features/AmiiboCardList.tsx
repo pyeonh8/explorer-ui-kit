@@ -3,7 +3,7 @@
 import AmiiboCard from './AmiiboCard';
 import { AmiiboCardListProps } from '@/types/features.type';
 import useSort from '@/shared/hooks/useSort';
-import kRkoVillagers from '@/shared/utils/kRkoVillagers';
+import getVillagerExtraInfo from '@/shared/utils/getVillagerExtraInfo';
 import { useMemo } from 'react';
 
 const AmiiboCardList = ({
@@ -11,12 +11,17 @@ const AmiiboCardList = ({
   selectedAmiibo: selectedIds,
   onSelect,
 }: AmiiboCardListProps) => {
-  // amiibo 데이터에 한국어 이름 데이터 추가
+  // amiibo 데이터에 한글 이름, 성격 추가
   const translatedAmiibo = useMemo(() => {
-    return initialAmiibo.map((amiibo) => ({
-      ...amiibo,
-      koName: kRkoVillagers(amiibo.character),
-    }));
+    return initialAmiibo.map((amiibo) => {
+      const { koName, personality } = getVillagerExtraInfo(amiibo.character);
+
+      return {
+        ...amiibo,
+        koName,
+        personality,
+      };
+    });
   }, [initialAmiibo]);
 
   const { sortedData, requestSort, sortConfig } = useSort(translatedAmiibo, {
