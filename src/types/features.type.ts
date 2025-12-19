@@ -1,4 +1,4 @@
-import { AmiiboProps } from './api.types';
+import { AmiiboProps, TranslatedAmiibo } from './api.types';
 
 // AmiiboCardList & AmiiboCard : 아미보카드
 export type AmiiboSelectHandler = (character: string) => void;
@@ -10,7 +10,7 @@ export interface AmiiboCardListProps {
 }
 
 export interface AmiiboCardProps {
-  amiibo: AmiiboProps;
+  amiibo: TranslatedAmiibo;
   selectedAmiibo: boolean;
   onSelect: AmiiboSelectHandler;
 }

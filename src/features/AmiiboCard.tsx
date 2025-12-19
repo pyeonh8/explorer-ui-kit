@@ -2,7 +2,6 @@
 
 import { memo } from 'react';
 import Image from 'next/image';
-import kRkoVillagers from '@/shared/utils/kRkoVillagers';
 import { AmiiboCardProps } from '@/types/features.type';
 
 const AmiiboCard = ({
@@ -27,7 +26,7 @@ const AmiiboCard = ({
         />
       </div>
       <div className="text-center font-bold">
-        {kRkoVillagers(amiibo.character)}
+        {amiibo.koName}
         {isSelected ? '  선택!!' : ''}
       </div>
     </button>

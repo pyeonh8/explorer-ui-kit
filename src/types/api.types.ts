@@ -18,3 +18,7 @@ export interface AmiiboProps {
 export interface AmiiboApiResponse {
   amiibo: AmiiboProps[];
 }
+
+export interface TranslatedAmiibo extends AmiiboProps {
+  koName: string;
+}

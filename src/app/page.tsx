@@ -7,7 +7,7 @@ export default async function AmiiboPage() {
   const rawData = await amiiboService();
   const finalAmiibo: AmiiboProps[] = filterAmiiboCard(rawData);
 
-  console.log(finalAmiibo);
+  // console.log(finalAmiibo);
 
   if (!rawData || rawData.length === 0)
     throw new Error('데이터가 존재하지 않습니다.');
