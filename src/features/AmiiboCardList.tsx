@@ -27,11 +27,12 @@ const AmiiboCardList = ({
   }, [initialAmiibo]);
 
   // 필터
-  // filterValue
-  const { filteredData, options, setFilterValue } = useFilter(
+  const { filteredData, setFilterValue, filterValue } = useFilter(
     translatedAmiibo,
     'personality'
   );
+  // 필터 메뉴
+  const filterKeys = Object.keys(PERSONALITY_TRANSLATIONS);
 
   // 정렬
   const { sortedData, requestSort, sortConfig } = useSort(filteredData, {
@@ -48,9 +49,13 @@ const AmiiboCardList = ({
       </button>
 
       <div className="filter-buttons flex gap-3">
-        {options.map((option) => (
-          <button key={option} onClick={() => setFilterValue(option)}>
-            {PERSONALITY_TRANSLATIONS[option] || option}
+        {filterKeys.map((key) => (
+          <button
+            key={key}
+            onClick={() => setFilterValue(key)}
+            className={filterValue === key ? 'font-bold underline' : ''}
+          >
+            {PERSONALITY_TRANSLATIONS[key]}
           </button>
         ))}
       </div>
