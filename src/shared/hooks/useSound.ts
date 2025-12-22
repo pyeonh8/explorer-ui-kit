@@ -1,33 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-
-interface UseSoundOptions {
-  src?: string;
-  volume?: number;
-  loop?: boolean;
-}
-
-interface UseSound {
-  isPlaying: boolean;
-  play: () => void;
-  pause: () => void;
-  toggle: () => void;
-  formattedCurrentTime: string;
-  formattedDuration: string;
-}
+import { UseSoundProps } from '@/types/hooks.types';
 
 /**
- *사운드 관리하고 제어하는 훅
- * @param {string} [options.src] - 사운드 src
- * @param {number} [options.volume] - 사운드 볼륨
- * @param {boolean} [options.loop] - 사운드 반복유무
- * @return {boolean} return.isPlaying - 사운드 플레이 유무
- * @return {function} return.play - 사운드 시작
- * @return {function} return.pause - 사운드 중지
- * @return {function} return.toggle - 사운드 토글 (시작/중지)
- * @return {string} return.formattedCurrentTime - 현재 사운드 위치
- * @return {string} return.formattedDuration - 사운드 총 길이
+ * 사운드 관리하고 제어하는 훅
+ *
+ * @param options.src - 사운드 src
+ * @param options.volume - 사운드 볼륨
+ * @param options.loop - 사운드 반복유무
+ *
+ * @return isPlaying - 사운드 플레이 유무
+ * @return play - 사운드 시작
+ * @return pause - 사운드 중지
+ * @return toggle - 사운드 토글 (시작/중지)
+ * @return formattedCurrentTime - 현재 사운드 위치
+ * @return formattedDuration - 사운드 총 길이
  */
-const useSound = (options: UseSoundOptions = {}): UseSound => {
+const useSound = (options: UseSoundProps = {}) => {
   const { src, volume = 0.5, loop = false } = options;
 
   const [isPlaying, setIsPlaying] = useState(false);

@@ -1,5 +1,5 @@
 import { villagers, npcs } from 'animal-crossing';
-import { villagerExtraInfoProps } from '@/types/utils.types';
+import { VillagerExtraInfoProps } from '@/types/utils.types';
 
 interface extraMap {
   [Key: string]: string;
@@ -13,7 +13,7 @@ interface extraMap {
  * 3. 주민(Villager)은 성격을, NPC는 'npc'라는 고정값을 반환합니다.
  *
  * @param {string} characterName - 아미보 데이터에서 넘어오는 영문 캐릭터 이름
- * @returns {villagerExtraInfoProps} 번역된 이름(koName)과 성격(personality) 객체
+ * @returns {VillagerExtraInfoProps} 번역된 이름(koName)과 성격(personality) 객체
  *
  * @example
  * const info = getVillagerExtraInfo("Isabelle");
@@ -21,7 +21,7 @@ interface extraMap {
  */
 const getVillagerExtraInfo = (
   characterName: string
-): villagerExtraInfoProps => {
+): VillagerExtraInfoProps => {
   const all = [...villagers, ...npcs];
 
   // 캐릭터의 정식 이름과 다른 캐릭터들

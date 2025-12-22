@@ -1,24 +1,24 @@
-import { sortConfigProps } from '@/types/hooks.types';
+import { SortConfigProps } from '@/types/hooks.types';
 import { useMemo, useState } from 'react';
 
 /**
  * 데이터를 정렬하고 상태를 관리하는 범용 커스텀 훅
- * * @template T - 배열 요소의 타입
- * @param {T[]} initialData - 정렬 대상이 되는 원본 데이터 배열
- * @param {Object} defaultConfig - 초기 정렬 설정
- * @param {keyof T | null} defaultConfig.key - 초기 정렬 기준이 될 키 (null일 경우 정렬 안함)
- * @param {'asc' | 'desc'} defaultConfig.direction - 초기 정렬 방향 ('asc': 오름차순, 'desc': 내림차순)
  *
- * @returns {T[]} returns.sortedData - 정렬 로직이 적용된 결과 데이터 배열
- * @returns {(key: keyof T) => void} returns.requestSort - 특정 키를 기준으로 정렬을 요청하는 함수
- * @returns {Object} returns.sortConfig - 현재 적용된 정렬 상태 (key, direction)
+ * @param initialData - 정렬 대상이 되는 원본 데이터 배열
+ * @param defaultConfig - 초기 정렬 설정
+ * @param defaultConfig.key - 초기 정렬 기준이 될 키 (null일 경우 정렬 안함)
+ * @param defaultConfig.direction - 초기 정렬 방향 ('asc': 오름차순, 'desc': 내림차순)
+ *
+ * @returns sortedData - 정렬 로직이 적용된 결과 데이터 배열
+ * @returns requestSort - 특정 키를 기준으로 정렬을 요청하는 함수
+ * @returns sortConfig - 현재 적용된 정렬 상태 (key, direction)
  */
 const useSort = <T extends object>(
   initialData: T[],
   defaultConfig: { key: keyof T; direction: 'asc' | 'desc' }
 ) => {
   const [sortConfig, setSortConfig] =
-    useState<sortConfigProps<T>>(defaultConfig);
+    useState<SortConfigProps<T>>(defaultConfig);
 
   const sortedData = useMemo(() => {
     // 원본 본사본

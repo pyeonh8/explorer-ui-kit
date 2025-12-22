@@ -1,5 +1,5 @@
 // getVillagerExtraInfo: 캐릭터 정보
-export interface villagerExtraInfoProps {
+export interface VillagerExtraInfoProps {
   koName: string;
   personality: string;
 }

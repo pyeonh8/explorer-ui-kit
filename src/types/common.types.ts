@@ -1,20 +1,22 @@
 import React from 'react';
-import { useModalProps } from './hooks.types';
+import { UseModalProps } from './hooks.types';
+
+type ReactNode = React.ReactNode;
 
 // Button: 버튼
 export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 };
 
 // ToggleButton: 토글 버튼
 export interface ToggleButtonProps extends ButtonProps {
   initialState?: boolean;
-  onContent: React.ReactNode;
-  offContent: React.ReactNode;
+  onContent: ReactNode;
+  offContent: ReactNode;
 }
 
 // ModalContent: 모달 컨텐츠
-export interface ModalContentProps extends useModalProps {
-  children?: React.ReactNode;
+export interface ModalContentProps extends UseModalProps {
+  children?: ReactNode;
 }
