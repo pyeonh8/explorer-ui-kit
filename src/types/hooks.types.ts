@@ -1,5 +1,7 @@
 // 훅 타입들 정리하기
 
+export type BaseData<T> = T[];
+
 // useModal: 모달 훅
 export interface useModalProps {
   isOpen: boolean;
@@ -8,7 +10,7 @@ export interface useModalProps {
   close: () => void;
 }
 
-// useSort: 필터 훅
+// useSort: 정렬 훅
 export interface sortConfigProps<T> {
   key: keyof T | null;
   direction: 'asc' | 'desc';

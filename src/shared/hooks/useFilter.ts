@@ -10,7 +10,7 @@ import { useMemo, useState } from 'react';
  * @returns {string} returns.filterValue - 현재 적용된 필터 값 (기본값: 'All')
  * @returns {function} returns.setFilterValue - 필터 값을 변경하는 함수
  */
-const useFilter = <T>(initialData: T[], filterKey: keyof T) => {
+const useFilter = <T extends object>(initialData: T[], filterKey: keyof T) => {
   const [filterValue, setFilterValue] = useState('All');
 
   // 필터링된 결과

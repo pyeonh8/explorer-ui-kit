@@ -7,6 +7,7 @@ import useSort from '@/shared/hooks/useSort';
 import useFilter from '@/shared/hooks/useFilter';
 import getVillagerExtraInfo from '@/shared/utils/getVillagerExtraInfo';
 import { PERSONALITY_TRANSLATIONS } from '@/constants/amiibo';
+import useInfiniteScroll from '@/shared/hooks/useInfiniteScroll';
 
 const AmiiboCardList = ({
   initialAmiibo,
@@ -40,6 +41,11 @@ const AmiiboCardList = ({
     direction: 'asc',
   });
 
+  const { slicedData, observerRef, hasMore } = useInfiniteScroll(
+    sortedData,
+    20
+  );
+
   return (
     <>
       <button onClick={() => requestSort('koName')}>
@@ -61,7 +67,7 @@ const AmiiboCardList = ({
       </div>
 
       <div className="grid w-[600px] grid-cols-4 gap-3">
-        {sortedData?.map((amiibo) => {
+        {slicedData?.map((amiibo) => {
           const isSelected = selectedIds.includes(amiibo.character);
 
           return (
@@ -74,6 +80,14 @@ const AmiiboCardList = ({
           );
         })}
       </div>
+      {hasMore && (
+        <div
+          ref={observerRef}
+          className="flex h-20 items-center justify-center"
+        >
+          <span>더 불러오는 중... ⏳</span>
+        </div>
+      )}
     </>
   );
 };

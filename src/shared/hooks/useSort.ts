@@ -13,7 +13,7 @@ import { useMemo, useState } from 'react';
  * @returns {(key: keyof T) => void} returns.requestSort - 특정 키를 기준으로 정렬을 요청하는 함수
  * @returns {Object} returns.sortConfig - 현재 적용된 정렬 상태 (key, direction)
  */
-const useSort = <T>(
+const useSort = <T extends object>(
   initialData: T[],
   defaultConfig: { key: keyof T; direction: 'asc' | 'desc' }
 ) => {
