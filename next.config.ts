@@ -10,7 +10,14 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'raw.githubusercontent.com',
         port: '',
-        pathname: '/N3evin/AmiiboAPI/master/images/**',
+        pathname: '/**',
+      },
+      {
+        // Nookipedia API 이미지 호스트
+        protocol: 'https',
+        hostname: 'dodo.ac',
+        port: '',
+        pathname: '/**',
       },
     ],
   },

@@ -1,15 +1,17 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { AmiiboProps } from '@/types/api.types';
+import { AmiiboProps, NookipediaVillagersProps } from '@/types/api.types';
 import AmiiboCardList from './amiibo/AmiiboCardList';
 import CharacterPanel from './characterPanel/CharacterPanel';
 
 // 탐험 준비 화면
 const ExpeditionSetup = ({
   initialAmiibo,
+  villagers,
 }: {
   initialAmiibo: AmiiboProps[];
+  villagers: NookipediaVillagersProps[];
 }) => {
   const [selectedAmiibo, setSelectedAmiibo] = useState<string[]>([]);
 
@@ -29,7 +31,7 @@ const ExpeditionSetup = ({
 
   return (
     <>
-      <CharacterPanel selectedAmiibo={selectedAmiibo} />
+      <CharacterPanel selectedAmiibo={selectedAmiibo} villagers={villagers} />
       <AmiiboCardList
         initialAmiibo={initialAmiibo}
         selectedAmiibo={selectedAmiibo}
