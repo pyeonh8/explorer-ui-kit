@@ -2,7 +2,8 @@
 
 import { useCallback, useState } from 'react';
 import { AmiiboProps } from '@/types/api.types';
-import AmiiboCardList from './AmiiboCardList';
+import AmiiboCardList from './amiibo/AmiiboCardList';
+import CharacterPanel from './characterPanel/CharacterPanel';
 
 // 탐험 준비 화면
 const ExpeditionSetup = ({
@@ -27,11 +28,14 @@ const ExpeditionSetup = ({
   console.log(selectedAmiibo);
 
   return (
-    <AmiiboCardList
-      initialAmiibo={initialAmiibo}
-      selectedAmiibo={selectedAmiibo}
-      onSelect={handleSelect}
-    />
+    <>
+      <CharacterPanel selectedAmiibo={selectedAmiibo} />
+      <AmiiboCardList
+        initialAmiibo={initialAmiibo}
+        selectedAmiibo={selectedAmiibo}
+        onSelect={handleSelect}
+      />
+    </>
   );
 };
 
