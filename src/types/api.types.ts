@@ -1,4 +1,5 @@
-export interface Amiibo {
+// 아미보카드 API
+export interface AmiiboProps {
   amiiboSeries: string;
   character: string;
   gameSeries: string;
@@ -16,5 +17,9 @@ export interface Amiibo {
 }
 
 export interface AmiiboApiResponse {
-  amiibo: Amiibo[];
+  amiibo: AmiiboProps[];
+}
+
+export interface TranslatedAmiibo extends AmiiboProps {
+  koName: string;
 }

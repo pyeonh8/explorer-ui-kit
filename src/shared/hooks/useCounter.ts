@@ -1,31 +1,22 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-
-interface UseCounterOptions {
-  initialValue?: number;
-  min?: number;
-  max?: number;
-}
-
-interface UseCounter {
-  count: number;
-  increment: () => void;
-  decrement: () => void;
-  reset: () => void;
-}
+import { UseCounterProps } from '@/types/hooks.types';
 
 /**
- * 카운터 상태를 관리하고 제어하는 훅
- * @param {number} [options.initialValue = 0] 카운터의 초기값.
- * @param {number} [options.min = -Infinity] 카운터의 최소값.
- * @param {number} [options.max = Infinity] 카운터의 최댓값.
- * @return {function} return.count - 카운터 값
- * @return {function} return.increment - 카운터 증가
- * @return {function} return.decrement - 카운터 감소
- * @return {function} return.reset - 카운터 리셋
+ * 카운터 상태를 관리하고 제어하는 커스텀 훅
+ *
+ * @param options - 카운터 설정 옵션 객체
+ * @param options.initialValue - 카운터의 시작 값 (기본값: 0)
+ * @param options.min - 카운터가 내려갈 수 있는 최솟값 (기본값: -Infinity)
+ * @param options.max - 카운터가 올라갈 수 있는 최댓값 (기본값: Infinity)
+ *
+ * @returns count - 현재 카운트된 숫자 상태
+ * @returns increment - 숫자를 1 증가시키는 함수
+ * @returns decrement - 숫자를 1 감소시키는 함수
+ * @returns reset - 초기값으로 숫자를 리셋하는 함수
  */
-const useCounter = (options: UseCounterOptions = {}): UseCounter => {
+const useCounter = (options: UseCounterProps = {}) => {
   const { initialValue = 0, min = -Infinity, max = Infinity } = options;
 
   // 초기값이 유효한지 확인
