@@ -85,7 +85,7 @@ const AmiiboCardList = ({
           ref={observerRef}
           className="flex h-20 items-center justify-center"
         >
-          <span>더 불러오는 중... ⏳</span>
+          <span>아미보 불러오는 중... ⏳</span>
         </div>
       )}
     </>
