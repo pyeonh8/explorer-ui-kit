@@ -47,7 +47,7 @@ const AmiiboCardList = ({
   );
 
   return (
-    <>
+    <div>
       <button onClick={() => requestSort('koName')}>
         이름순{' '}
         {sortConfig.key === 'koName' &&
@@ -66,7 +66,7 @@ const AmiiboCardList = ({
         ))}
       </div>
 
-      <div className="grid w-[600px] grid-cols-4 gap-3">
+      <div className="grid grid-cols-4 gap-3">
         {slicedData?.map((amiibo) => {
           const isSelected = selectedIds.includes(amiibo.character);
 
@@ -88,7 +88,7 @@ const AmiiboCardList = ({
           <span>아미보 불러오는 중... ⏳</span>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
