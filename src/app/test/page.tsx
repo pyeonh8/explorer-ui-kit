@@ -44,6 +44,7 @@ const Test = () => {
       <h1>테스트 페이지</h1>
       <hr />
       <Modal
+        trigger={(open) => <Button onClick={open}>모달이 열림?</Button>}
         actionButton={
           <ModalButton
             onClick={() => {
