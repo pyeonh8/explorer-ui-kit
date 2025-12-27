@@ -1,7 +1,8 @@
 import { AmiiboProps, TranslatedAmiibo } from './api.types';
 
-// AmiiboCardList & AmiiboCard : 아미보카드
 export type AmiiboSelectHandler = (character: string) => void;
+
+// AmiiboCardList & AmiiboCard : 아미보카드
 
 export interface AmiiboCardListProps {
   initialAmiibo: AmiiboProps[];
@@ -11,6 +12,18 @@ export interface AmiiboCardListProps {
 
 export interface AmiiboCardProps {
   amiibo: TranslatedAmiibo;
-  selectedAmiibo: boolean;
+  isSelected: boolean;
   onSelect: AmiiboSelectHandler;
 }
+
+// 모험
+export interface Expedition {
+  timerTime: string;
+  onStart: (start: boolean) => void;
+}
+
+// 모험 준비
+export interface ExpeditionSetupProps extends AmiiboCardListProps, Expedition {}
+
+// 모험 화면
+export type ExpeditionInProgressProps = Expedition;

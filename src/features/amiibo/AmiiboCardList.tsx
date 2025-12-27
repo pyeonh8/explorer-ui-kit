@@ -1,13 +1,11 @@
-'use client';
-
 import { useMemo } from 'react';
 import { AmiiboCardListProps } from '@/types/features.type';
 import AmiiboCard from './AmiiboCard';
 import useSort from '@/shared/hooks/useSort';
 import useFilter from '@/shared/hooks/useFilter';
+import useInfiniteScroll from '@/shared/hooks/useInfiniteScroll';
 import getVillagerExtraInfo from '@/shared/utils/getVillagerExtraInfo';
 import { PERSONALITY_TRANSLATIONS } from '@/constants/amiibo';
-import useInfiniteScroll from '@/shared/hooks/useInfiniteScroll';
 
 const AmiiboCardList = ({
   initialAmiibo,
@@ -74,7 +72,7 @@ const AmiiboCardList = ({
             <AmiiboCard
               key={amiibo.head + amiibo.tail}
               amiibo={amiibo}
-              selectedAmiibo={isSelected}
+              isSelected={isSelected}
               onSelect={onSelect}
             />
           );

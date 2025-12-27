@@ -20,6 +20,11 @@ export interface AmiiboApiResponse {
   amiibo: AmiiboProps[];
 }
 
+export interface TranslatedAmiibo extends AmiiboProps {
+  koName: string;
+  personality: string;
+}
+
 // 누키피디아 API
 export interface nh_details {
   icon_url: string;

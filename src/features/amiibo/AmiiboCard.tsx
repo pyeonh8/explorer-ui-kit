@@ -1,14 +1,8 @@
-'use client';
-
 import { memo } from 'react';
 import Image from 'next/image';
 import { AmiiboCardProps } from '@/types/features.type';
 
-const AmiiboCard = ({
-  amiibo,
-  selectedAmiibo: isSelected,
-  onSelect,
-}: AmiiboCardProps) => {
+const AmiiboCard = ({ amiibo, isSelected, onSelect }: AmiiboCardProps) => {
   return (
     <button
       onClick={() => {
