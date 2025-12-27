@@ -20,6 +20,16 @@ export interface AmiiboApiResponse {
   amiibo: AmiiboProps[];
 }
 
-export interface TranslatedAmiibo extends AmiiboProps {
-  koName: string;
+// 누키피디아 API
+export interface nh_details {
+  icon_url: string;
 }
+
+export interface NookipediaVillagersProps {
+  name: string;
+  id: string;
+  image_url: string;
+  nh_details: nh_details;
+}
+
+export type NookipediaVillagersResponse = NookipediaVillagersProps[];
