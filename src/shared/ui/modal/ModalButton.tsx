@@ -1,9 +1,9 @@
 import { twMerge } from 'tailwind-merge';
-import Button from './Button';
+import Button from '../Button';
 import { ButtonProps } from '@/types/common.types';
 import { TbHandFingerRight } from 'react-icons/tb';
 import { BsFillCaretRightFill } from 'react-icons/bs';
-import useToggle from '../hooks/useToggle';
+import useToggle from '../../hooks/useToggle';
 
 const ModalButton = ({
   children = '',

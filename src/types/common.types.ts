@@ -16,7 +16,12 @@ export interface ToggleButtonProps extends ButtonProps {
   offContent: ReactNode;
 }
 
-// ModalContent: 모달 컨텐츠
-export interface ModalContentProps extends UseModalProps {
+// ModalProps: 모달
+export interface ModalProps {
   children?: ReactNode;
+  actionButton?: ReactNode;
+  openButton?: (open: () => void) => ReactNode;
 }
+
+// ModalContent: 모달 컨텐츠
+export interface ModalContentProps extends UseModalProps, ModalProps {}

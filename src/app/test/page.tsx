@@ -8,7 +8,8 @@ import Button from '@/shared/ui/Button';
 import IconButton from '@/shared/ui/IconButton';
 import { FaLeaf } from 'react-icons/fa';
 import ToggleButton from '@/shared/ui/ToggleButton';
-import Modal from '@/shared/ui/Modal';
+import Modal from '@/shared/ui/modal/Modal';
+import ModalButton from '@/shared/ui/modal/ModalButton';
 
 const Test = () => {
   const { value, toggle } = useToggle();
@@ -42,7 +43,21 @@ const Test = () => {
     <div>
       <h1>테스트 페이지</h1>
       <hr />
-      <Modal></Modal>
+      <Modal
+        openButton={(open) => <Button onClick={open}>모달이 열림?</Button>}
+        actionButton={
+          <ModalButton
+            onClick={() => {
+              alert('테스트');
+            }}
+          >
+            테스트
+          </ModalButton>
+        }
+      >
+        <h1 className="pb-4 font-bold">제목</h1>
+        <p>Lorem ipsum dolor sit amet,</p>
+      </Modal>
       <hr />
       <button onClick={toggle}>{value ? 'false' : 'true'}</button>
       <hr />
