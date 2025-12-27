@@ -11,7 +11,7 @@ const CharacterPanel = ({
   const villagerMap = new Map(villagers.map((v) => [v.name, v]));
 
   return (
-    <div className="p-[50px]">
+    <div className="bg-amber-100 p-[50px]">
       캐릭터 창
       <div className="flex gap-4">
         {selectedAmiibo?.map((v) => {
