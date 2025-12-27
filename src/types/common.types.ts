@@ -20,7 +20,7 @@ export interface ToggleButtonProps extends ButtonProps {
 export interface ModalProps {
   children?: ReactNode;
   actionButton?: ReactNode;
-  trigger?: (open: () => void) => ReactNode;
+  openButton?: (open: () => void) => ReactNode;
 }
 
 // ModalContent: 모달 컨텐츠
