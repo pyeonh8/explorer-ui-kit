@@ -22,7 +22,11 @@ export interface ModalProps {
   actionButton?: ReactNode;
   openButton?: (open: () => void) => ReactNode;
   hideCloseButton?: boolean;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 // ModalContent: 모달 컨텐츠
-export interface ModalContentProps extends UseModalProps, ModalProps {}
+export interface ModalContentProps
+  extends UseModalProps,
+    Omit<ModalProps, 'isOpen'> {}
