@@ -10,6 +10,7 @@ const ModalContent = ({
   close,
   children,
   actionButton,
+  hideCloseButton = false,
 }: ModalContentProps) => {
   if (!isOpen) return null;
 
@@ -23,7 +24,10 @@ const ModalContent = ({
           {/* 모달 버튼 */}
           <div className="flex justify-center gap-3 !pt-5">
             {actionButton}
-            <ModalButton onClick={close}>닫기</ModalButton>
+
+            {!hideCloseButton && (
+              <ModalButton onClick={close}>닫기</ModalButton>
+            )}
           </div>
         </div>
       </div>

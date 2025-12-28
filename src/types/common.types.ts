@@ -21,6 +21,7 @@ export interface ModalProps {
   children?: ReactNode;
   actionButton?: ReactNode;
   openButton?: (open: () => void) => ReactNode;
+  hideCloseButton?: boolean;
 }
 
 // ModalContent: 모달 컨텐츠

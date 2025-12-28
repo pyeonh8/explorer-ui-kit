@@ -3,7 +3,12 @@ import ModalContent from './ModalContent';
 import { ModalProps } from '@/types/common.types';
 import Button from '../Button';
 
-const Modal = ({ children, actionButton, openButton }: ModalProps) => {
+const Modal = ({
+  children,
+  actionButton,
+  openButton,
+  hideCloseButton,
+}: ModalProps) => {
   const { isOpen, modalRef, open, close } = useModal();
 
   return (
@@ -19,6 +24,7 @@ const Modal = ({ children, actionButton, openButton }: ModalProps) => {
         modalRef={modalRef}
         close={close}
         actionButton={actionButton}
+        hideCloseButton={hideCloseButton}
       >
         {children}
       </ModalContent>
