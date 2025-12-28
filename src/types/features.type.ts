@@ -26,4 +26,6 @@ export interface Expedition {
 export interface ExpeditionSetupProps extends AmiiboCardListProps, Expedition {}
 
 // 모험 화면
-export type ExpeditionInProgressProps = Expedition;
+export interface ExpeditionInProgressProps extends Expedition {
+  isStarted: boolean;
+}

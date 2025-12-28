@@ -60,7 +60,11 @@ const Expedition = ({
         />
       ) : (
         // 탐험 시작
-        <ExpeditionInProgress timerTime={timerTime} onStart={setIsStarted} />
+        <ExpeditionInProgress
+          timerTime={timerTime}
+          onStart={setIsStarted}
+          isStarted={isStarted}
+        />
       )}
     </div>
   );
