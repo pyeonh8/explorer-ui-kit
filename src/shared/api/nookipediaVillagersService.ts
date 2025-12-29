@@ -8,6 +8,6 @@ export default async function nookipediaVillagersService(): Promise<
   NookipediaVillagersProps[]
 > {
   const data =
-    await getNookipediaData<NookipediaVillagersResponse>('villagers');
+    await getNookipediaData<NookipediaVillagersResponse>('villagers?game=nh');
   return data;
 }

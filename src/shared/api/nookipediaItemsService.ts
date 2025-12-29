@@ -19,6 +19,7 @@ export default async function nookipediaItemsService(): Promise<
   ]);
 
   const allData = [...fish, ...sea, ...bugs, ...individuals];
+  // const allData = [...fish, ...sea, ...bugs];
 
   return allData;
 }

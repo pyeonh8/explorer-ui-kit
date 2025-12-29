@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import ExpeditionSetup from '@/features/ExpeditionSetup';
 import ExpeditionInProgress from './ExpeditionInProgress';
 import {
@@ -11,6 +11,7 @@ import {
 import CharacterPanel from './characterPanel/CharacterPanel';
 import Button from '@/shared/ui/Button';
 import IconButton from '@/shared/ui/IconButton';
+import dataTransformer from '@/shared/utils/dataTransformer';
 
 // 탐험 페이지
 const Expedition = ({
@@ -32,12 +33,31 @@ const Expedition = ({
       if (prev.includes(character))
         return prev.filter((item) => item !== character);
       if (prev.length >= 5) {
+        // 모달로 변경
         alert('최대 5개만 선택이 가능합니다.');
         return prev;
       }
       return [...prev, character];
     });
   }, []);
+
+  // 아미보카드 이름 번역
+  const translatedAmiibo = useMemo(
+    () => dataTransformer(initialAmiibo, 'character'),
+    [initialAmiibo]
+  );
+
+  // Nookipedia 주민 이름 번역
+  const translatedVillagers = useMemo(
+    () => dataTransformer(villagers, 'name'),
+    [villagers]
+  );
+
+  // Nookipedia 수집품 이름 번역
+  const translatedCollectibleItems = useMemo(
+    () => dataTransformer(collectibleItems, 'name'),
+    [collectibleItems]
+  );
 
   return (
     <div className="w-max-[30px] m-auto w-[550px]">
@@ -61,12 +81,15 @@ const Expedition = ({
       </div>
 
       {/* 캐릭터 화면 */}
-      <CharacterPanel selectedAmiibo={selectedAmiibo} villagers={villagers} />
+      <CharacterPanel
+        selectedAmiibo={selectedAmiibo}
+        villagers={translatedVillagers}
+      />
 
       {!isStarted ? (
         // 탐험 준비
         <ExpeditionSetup
-          initialAmiibo={initialAmiibo}
+          translatedAmiibo={translatedAmiibo}
           selectedAmiibo={selectedAmiibo}
           onSelect={handleSelect}
           timerTime={timerTime}
@@ -78,7 +101,7 @@ const Expedition = ({
           timerTime={timerTime}
           onStart={setIsStarted}
           isStarted={isStarted}
-          collectibleItems={collectibleItems}
+          collectibleItems={translatedCollectibleItems}
         />
       )}
     </div>

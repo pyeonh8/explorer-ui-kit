@@ -1,4 +1,4 @@
-import { NookipediaVillagersProps } from '@/types/api.types';
+import { TranslateVillager } from '@/types/api.types';
 import Image from 'next/image';
 
 const CharacterPanel = ({
@@ -6,7 +6,7 @@ const CharacterPanel = ({
   villagers,
 }: {
   selectedAmiibo: string[];
-  villagers: NookipediaVillagersProps[];
+  villagers: TranslateVillager[];
 }) => {
   const villagerMap = new Map(villagers.map((v) => [v.name, v]));
 
@@ -34,7 +34,7 @@ const CharacterPanel = ({
                 )}
               </div>
               <span className="mt-2 text-[11px] font-medium">
-                {target?.name}
+                {target?.koName}
               </span>
             </div>
           );

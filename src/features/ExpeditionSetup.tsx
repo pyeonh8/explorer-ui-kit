@@ -9,7 +9,7 @@ import { ExpeditionSetupProps } from '@/types/features.type';
 
 // 탐험 준비 화면
 const ExpeditionSetup = ({
-  initialAmiibo,
+  translatedAmiibo,
   selectedAmiibo,
   onSelect,
   timerTime,
@@ -40,7 +40,7 @@ const ExpeditionSetup = ({
       </Modal>
 
       <AmiiboCardList
-        initialAmiibo={initialAmiibo}
+        translatedAmiibo={translatedAmiibo}
         selectedAmiibo={selectedAmiibo}
         onSelect={onSelect}
       />

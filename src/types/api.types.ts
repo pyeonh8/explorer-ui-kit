@@ -1,3 +1,9 @@
+// 추가 정보 (번역 및 속성)
+export interface EntityExtraInfo {
+  koName: string;
+  personality: string;
+}
+
 // 아미보카드 API
 export interface AmiiboProps {
   amiiboSeries: string;
@@ -16,21 +22,19 @@ export interface AmiiboProps {
   type: string;
 }
 
+// 아미보카드 Response
 export interface AmiiboApiResponse {
   amiibo: AmiiboProps[];
 }
 
-export interface TranslatedAmiibo extends AmiiboProps {
-  koName: string;
-  personality: string;
-}
+// 아미보카드 번역
+export type TranslatedAmiibo = AmiiboProps & EntityExtraInfo;
 
-// 누키피디아 API
+// 캐릭터 주민 API
 export interface nh_details {
   icon_url: string;
 }
 
-// 누키피디아 주민
 export interface NookipediaVillagersProps {
   name: string;
   id: string;
@@ -38,9 +42,13 @@ export interface NookipediaVillagersProps {
   nh_details: nh_details;
 }
 
+// 캐릭터 주민 Response
 export type NookipediaVillagersResponse = NookipediaVillagersProps[];
 
-// 누키피디아 아이템
+// 캐릭터 주민 번역
+export type TranslateVillager = NookipediaVillagersProps & EntityExtraInfo;
+
+// 수집 아이템 API
 export interface NookipediaItemProps {
   name: string;
   number?: number;
@@ -48,4 +56,8 @@ export interface NookipediaItemProps {
   render_url?: string;
 }
 
+// 수집 아이템 Response
 export type NookipediaItemResponse = NookipediaItemProps[];
+
+// 수집 아이템 번역
+export type TranslateItem = NookipediaItemProps & EntityExtraInfo;

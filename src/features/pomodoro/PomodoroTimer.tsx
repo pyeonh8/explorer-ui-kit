@@ -4,7 +4,7 @@ import formatTime from '@/shared/utils/formatTime';
 import Modal from '@/shared/ui/modal/Modal';
 import ModalButton from '@/shared/ui/modal/ModalButton';
 import { ExpeditionInProgressProps } from '@/types/features.type';
-import { NookipediaItemProps } from '@/types/api.types';
+import { TranslateItem } from '@/types/api.types';
 
 import { FaRegStopCircle } from 'react-icons/fa';
 import { FaRegCirclePlay } from 'react-icons/fa6';
@@ -25,9 +25,10 @@ const PomodoroTimer = ({
   const [currentCycles, setCurrentCycle] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [rewardPool, setRewardPool] = useState<NookipediaItemProps[]>([]);
-  const [currentReward, setCurrentReward] =
-    useState<NookipediaItemProps | null>(null);
+  const [rewardPool, setRewardPool] = useState<TranslateItem[]>([]);
+  const [currentReward, setCurrentReward] = useState<TranslateItem | null>(
+    null
+  );
 
   const randomItem = () => {
     const randomNumber = Math.floor(Math.random() * rewardPool.length);
@@ -90,7 +91,7 @@ const PomodoroTimer = ({
             width={80}
             height={80}
           />
-          <div>{currentReward?.name}</div>
+          <div>{currentReward?.koName}</div>
         </>
       )}
       {/* 모달 */}

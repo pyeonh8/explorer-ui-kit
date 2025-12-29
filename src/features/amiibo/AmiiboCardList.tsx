@@ -1,30 +1,15 @@
-import { useMemo } from 'react';
 import { AmiiboCardListProps } from '@/types/features.type';
 import AmiiboCard from './AmiiboCard';
 import useSort from '@/shared/hooks/useSort';
 import useFilter from '@/shared/hooks/useFilter';
 import useInfiniteScroll from '@/shared/hooks/useInfiniteScroll';
-import getVillagerExtraInfo from '@/shared/utils/getVillagerExtraInfo';
 import { PERSONALITY_TRANSLATIONS } from '@/constants/amiibo';
 
 const AmiiboCardList = ({
-  initialAmiibo,
+  translatedAmiibo,
   selectedAmiibo: selectedIds,
   onSelect,
 }: AmiiboCardListProps) => {
-  // amiibo 데이터에 한글 이름, 성격 추가
-  const translatedAmiibo = useMemo(() => {
-    return initialAmiibo.map((amiibo) => {
-      const { koName, personality } = getVillagerExtraInfo(amiibo.character);
-
-      return {
-        ...amiibo,
-        koName,
-        personality,
-      };
-    });
-  }, [initialAmiibo]);
-
   // 필터
   const { filteredData, setFilterValue, filterValue } = useFilter(
     translatedAmiibo,

@@ -1,15 +1,25 @@
-import {
-  AmiiboProps,
-  TranslatedAmiibo,
-  NookipediaItemProps,
-} from './api.types';
+import { TranslatedAmiibo, TranslateItem } from './api.types';
 
 export type AmiiboSelectHandler = (character: string) => void;
 
-// AmiiboCardList & AmiiboCard : 아미보카드
+// 모험
+export interface Expedition {
+  timerTime: number;
+  onStart: (start: boolean) => void;
+}
 
+// 모험준비 화면
+export interface ExpeditionSetupProps extends AmiiboCardListProps, Expedition {}
+
+// 모험잔행 화면
+export interface ExpeditionInProgressProps extends Expedition {
+  isStarted: boolean;
+  collectibleItems: TranslateItem[];
+}
+
+// AmiiboCardList & AmiiboCard : 아미보카드
 export interface AmiiboCardListProps {
-  initialAmiibo: AmiiboProps[];
+  translatedAmiibo: TranslatedAmiibo[];
   selectedAmiibo: string[];
   onSelect: AmiiboSelectHandler;
 }
@@ -18,19 +28,4 @@ export interface AmiiboCardProps {
   amiibo: TranslatedAmiibo;
   isSelected: boolean;
   onSelect: AmiiboSelectHandler;
-}
-
-// 모험
-export interface Expedition {
-  timerTime: number;
-  onStart: (start: boolean) => void;
-}
-
-// 모험 준비
-export interface ExpeditionSetupProps extends AmiiboCardListProps, Expedition {}
-
-// 모험 화면
-export interface ExpeditionInProgressProps extends Expedition {
-  isStarted: boolean;
-  collectibleItems: NookipediaItemProps[];
 }
