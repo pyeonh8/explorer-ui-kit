@@ -3,7 +3,11 @@
 import { useCallback, useState } from 'react';
 import ExpeditionSetup from '@/features/ExpeditionSetup';
 import ExpeditionInProgress from './ExpeditionInProgress';
-import { AmiiboProps, NookipediaVillagersProps } from '@/types/api.types';
+import {
+  AmiiboProps,
+  NookipediaVillagersProps,
+  NookipediaItemProps,
+} from '@/types/api.types';
 import CharacterPanel from './characterPanel/CharacterPanel';
 import Button from '@/shared/ui/Button';
 import IconButton from '@/shared/ui/IconButton';
@@ -12,13 +16,16 @@ import IconButton from '@/shared/ui/IconButton';
 const Expedition = ({
   initialAmiibo,
   villagers,
+  collectibleItems,
 }: {
   initialAmiibo: AmiiboProps[];
   villagers: NookipediaVillagersProps[];
+  collectibleItems: NookipediaItemProps[];
 }) => {
-  const [selectedAmiibo, setSelectedAmiibo] = useState<string[]>([]);
-  const [timerTime, setTimerTime] = useState(1);
   const [isStarted, setIsStarted] = useState(false);
+  const [timerTime, setTimerTime] = useState(1);
+
+  const [selectedAmiibo, setSelectedAmiibo] = useState<string[]>([]);
 
   const handleSelect = useCallback((character: string) => {
     setSelectedAmiibo((prev) => {
@@ -33,9 +40,10 @@ const Expedition = ({
   }, []);
 
   return (
-    <div className="w-max-[30px] m-auto w-[600px]">
+    <div className="w-max-[30px] m-auto w-[550px]">
       <div className="relative flex">
         <IconButton>음악</IconButton>
+        <Button>찾은 보물...</Button>
 
         {/* 토글버튼으로 변경 */}
         <Button className="font-bold" onClick={() => setTimerTime(1)}>
@@ -47,8 +55,8 @@ const Expedition = ({
         <Button className="font-bold" onClick={() => setTimerTime(3)}>
           3회
         </Button>
-        <Button className="font-bold" onClick={() => setTimerTime(5)}>
-          5회
+        <Button className="font-bold" onClick={() => setTimerTime(4)}>
+          4회
         </Button>
       </div>
 
@@ -70,6 +78,7 @@ const Expedition = ({
           timerTime={timerTime}
           onStart={setIsStarted}
           isStarted={isStarted}
+          collectibleItems={collectibleItems}
         />
       )}
     </div>

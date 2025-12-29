@@ -4,23 +4,37 @@ import formatTime from '@/shared/utils/formatTime';
 import Modal from '@/shared/ui/modal/Modal';
 import ModalButton from '@/shared/ui/modal/ModalButton';
 import { ExpeditionInProgressProps } from '@/types/features.type';
+import { NookipediaItemProps } from '@/types/api.types';
 
 import { FaRegStopCircle } from 'react-icons/fa';
 import { FaRegCirclePlay } from 'react-icons/fa6';
+import Image from 'next/image';
 
 const PomodoroTimer = ({
   timerTime: targetCycles = 1,
   isStarted,
   onStart,
+  collectibleItems,
 }: ExpeditionInProgressProps) => {
   const POMODORO_TIMES = {
-    WORK: 25 * 60,
-    REST: 5 * 60,
+    WORK: 0.01 * 60,
+    REST: 0.01 * 60,
   };
 
   const [mode, setMode] = useState<'WORK' | 'REST'>('WORK');
   const [currentCycles, setCurrentCycle] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
+
+  const [rewardPool, setRewardPool] = useState<NookipediaItemProps[]>([]);
+  const [currentReward, setCurrentReward] =
+    useState<NookipediaItemProps | null>(null);
+
+  const randomItem = () => {
+    const randomNumber = Math.floor(Math.random() * rewardPool.length);
+    return rewardPool[randomNumber];
+  };
+
+  console.log(currentReward);
 
   const { timerCount, isRunning, start, pause, reset } = useTimer({
     initialValue: mode === 'WORK' ? POMODORO_TIMES.WORK : POMODORO_TIMES.REST,
@@ -36,7 +50,9 @@ const PomodoroTimer = ({
           reset();
           start();
         } else {
+          // 타이머 종료
           setModalOpen(true);
+          setCurrentReward(randomItem());
         }
       }
     },
@@ -45,6 +61,10 @@ const PomodoroTimer = ({
   useEffect(() => {
     if (isStarted) start();
   }, [isStarted, start]);
+
+  useEffect(() => {
+    setRewardPool(collectibleItems);
+  }, [collectibleItems]);
 
   return (
     <div>
@@ -61,6 +81,18 @@ const PomodoroTimer = ({
       <button onClick={pause}>
         <FaRegStopCircle />
       </button>
+
+      {currentReward && (
+        <>
+          <Image
+            src={currentReward?.image_url}
+            alt={currentReward?.name}
+            width={80}
+            height={80}
+          />
+          <div>{currentReward?.name}</div>
+        </>
+      )}
       {/* 모달 */}
       <Modal
         isOpen={modalOpen}
@@ -69,6 +101,7 @@ const PomodoroTimer = ({
             onClick={() => {
               setModalOpen(false);
               onStart(false);
+              if (isStarted) setCurrentReward(null);
             }}
           >
             되돌아가기

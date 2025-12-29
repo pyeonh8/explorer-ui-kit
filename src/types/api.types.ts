@@ -30,6 +30,7 @@ export interface nh_details {
   icon_url: string;
 }
 
+// 누키피디아 주민
 export interface NookipediaVillagersProps {
   name: string;
   id: string;
@@ -38,3 +39,13 @@ export interface NookipediaVillagersProps {
 }
 
 export type NookipediaVillagersResponse = NookipediaVillagersProps[];
+
+// 누키피디아 아이템
+export interface NookipediaItemProps {
+  name: string;
+  number?: number;
+  image_url: string;
+  render_url?: string;
+}
+
+export type NookipediaItemResponse = NookipediaItemProps[];

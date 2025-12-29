@@ -1,4 +1,8 @@
-import { AmiiboProps, TranslatedAmiibo } from './api.types';
+import {
+  AmiiboProps,
+  TranslatedAmiibo,
+  NookipediaItemProps,
+} from './api.types';
 
 export type AmiiboSelectHandler = (character: string) => void;
 
@@ -28,4 +32,5 @@ export interface ExpeditionSetupProps extends AmiiboCardListProps, Expedition {}
 // 모험 화면
 export interface ExpeditionInProgressProps extends Expedition {
   isStarted: boolean;
+  collectibleItems: NookipediaItemProps[];
 }
