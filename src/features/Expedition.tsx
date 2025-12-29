@@ -17,7 +17,7 @@ const Expedition = ({
   villagers: NookipediaVillagersProps[];
 }) => {
   const [selectedAmiibo, setSelectedAmiibo] = useState<string[]>([]);
-  const [timerTime, setTimerTime] = useState('15');
+  const [timerTime, setTimerTime] = useState(1);
   const [isStarted, setIsStarted] = useState(false);
 
   const handleSelect = useCallback((character: string) => {
@@ -38,11 +38,17 @@ const Expedition = ({
         <IconButton>음악</IconButton>
 
         {/* 토글버튼으로 변경 */}
-        <Button className="font-bold" onClick={() => setTimerTime('15')}>
-          15 분
+        <Button className="font-bold" onClick={() => setTimerTime(1)}>
+          1회
         </Button>
-        <Button className="font-bold" onClick={() => setTimerTime('30')}>
-          30 분
+        <Button className="font-bold" onClick={() => setTimerTime(2)}>
+          2회
+        </Button>
+        <Button className="font-bold" onClick={() => setTimerTime(3)}>
+          3회
+        </Button>
+        <Button className="font-bold" onClick={() => setTimerTime(5)}>
+          5회
         </Button>
       </div>
 

@@ -18,7 +18,7 @@ export interface AmiiboCardProps {
 
 // 모험
 export interface Expedition {
-  timerTime: string;
+  timerTime: number;
   onStart: (start: boolean) => void;
 }
 

@@ -17,8 +17,8 @@ export interface UseCounterProps {
 export interface UseModalProps {
   isOpen: boolean;
   modalRef: React.RefObject<HTMLDivElement | null>;
-  open?: () => void;
-  close: () => void;
+  open?: CallbackProp;
+  close: CallbackProp;
 }
 
 // useSort: 정렬 훅

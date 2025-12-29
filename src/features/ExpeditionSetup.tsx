@@ -31,9 +31,12 @@ const ExpeditionSetup = ({
           )
         }
       >
-        {!notChoice
-          ? `${timerTime}분 동안 모험이 시작됩니다!`
-          : '최소 한 명의 캐릭터를 선택해주세요!'}
+        <p className="whitespace-pre-line">
+          {!notChoice
+            ? `${timerTime}회 동안 모험이 시작됩니다!  
+          ${25 * timerTime}분 집중과 ${5 * timerTime}분 휴식이 준비되어 있습니다.`
+            : '최소 한 명의 캐릭터를 선택해주세요!'}
+        </p>
       </Modal>
 
       <AmiiboCardList
