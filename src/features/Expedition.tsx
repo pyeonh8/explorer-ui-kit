@@ -1,32 +1,38 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
+import Image from 'next/image';
 import ExpeditionSetup from '@/features/ExpeditionSetup';
 import ExpeditionInProgress from './ExpeditionInProgress';
 import {
   AmiiboProps,
   NookipediaVillagersProps,
-  NookipediaItemProps,
+  // NookipediaItemProps,
 } from '@/types/api.types';
 import CharacterPanel from './characterPanel/CharacterPanel';
 import Button from '@/shared/ui/Button';
 import IconButton from '@/shared/ui/IconButton';
 import dataTransformer from '@/shared/utils/dataTransformer';
+import { creatures } from 'animal-crossing';
+import Modal from '@/shared/ui/modal/Modal';
+
+import { Creature } from 'animal-crossing/lib/types/Creature';
 
 // 탐험 페이지
 const Expedition = ({
   initialAmiibo,
   villagers,
-  collectibleItems,
 }: {
   initialAmiibo: AmiiboProps[];
   villagers: NookipediaVillagersProps[];
-  collectibleItems: NookipediaItemProps[];
+  // collectibleItems: NookipediaItemProps[];
 }) => {
   const [isStarted, setIsStarted] = useState(false);
   const [timerTime, setTimerTime] = useState(1);
 
   const [selectedAmiibo, setSelectedAmiibo] = useState<string[]>([]);
+
+  const REWARD_POOL: Creature[] = creatures;
 
   const handleSelect = useCallback((character: string) => {
     setSelectedAmiibo((prev) => {
@@ -54,16 +60,35 @@ const Expedition = ({
   );
 
   // Nookipedia 수집품 이름 번역
-  const translatedCollectibleItems = useMemo(
-    () => dataTransformer(collectibleItems, 'name'),
-    [collectibleItems]
-  );
+  // const translatedCollectibleItems = useMemo(
+  //   () => dataTransformer(collectibleItems, 'name'),
+  //   [collectibleItems]
+  // );
 
   return (
     <div className="w-max-[30px] m-auto w-[550px]">
       <div className="relative flex">
         <IconButton>음악</IconButton>
-        <Button>찾은 보물...</Button>
+
+        {/*  */}
+        <Modal
+          openButton={(open) => (
+            <IconButton onClick={open}>찾은 보물</IconButton>
+          )}
+        >
+          {REWARD_POOL.map((c) => (
+            <div key={c.internalId + c.name}>
+              <Image
+                src={c?.iconImage}
+                alt={c?.name}
+                width={50}
+                height={50}
+                unoptimized
+              />
+              <div>{c?.translations.kRko}</div>
+            </div>
+          ))}
+        </Modal>
 
         {/* 토글버튼으로 변경 */}
         <Button className="font-bold" onClick={() => setTimerTime(1)}>
@@ -101,7 +126,7 @@ const Expedition = ({
           timerTime={timerTime}
           onStart={setIsStarted}
           isStarted={isStarted}
-          collectibleItems={translatedCollectibleItems}
+          collectibleItems={creatures}
         />
       )}
     </div>

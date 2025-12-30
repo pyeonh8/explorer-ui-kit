@@ -1,4 +1,4 @@
-import getGameEntityInfoProps from '@/shared/utils/getGameEntityInfo';
+import getGameEntityInfo from '@/shared/utils/getGameEntityInfo';
 
 /**
  * @param data - 가공할 데이터 배열
@@ -10,9 +10,10 @@ const dataTransformer = <T extends { character?: string; name?: string }>(
 ) => {
   return data.map((d) => {
     const searchName = (d[targetKey] as string) || '';
+
     return {
       ...d,
-      ...getGameEntityInfoProps(searchName),
+      ...getGameEntityInfo(searchName),
     };
   });
 };

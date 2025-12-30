@@ -1,4 +1,4 @@
-import { villagers, npcs, creatures } from 'animal-crossing';
+import { villagers, npcs } from 'animal-crossing';
 import { getGameEntityInfoProps } from '@/types/utils.types';
 
 interface extraMap {
@@ -15,10 +15,8 @@ const extra: extraMap = {
 };
 
 // 함수 밖에서 미리 Map 생성
-const all = [...villagers, ...npcs, ...creatures];
+const all = [...villagers, ...npcs];
 const allMap = new Map(all.map((item) => [item.name.toLowerCase(), item]));
-
-console.log(creatures);
 
 /**
  * 캐릭터 및 아이템 이름을 기반으로 한국어 이름과 성격 정보를 추출하는 유틸리티 함수
@@ -26,8 +24,8 @@ console.log(creatures);
  * 2. animal-crossing 라이브러리 데이터에서 매칭되는 캐릭터를 찾습니다.
  * 3. 주민(Villager)은 성격을, NPC는 'npc'라는 고정값을 반환합니다.
  *
- * @param {string} searchName - 아미보 데이터에서 넘어오는 영문 캐릭터 이름
- * @returns {getGameEntityInfoProps} 번역된 이름(koName)과 성격(personality) 객체
+ * @param searchName 아미보 데이터에서 넘어오는 영문 캐릭터 이름
+ * @returns 번역된 이름(koName)과 성격(personality) 객체
  *
  * @example
  * const info = getGameEntityInfo("Isabelle");
@@ -41,14 +39,15 @@ const getGameEntityInfo = (searchName: string): getGameEntityInfoProps => {
     let type = 'npc';
     if ('personality' in target) {
       type = target.personality;
-    } else if (
-      'sourceSheet' in target &&
-      (target.sourceSheet === 'Fish' ||
-        target.sourceSheet === 'Insects' ||
-        target.sourceSheet === 'Sea Creatures')
-    ) {
-      type = 'creature';
     }
+    // else if (
+    //   'sourceSheet' in target &&
+    //   (target.sourceSheet === 'Fish' ||
+    //     target.sourceSheet === 'Insects' ||
+    //     target.sourceSheet === 'Sea Creatures')
+    // ) {
+    //   type = 'creature';
+    // }
 
     return {
       koName: target.translations.kRko,

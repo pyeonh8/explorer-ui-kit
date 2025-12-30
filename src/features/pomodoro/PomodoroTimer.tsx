@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import useTimer from '@/shared/hooks/useTimer';
 import formatTime from '@/shared/utils/formatTime';
 import Modal from '@/shared/ui/modal/Modal';
 import ModalButton from '@/shared/ui/modal/ModalButton';
 import { ExpeditionInProgressProps } from '@/types/features.type';
-import { TranslateItem } from '@/types/api.types';
 
 import { FaRegStopCircle } from 'react-icons/fa';
 import { FaRegCirclePlay } from 'react-icons/fa6';
-import Image from 'next/image';
+import { Creature } from 'animal-crossing/lib/types/Creature';
 
 const PomodoroTimer = ({
   timerTime: targetCycles = 1,
@@ -24,15 +24,11 @@ const PomodoroTimer = ({
   const [mode, setMode] = useState<'WORK' | 'REST'>('WORK');
   const [currentCycles, setCurrentCycle] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
-
-  const [rewardPool, setRewardPool] = useState<TranslateItem[]>([]);
-  const [currentReward, setCurrentReward] = useState<TranslateItem | null>(
-    null
-  );
+  const [currentReward, setCurrentReward] = useState<Creature | null>(null);
 
   const randomItem = () => {
-    const randomNumber = Math.floor(Math.random() * rewardPool.length);
-    return rewardPool[randomNumber];
+    const randomNumber = Math.floor(Math.random() * collectibleItems.length);
+    return collectibleItems[randomNumber];
   };
 
   console.log(currentReward);
@@ -63,10 +59,6 @@ const PomodoroTimer = ({
     if (isStarted) start();
   }, [isStarted, start]);
 
-  useEffect(() => {
-    setRewardPool(collectibleItems);
-  }, [collectibleItems]);
-
   return (
     <div>
       <div>
@@ -83,17 +75,6 @@ const PomodoroTimer = ({
         <FaRegStopCircle />
       </button>
 
-      {currentReward && (
-        <>
-          <Image
-            src={currentReward?.image_url}
-            alt={currentReward?.name}
-            width={80}
-            height={80}
-          />
-          <div>{currentReward?.koName}</div>
-        </>
-      )}
       {/* 모달 */}
       <Modal
         isOpen={modalOpen}
@@ -109,7 +90,21 @@ const PomodoroTimer = ({
           </ModalButton>
         }
       >
-        동물 친구들이 모험에서 돌아왔습니다!
+        <div>
+          <p> 동물 친구들이 모험에서 돌아왔습니다!</p>
+          {currentReward && (
+            <div className="flex">
+              <Image
+                src={currentReward?.iconImage}
+                alt={currentReward?.name}
+                width={80}
+                height={80}
+                priority
+              />
+              <div>{currentReward?.translations.kRko}</div>
+            </div>
+          )}
+        </div>
       </Modal>
     </div>
   );

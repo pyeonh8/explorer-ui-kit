@@ -1,4 +1,5 @@
-import { TranslatedAmiibo, TranslateItem } from './api.types';
+import { TranslatedAmiibo } from './api.types';
+import { Creature } from 'animal-crossing/lib/types/Creature';
 
 export type AmiiboSelectHandler = (character: string) => void;
 
@@ -14,7 +15,7 @@ export interface ExpeditionSetupProps extends AmiiboCardListProps, Expedition {}
 // 모험잔행 화면
 export interface ExpeditionInProgressProps extends Expedition {
   isStarted: boolean;
-  collectibleItems: TranslateItem[];
+  collectibleItems: Creature[];
 }
 
 // AmiiboCardList & AmiiboCard : 아미보카드

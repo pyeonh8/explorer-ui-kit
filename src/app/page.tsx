@@ -1,6 +1,6 @@
 import amiiboService from '@/shared/api/amiiboService';
 import nookipediaVillagersService from '@/shared/api/nookipediaVillagersService';
-import nookipediaItemsService from '@/shared/api/nookipediaItemsService';
+// import nookipediaItemsService from '@/shared/api/nookipediaItemsService';
 import filterAmiiboCard from '@/shared/utils/filterAmiiboCard';
 import { AmiiboProps } from '@/types/api.types';
 import Expedition from '@/features/Expedition';
@@ -8,7 +8,7 @@ import Expedition from '@/features/Expedition';
 export default async function AmiiboPage() {
   const amiiboData = await amiiboService();
   const nookipediaVillagersData = await nookipediaVillagersService();
-  const nookipediaItemData = await nookipediaItemsService();
+  // const nookipediaItemData = await nookipediaItemsService();
 
   const finalAmiibo: AmiiboProps[] = filterAmiiboCard(amiiboData);
 
@@ -20,7 +20,7 @@ export default async function AmiiboPage() {
       <Expedition
         initialAmiibo={finalAmiibo}
         villagers={nookipediaVillagersData}
-        collectibleItems={nookipediaItemData}
+        // collectibleItems={nookipediaItemData}
       />
     </div>
   );

@@ -20,6 +20,13 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        // PomodoroTimer의 creatures 이미지 호스트
+        protocol: 'https',
+        hostname: 'acnhcdn.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
