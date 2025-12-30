@@ -55,7 +55,7 @@ const getGameEntityInfo = (searchName: string): getGameEntityInfoProps => {
     };
   }
 
-  console.warn(`[getVillagerExtraInfo] 정보를 찾을 수 없음: ${searchName}`);
+  // console.warn(`[getVillagerExtraInfo] 정보를 찾을 수 없음: ${searchName}`);
   return { koName: searchName, personality: 'Unknown' };
 };
 

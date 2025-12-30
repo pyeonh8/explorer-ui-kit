@@ -1,18 +1,13 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import Image from 'next/image';
 import ExpeditionSetup from '@/features/ExpeditionSetup';
 import ExpeditionInProgress from './ExpeditionInProgress';
-import {
-  AmiiboProps,
-  NookipediaVillagersProps,
-  // NookipediaItemProps,
-} from '@/types/api.types';
+import { TranslatedAmiibo, TranslateVillager } from '@/types/api.types';
 import CharacterPanel from './characterPanel/CharacterPanel';
 import Button from '@/shared/ui/Button';
 import IconButton from '@/shared/ui/IconButton';
-import dataTransformer from '@/shared/utils/dataTransformer';
 import { creatures } from 'animal-crossing';
 import Modal from '@/shared/ui/modal/Modal';
 
@@ -20,11 +15,11 @@ import { Creature } from 'animal-crossing/lib/types/Creature';
 
 // 탐험 페이지
 const Expedition = ({
-  initialAmiibo,
-  villagers,
+  translatedAmiibo,
+  translatedVillagers,
 }: {
-  initialAmiibo: AmiiboProps[];
-  villagers: NookipediaVillagersProps[];
+  translatedAmiibo: TranslatedAmiibo[];
+  translatedVillagers: TranslateVillager[];
   // collectibleItems: NookipediaItemProps[];
 }) => {
   const [isStarted, setIsStarted] = useState(false);
@@ -46,24 +41,6 @@ const Expedition = ({
       return [...prev, character];
     });
   }, []);
-
-  // 아미보카드 이름 번역
-  const translatedAmiibo = useMemo(
-    () => dataTransformer(initialAmiibo, 'character'),
-    [initialAmiibo]
-  );
-
-  // Nookipedia 주민 이름 번역
-  const translatedVillagers = useMemo(
-    () => dataTransformer(villagers, 'name'),
-    [villagers]
-  );
-
-  // Nookipedia 수집품 이름 번역
-  // const translatedCollectibleItems = useMemo(
-  //   () => dataTransformer(collectibleItems, 'name'),
-  //   [collectibleItems]
-  // );
 
   return (
     <div className="w-max-[30px] m-auto w-[550px]">

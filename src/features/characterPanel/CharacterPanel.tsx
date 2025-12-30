@@ -26,10 +26,12 @@ const CharacterPanel = ({
                     alt={target.name}
                     width={60}
                     height={80}
-                    unoptimized
-                    priority
-                    style={{ width: 'auto', maxHeight: '100%' }}
-                    className="object-contain"
+                    // style={{
+                    //   width: 'auto',
+                    //   height: 'auto',
+                    //   maxHeight: '100%',
+                    // }}
+                    // className="object-contain"
                   />
                 )}
               </div>

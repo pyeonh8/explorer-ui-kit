@@ -10,5 +10,4 @@ export const PERSONALITY_TRANSLATIONS: Record<string, string> = {
   Jock: '운동광',
   Cranky: '무뚝뚝',
   Smug: '느끼함',
-  npc: '특수 주민',
 };
