@@ -1,17 +1,16 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import Image from 'next/image';
+import { creatures } from 'animal-crossing';
+import { TranslatedAmiibo, TranslateVillager } from '@/types/api.types';
+import { Creature } from 'animal-crossing/lib/types/Creature';
+import CharacterPanel from './characterPanel/CharacterPanel';
 import ExpeditionSetup from '@/features/ExpeditionSetup';
 import ExpeditionInProgress from './ExpeditionInProgress';
-import { TranslatedAmiibo, TranslateVillager } from '@/types/api.types';
-import CharacterPanel from './characterPanel/CharacterPanel';
 import Button from '@/shared/ui/Button';
 import IconButton from '@/shared/ui/IconButton';
-import { creatures } from 'animal-crossing';
 import Modal from '@/shared/ui/modal/Modal';
-
-import { Creature } from 'animal-crossing/lib/types/Creature';
+import { ItemGrid, CollectionCard } from '@/shared/ui/ItemGrid';
 
 // 탐험 페이지
 const Expedition = ({
@@ -53,18 +52,18 @@ const Expedition = ({
             <IconButton onClick={open}>찾은 보물</IconButton>
           )}
         >
-          {REWARD_POOL.map((c) => (
-            <div key={c.internalId + c.name}>
-              <Image
-                src={c?.iconImage}
-                alt={c?.name}
-                width={50}
-                height={50}
-                unoptimized
-              />
-              <div>{c?.translations.kRko}</div>
-            </div>
-          ))}
+          <p>찾은 수집품~</p>
+          <div className="h-500px">
+            <ItemGrid columns={5}>
+              {REWARD_POOL.map((item, index) => (
+                <CollectionCard
+                  key={`${item.internalId}-${index} ${item.name}`}
+                  item={item}
+                  isCollected={false}
+                />
+              ))}
+            </ItemGrid>
+          </div>
         </Modal>
 
         {/* 토글버튼으로 변경 */}

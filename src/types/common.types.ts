@@ -30,3 +30,9 @@ export interface ModalProps {
 export interface ModalContentProps
   extends UseModalProps,
     Omit<ModalProps, 'isOpen'> {}
+
+// ItemGridProps: 도감 및 보상 UI
+export interface ItemGridProps {
+  children: React.ReactNode;
+  columns?: number;
+}

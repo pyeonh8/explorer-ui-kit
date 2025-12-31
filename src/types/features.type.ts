@@ -30,3 +30,6 @@ export interface AmiiboCardProps {
   isSelected: boolean;
   onSelect: AmiiboSelectHandler;
 }
+
+// 새로받은 보상
+export type CreatureExtraInfo = Creature & { isNew?: boolean };
