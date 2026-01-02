@@ -15,7 +15,9 @@ const filterAmiiboCard = (amiibos: AmiiboProps[]): TranslatedAmiibo[] => {
 
   // 카드 타입 필터링, Timmy & Tommy 삭제
   return translatedAmiibo.filter((amiibo) => {
-    const isCard = amiibo.type.includes('Card');
+    // if (!amiibo || !amiibo.type) return false;
+    const isCard = amiibo.type && amiibo.type.includes('Card');
+
     const isSpecialNPC = amiibo.character !== 'Timmy & Tommy';
     const isNPCs = amiibo.personality !== 'npc';
 
