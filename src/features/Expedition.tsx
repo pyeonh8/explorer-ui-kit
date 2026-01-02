@@ -37,7 +37,7 @@ const Expedition = ({
   }, []);
 
   return (
-    <div className="w-max-[30px] m-auto w-[550px]">
+    <div className="w-max-[30px] m-auto min-h-screen w-[550px] bg-white">
       <div className="relative flex">
         <IconButton>음악</IconButton>
 
