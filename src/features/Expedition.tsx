@@ -3,14 +3,12 @@
 import { useCallback, useState } from 'react';
 import { creatures } from 'animal-crossing';
 import { TranslatedAmiibo, TranslateVillager } from '@/types/api.types';
-import { Creature } from 'animal-crossing/lib/types/Creature';
 import CharacterPanel from './characterPanel/CharacterPanel';
 import ExpeditionSetup from '@/features/ExpeditionSetup';
 import ExpeditionInProgress from './ExpeditionInProgress';
 import Button from '@/shared/ui/Button';
 import IconButton from '@/shared/ui/IconButton';
-import Modal from '@/shared/ui/modal/Modal';
-import { ItemGrid, CollectionCard } from '@/shared/ui/ItemGrid';
+import CollectionsModal from './CollectionsModal';
 
 // 탐험 페이지
 const Expedition = ({
@@ -19,15 +17,12 @@ const Expedition = ({
 }: {
   translatedAmiibo: TranslatedAmiibo[];
   translatedVillagers: TranslateVillager[];
-  // collectibleItems: NookipediaItemProps[];
 }) => {
   const [isStarted, setIsStarted] = useState(false);
   const [timerTime, setTimerTime] = useState(1);
-
   const [selectedAmiibo, setSelectedAmiibo] = useState<string[]>([]);
 
-  const REWARD_POOL: Creature[] = creatures;
-
+  // 모험 캐릭터 선택
   const handleSelect = useCallback((character: string) => {
     setSelectedAmiibo((prev) => {
       if (prev.includes(character))
@@ -46,25 +41,8 @@ const Expedition = ({
       <div className="relative flex">
         <IconButton>음악</IconButton>
 
-        {/*  */}
-        <Modal
-          openButton={(open) => (
-            <IconButton onClick={open}>찾은 보물</IconButton>
-          )}
-        >
-          <p>찾은 수집품~</p>
-          <div className="h-500px">
-            <ItemGrid columns={5}>
-              {REWARD_POOL.map((item, index) => (
-                <CollectionCard
-                  key={`${item.internalId}-${index} ${item.name}`}
-                  item={item}
-                  isCollected={false}
-                />
-              ))}
-            </ItemGrid>
-          </div>
-        </Modal>
+        {/* 내 도감 */}
+        <CollectionsModal isStarted={isStarted} />
 
         {/* 토글버튼으로 변경 */}
         <Button className="font-bold" onClick={() => setTimerTime(1)}>
