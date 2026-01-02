@@ -45,10 +45,10 @@ export const CollectionCard = ({
 }) => {
   return (
     <li
-      className={`flex flex-col items-center p-1 ${!isCollected && 'opacity-30 grayscale'}`}
+      className={`flex flex-col items-center rounded-2xl bg-[#fff2bd] p-1 px-2 py-1 ${!isCollected && 'opacity-30 grayscale'}`}
     >
-      <Image src={item.iconImage} width={40} height={40} alt={item.name} />
-      <p className="text-[10px] text-gray-500">
+      <Image src={item.iconImage} width={80} height={80} alt={item.name} />
+      <p className="text-[12px] font-bold text-gray-500">
         {isCollected ? item.translations.kRko : '???'}
       </p>
     </li>

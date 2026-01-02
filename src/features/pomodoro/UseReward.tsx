@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Creature } from 'animal-crossing/lib/types/Creature';
 import { CreatureExtraInfo } from '@/types/features.type';
-import saveStorageId from '@/shared/utils/saveStorageId';
+import saveStorageId from '@/shared/utils/saveStorageIds';
 
 // 보상 랜덤 뽑기
 const UseReward = (collectibleItems: Creature[]) => {

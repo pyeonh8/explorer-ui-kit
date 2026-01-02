@@ -3,7 +3,7 @@ import AmiiboCard from './AmiiboCard';
 import useSort from '@/shared/hooks/useSort';
 import useFilter from '@/shared/hooks/useFilter';
 import useInfiniteScroll from '@/shared/hooks/useInfiniteScroll';
-import { PERSONALITY_TRANSLATIONS } from '@/constants/amiibo';
+import { PERSONALITY_TRANSLATIONS } from '@/constants/amiiboPersonality';
 
 const AmiiboCardList = ({
   translatedAmiibo,
@@ -11,12 +11,11 @@ const AmiiboCardList = ({
   onSelect,
 }: AmiiboCardListProps) => {
   // 필터
+  const filterKeys = Object.keys(PERSONALITY_TRANSLATIONS);
   const { filteredData, setFilterValue, filterValue } = useFilter(
     translatedAmiibo,
     'personality'
   );
-  // 필터 메뉴
-  const filterKeys = Object.keys(PERSONALITY_TRANSLATIONS);
 
   // 정렬
   const { sortedData, requestSort, sortConfig } = useSort(filteredData, {
@@ -32,9 +31,8 @@ const AmiiboCardList = ({
   return (
     <div>
       <button onClick={() => requestSort('koName')}>
-        이름순{' '}
-        {sortConfig.key === 'koName' &&
-          (sortConfig.direction === 'asc' ? '↑' : '↓')}
+        이름순
+        {sortConfig.direction === 'asc' ? '↑' : '↓'}
       </button>
 
       <div className="filter-buttons flex gap-3">
