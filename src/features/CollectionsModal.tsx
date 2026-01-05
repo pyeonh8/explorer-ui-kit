@@ -7,10 +7,10 @@ import IconButton from '@/shared/ui/IconButton';
 import getSavedStorageIds from '@/shared/utils/getSavedStorageIds';
 import useFilter from '@/shared/hooks/useFilter';
 import useSort from '@/shared/hooks/useSort';
-
 import { TbSortAscending } from 'react-icons/tb';
 import { TbSortDescending } from 'react-icons/tb';
 import { CREATURE_ATTRIBUTE } from '@/constants/creatureAttribute';
+import { FaBook } from 'react-icons/fa';
 
 const REWARD_POOL: Creature[] = creatures;
 
@@ -67,7 +67,12 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
   return (
     <Modal
       className="max-h-[600px]"
-      openButton={(open) => <IconButton onClick={open}>찾은 보물</IconButton>}
+      openButton={(open) => (
+        <IconButton onClick={open}>
+          <FaBook className="text-[20px]" />
+          <span className="text-[12px] font-bold whitespace-nowrap">도감</span>
+        </IconButton>
+      )}
     >
       <p>찾은 수집품</p>
 

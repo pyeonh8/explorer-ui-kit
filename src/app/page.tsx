@@ -19,7 +19,7 @@ export default async function AmiiboPage() {
   const translatedVillagers = dataTransformer(nookipediaVillagersData, 'name');
 
   return (
-    <div className="min-h-screen w-full bg-[url('/images/bg_img.png'),_linear-gradient(0deg,rgba(146,218,205,1)_0%,rgba(192,240,183,1)_50%,rgba(255,255,173,1)_100%)]">
+    <div className="flex min-h-screen items-center justify-center bg-[url('/images/bg.png'),_linear-gradient(0deg,rgba(146,218,205,1)_0%,rgba(192,240,183,1)_50%,rgba(255,255,173,1)_100%)]">
       <Expedition
         translatedAmiibo={finalAmiibo}
         translatedVillagers={translatedVillagers}

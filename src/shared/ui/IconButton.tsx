@@ -7,7 +7,7 @@ const IconButton = ({
   className = '',
   ...rest
 }: ButtonProps) => {
-  const baseStyle = 'flex items-center gap-[4px]';
+  const baseStyle = 'flex items-center gap-[4px] justify-center';
   const finalClasses = twMerge(baseStyle, className);
 
   return (
