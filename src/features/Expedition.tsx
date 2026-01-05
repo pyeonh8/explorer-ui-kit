@@ -4,9 +4,11 @@ import { useCallback, useState } from 'react';
 import { creatures } from 'animal-crossing';
 import { TranslatedAmiibo, TranslateVillager } from '@/types/api.types';
 import CharacterPanel from './characterPanel/CharacterPanel';
+import ExpeditionHeader from './ExpeditionHeader';
 import ExpeditionSetup from '@/features/ExpeditionSetup';
 import ExpeditionInProgress from './ExpeditionInProgress';
 import IconButton from '@/shared/ui/IconButton';
+import Modal from '@/shared/ui/modal/Modal';
 import CollectionsModal from './CollectionsModal';
 import { RxLapTimer } from 'react-icons/rx';
 import { TbMusic } from 'react-icons/tb';
@@ -32,8 +34,7 @@ const Expedition = ({
       if (prev.includes(character))
         return prev.filter((item) => item !== character);
       if (prev.length >= 5) {
-        // 모달로 변경
-        alert('최대 5개만 선택이 가능합니다.');
+        <Modal>최대 5개만 선택이 가능합니다.</Modal>;
         return prev;
       }
       return [...prev, character];
@@ -41,10 +42,10 @@ const Expedition = ({
   }, []);
 
   return (
-    <div className="grid max-w-[650px] grid-cols-[1fr_auto_1fr] gap-2 p-3">
+    <div className="grid grid-cols-[1fr_auto_1fr] gap-4 p-3">
       {/* 모험 준비 상단 메뉴 */}
-      {!isStarted && (
-        <div className="flex flex-col gap-1.5 pt-5">
+      {!isStarted ? (
+        <div className="flex flex-col gap-1.5">
           <IconButton>
             <TbMusic className="text-[20px]" />
             <span className="text-[12px] font-bold whitespace-nowrap">
@@ -54,51 +55,65 @@ const Expedition = ({
           {/* 내 도감 */}
           <CollectionsModal isStarted={isStarted} />
           {/* 토글버튼으로 변경 */}
-          {timerCounts.map((num) => {
-            const selectStyle =
-              'border-b-[4px] border-t-[4px] bg-[#07B7B3] text-white';
-            return (
-              <IconButton
-                key={num}
-                className={`${num === timerTime && selectStyle}`}
-                onClick={() => setTimerTime(num)}
-              >
-                <RxLapTimer className="text-[20px]" />
-                <span className="text-[12px] font-bold whitespace-nowrap">
-                  x {num}
-                </span>
-              </IconButton>
-            );
-          })}
+          <div className="flex flex-col gap-1.5 pt-4">
+            {timerCounts.map((num) => {
+              const selectStyle =
+                'border-b-[4px] border-t-[4px] bg-[#07B7B3] text-white';
+              return (
+                <IconButton
+                  key={num}
+                  className={`${num === timerTime && selectStyle}`}
+                  onClick={() => setTimerTime(num)}
+                >
+                  <RxLapTimer className="text-[20px]" />
+                  <span className="text-[12px] font-bold whitespace-nowrap">
+                    x {num}
+                  </span>
+                </IconButton>
+              );
+            })}
+          </div>
         </div>
+      ) : (
+        <div className="invisible"></div>
       )}
 
-      <div className="rounded-2xl border-[var(--color-primary)] bg-white/90 px-7 py-5">
-        {/* 캐릭터 화면 */}
-        <CharacterPanel
-          selectedAmiibo={selectedAmiibo}
-          villagers={translatedVillagers}
-        />
+      <div className="max-w-[650px] overflow-hidden rounded-2xl border-[var(--color-primary)] bg-white/100">
+        {/* 헤더 로고 */}
+        <ExpeditionHeader />
 
-        {!isStarted ? (
-          // 탐험 준비
-          <ExpeditionSetup
-            translatedAmiibo={translatedAmiibo}
+        <div className="px-7 pt-3 pb-6">
+          {/* 캐릭터 화면 */}
+          <CharacterPanel
             selectedAmiibo={selectedAmiibo}
-            onSelect={handleSelect}
-            timerTime={timerTime}
-            onStart={setIsStarted}
+            villagers={translatedVillagers}
           />
-        ) : (
-          // 탐험 시작
-          <ExpeditionInProgress
-            timerTime={timerTime}
-            onStart={setIsStarted}
-            isStarted={isStarted}
-            collectibleItems={creatures}
-          />
-        )}
+
+          {!isStarted ? (
+            // 탐험 준비
+            <ExpeditionSetup
+              translatedAmiibo={translatedAmiibo}
+              selectedAmiibo={selectedAmiibo}
+              onSelect={handleSelect}
+              timerTime={timerTime}
+              onStart={setIsStarted}
+            />
+          ) : (
+            // 탐험 시작
+            <ExpeditionInProgress
+              timerTime={timerTime}
+              onStart={setIsStarted}
+              isStarted={isStarted}
+              collectibleItems={creatures}
+            />
+          )}
+        </div>
+
+        <div className="h-[20px] w-full bg-[url('/images/pattern.jpg')] bg-cover bg-center bg-no-repeat">
+          123
+        </div>
       </div>
+
       <div className="invisible"></div>
     </div>
   );
