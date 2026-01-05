@@ -46,29 +46,30 @@ const AmiiboCardList = ({
           </button>
         ))}
       </div>
+      <div className="custom-scroll max-h-[580px] overflow-hidden overflow-y-scroll">
+        <div className="grid grid-cols-4 gap-3">
+          {slicedData?.map((amiibo) => {
+            const isSelected = selectedIds.includes(amiibo.character);
 
-      <div className="grid grid-cols-4 gap-3">
-        {slicedData?.map((amiibo) => {
-          const isSelected = selectedIds.includes(amiibo.character);
-
-          return (
-            <AmiiboCard
-              key={amiibo.head + amiibo.tail}
-              amiibo={amiibo}
-              isSelected={isSelected}
-              onSelect={onSelect}
-            />
-          );
-        })}
-      </div>
-      {hasMore && (
-        <div
-          ref={observerRef}
-          className="flex h-20 items-center justify-center"
-        >
-          <span>아미보 불러오는 중... ⏳</span>
+            return (
+              <AmiiboCard
+                key={amiibo.head + amiibo.tail}
+                amiibo={amiibo}
+                isSelected={isSelected}
+                onSelect={onSelect}
+              />
+            );
+          })}
         </div>
-      )}
+        {hasMore && (
+          <div
+            ref={observerRef}
+            className="flex h-20 items-center justify-center"
+          >
+            <span>아미보 불러오는 중... ⏳</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
