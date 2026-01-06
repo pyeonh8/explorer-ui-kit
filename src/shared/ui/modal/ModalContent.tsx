@@ -27,7 +27,7 @@ const ModalContent = ({
       <div ref={modalRef} className="w-max">
         <div className={finalClass}>
           {/* 모달 컨텐츠 */}
-          <div className="text-center text-[20px]">{children}</div>
+          <div className="text-center text-[18px]">{children}</div>
           {/* 모달 버튼 */}
           <div className="flex justify-center gap-3 !pt-5">
             {actionButton}

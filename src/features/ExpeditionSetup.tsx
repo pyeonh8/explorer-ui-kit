@@ -6,6 +6,8 @@ import IconButton from '@/shared/ui/IconButton';
 import ModalButton from '@/shared/ui/modal/ModalButton';
 import { PiTimerBold } from 'react-icons/pi';
 import { ExpeditionSetupProps } from '@/types/features.type';
+import { IoIosWarning } from 'react-icons/io';
+import { RxLapTimer } from 'react-icons/rx';
 
 // 탐험 준비 화면
 const ExpeditionSetup = ({
@@ -31,13 +33,28 @@ const ExpeditionSetup = ({
           )
         }
       >
-        <p className="whitespace-pre-line">
-          {!notChoice
-            ? `${timerTime}회 동안 모험이 시작됩니다!  
-          ${25 * timerTime}분 집중과 ${5 * timerTime}분 휴식이 준비되어 있습니다.`
-            : '최소 한 명의 캐릭터를 선택해주세요!'}
+        <p className="flex flex-col items-center gap-3 whitespace-pre-line">
+          {!notChoice ? (
+            <>
+              <RxLapTimer className="text-3xl text-[#07B7B3]" />
+              <ul>
+                <li className="font-bold">{`${timerTime}회 동안 모험이 시작됩니다!`}</li>
+                <li className="text-[16px]">{`${25 * timerTime}분 집중과 ${5 * timerTime}분 휴식이 준비되어 있습니다.`}</li>
+              </ul>
+            </>
+          ) : (
+            <>
+              <IoIosWarning className="text-3xl text-orange-700" />
+              <span>
+                최소 <span className="font-black text-orange-700">1명</span>의
+                캐릭터를 선택해주세요.
+              </span>
+            </>
+          )}
         </p>
       </Modal>
+      {/* <div className="flex flex-col items-center gap-4">
+                <IoIosWarning className="text-3xl text-orange-700" /> */}
 
       <AmiiboCardList
         translatedAmiibo={translatedAmiibo}

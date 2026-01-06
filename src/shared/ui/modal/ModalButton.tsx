@@ -13,7 +13,7 @@ const ModalButton = ({
   const { value, toggle } = useToggle();
 
   const baseStyle =
-    'flex items-center gap-[4px] border-none bg-[var(--color-foreground-subtle)] font-bold';
+    'flex items-center border-none bg-[var(--color-foreground-subtle)] font-bold';
   const finalClasses = twMerge(baseStyle, className);
 
   return (
@@ -31,7 +31,7 @@ const ModalButton = ({
             : ``
         }
       >
-        <span className="relative z-10 p-1">{children}</span>
+        <span className="relative z-10 p-1 text-[16px]">{children}</span>
       </span>
     </Button>
   );

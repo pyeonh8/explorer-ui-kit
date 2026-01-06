@@ -3,7 +3,9 @@ import ModalContent from './ModalContent';
 import { ModalProps } from '@/types/common.types';
 import Button from '../Button';
 import { useEffect } from 'react';
-
+/**
+ * 모달
+ */
 const Modal = ({
   children,
   actionButton,
@@ -13,12 +15,17 @@ const Modal = ({
   className = '',
 }: ModalProps) => {
   const { isOpen, modalRef, open, close } = useModal();
+  const isControlledMode = triggerOpen !== undefined;
 
   useEffect(() => {
-    if (triggerOpen) open?.();
-  }, [triggerOpen, open]);
+    if (!isControlledMode) return;
 
-  const isControlledMode = triggerOpen !== undefined;
+    if (triggerOpen) {
+      open?.();
+    } else {
+      close?.();
+    }
+  }, [isControlledMode, triggerOpen, open, close]);
 
   return (
     <>

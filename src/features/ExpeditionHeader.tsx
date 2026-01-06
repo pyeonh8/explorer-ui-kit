@@ -1,7 +1,7 @@
 const ExpeditionHeader = () => {
   return (
-    <div className="w-full">
-      <header className="relative flex h-[130px] w-full flex-col items-center justify-center overflow-hidden bg-[url('/images/pattern.jpg')] bg-cover bg-center bg-no-repeat">
+    <header className="w-full">
+      <div className="relative flex h-[130px] w-full flex-col items-center justify-center overflow-hidden bg-[url('/images/pattern.jpg')] bg-cover bg-center bg-no-repeat">
         {/* 로고 */}
         <div className="z-10 text-center">
           <h1 className="pb-6 text-center text-2xl font-bold whitespace-pre-line text-white">
@@ -25,8 +25,8 @@ const ExpeditionHeader = () => {
             />
           </svg>
         </div>
-      </header>
-    </div>
+      </div>
+    </header>
   );
 };
 
