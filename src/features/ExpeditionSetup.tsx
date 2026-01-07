@@ -33,7 +33,7 @@ const ExpeditionSetup = ({
           )
         }
       >
-        <p className="flex flex-col items-center gap-3 whitespace-pre-line">
+        <div className="flex flex-col items-center gap-3 whitespace-pre-line">
           {!notChoice ? (
             <>
               <RxLapTimer className="text-3xl text-[var(--color-accent)]" />
@@ -51,7 +51,7 @@ const ExpeditionSetup = ({
               </span>
             </>
           )}
-        </p>
+        </div>
       </Modal>
 
       <AmiiboCardList
