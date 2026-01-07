@@ -75,7 +75,6 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
 
   return (
     <Modal
-      className="max-h-[700px]"
       openButton={(open) => (
         <IconButton onClick={open}>
           <FaBook className="text-[20px]" />
@@ -94,7 +93,7 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
           <li key={key} className="flex w-18 justify-center text-[13px]">
             <button
               onClick={() => setFilterValue(key)}
-              className={`flex w-full cursor-pointer flex-col items-center rounded-2xl bg-[var(--color-foreground-inverse)] pt-1.5 pb-0.5 text-[var(--color-font-secondary)] transition-all hover:bg-[var(--color-accent)] hover:text-white ${filterValue === key ? '!bg-[var(--color-accent)] text-white' : ''}`}
+              className={`flex w-full cursor-pointer flex-col items-center rounded-2xl bg-[var(--color-foreground-inverse)] pt-1.5 pb-1 text-[var(--color-font-secondary)] transition-all hover:bg-[var(--color-accent)] hover:text-white ${filterValue === key ? '!bg-[var(--color-accent)] text-white' : ''}`}
             >
               <span className="pb-[2px] text-[22px]">{CREATURE_ICON[key]}</span>
               {CREATURE_ATTRIBUTE[key]}
@@ -103,7 +102,7 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
         ))}
       </ul>
 
-      {/* 정렬 */}
+      {/* 이름순 정렬 */}
       <div className="pb-2">
         <button
           onClick={() => requestSort('kRko')}

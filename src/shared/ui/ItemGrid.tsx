@@ -44,11 +44,18 @@ export const CollectionCard = ({
   isCollected: boolean;
 }) => {
   return (
+    // grayscale
     <li
-      className={`flex flex-col items-center rounded-2xl bg-[#fff2bd] p-1 px-2 py-1 ${!isCollected && 'opacity-30 grayscale'}`}
+      className={`flex flex-col items-center rounded-2xl bg-[#fff2bd] p-1 px-2 py-1 ${!isCollected && 'bg-[var(--color-foreground-inverse)] opacity-35'}`}
     >
-      <Image src={item.iconImage} width={80} height={80} alt={item.name} />
-      <p className="text-[12px] font-bold text-gray-500">
+      <Image
+        src={item.iconImage}
+        width={80}
+        height={80}
+        alt={item.name}
+        className={!isCollected ? `contrast-50 grayscale-100` : ''}
+      />
+      <p className="text-[12px] font-bold text-[var(--color-font)]">
         {isCollected ? item.translations.kRko : '???'}
       </p>
     </li>
