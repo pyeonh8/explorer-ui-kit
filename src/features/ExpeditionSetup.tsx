@@ -36,7 +36,7 @@ const ExpeditionSetup = ({
         <p className="flex flex-col items-center gap-3 whitespace-pre-line">
           {!notChoice ? (
             <>
-              <RxLapTimer className="text-3xl text-[#07B7B3]" />
+              <RxLapTimer className="text-3xl text-[var(--color-accent)]" />
               <ul>
                 <li className="font-bold">{`${timerTime}회 동안 모험이 시작됩니다!`}</li>
                 <li className="text-[16px]">{`${25 * timerTime}분 집중과 ${5 * timerTime}분 휴식이 준비되어 있습니다.`}</li>
@@ -53,8 +53,6 @@ const ExpeditionSetup = ({
           )}
         </p>
       </Modal>
-      {/* <div className="flex flex-col items-center gap-4">
-                <IoIosWarning className="text-3xl text-orange-700" /> */}
 
       <AmiiboCardList
         translatedAmiibo={translatedAmiibo}

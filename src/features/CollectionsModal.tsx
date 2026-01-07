@@ -11,6 +11,9 @@ import { TbSortAscending } from 'react-icons/tb';
 import { TbSortDescending } from 'react-icons/tb';
 import { CREATURE_ATTRIBUTE } from '@/constants/creatureAttribute';
 import { FaBook } from 'react-icons/fa';
+import { IoIosBug } from 'react-icons/io';
+import { IoFish } from 'react-icons/io5';
+import { FaDisease } from 'react-icons/fa';
 
 const REWARD_POOL: Creature[] = creatures;
 
@@ -18,6 +21,12 @@ const collection = REWARD_POOL.map((item) => ({
   ...item,
   kRko: item.translations.kRko,
 }));
+
+const CREATURE_ICON: Record<string, React.ReactNode> = {
+  Insects: <IoIosBug />,
+  Fish: <IoFish />,
+  'Sea Creatures': <FaDisease />,
+};
 
 const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
   const [savedCollections, setSaveCollections] = useState<string[]>(() => {
@@ -66,7 +75,7 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
 
   return (
     <Modal
-      className="max-h-[600px]"
+      className="max-h-[700px]"
       openButton={(open) => (
         <IconButton onClick={open}>
           <FaBook className="text-[20px]" />
@@ -74,35 +83,46 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
         </IconButton>
       )}
     >
-      <p>찾은 수집품</p>
+      <span className="flex items-center justify-center gap-2 border-b-2 border-[var(--color-font)]/20 pb-3 text-2xl">
+        <FaBook />
+        <h1 className="font-bold">My 도감</h1>
+      </span>
 
-      <div className="flex gap-2">
+      {/* 메뉴 */}
+      <ul className="flex justify-center gap-4 py-4">
+        {filterKeys.map((key) => (
+          <li key={key} className="flex w-18 justify-center text-[13px]">
+            <button
+              onClick={() => setFilterValue(key)}
+              className={`flex w-full cursor-pointer flex-col items-center rounded-2xl bg-[var(--color-foreground-inverse)] pt-1.5 pb-0.5 text-[var(--color-font-secondary)] transition-all hover:bg-[var(--color-accent)] hover:text-white ${filterValue === key ? '!bg-[var(--color-accent)] text-white' : ''}`}
+            >
+              <span className="pb-[2px] text-[22px]">{CREATURE_ICON[key]}</span>
+              {CREATURE_ATTRIBUTE[key]}
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      {/* 정렬 */}
+      <div className="pb-2">
         <button
           onClick={() => requestSort('kRko')}
-          className="flex items-center gap-1"
+          className="flex cursor-pointer gap-1 text-[15px] font-bold"
         >
+          <span className="text-[20px]">
+            {sortConfig.direction === 'asc' ? (
+              <TbSortAscending />
+            ) : (
+              <TbSortDescending />
+            )}
+          </span>
           이름순
-          {sortConfig.direction === 'asc' ? (
-            <TbSortAscending />
-          ) : (
-            <TbSortDescending />
-          )}
         </button>
-
-        {filterKeys.map((key) => (
-          <button
-            key={key}
-            onClick={() => setFilterValue(key)}
-            className={filterValue === key ? 'font-bold underline' : ''}
-          >
-            {CREATURE_ATTRIBUTE[key]}
-          </button>
-        ))}
       </div>
 
       <div
         ref={scrollRef}
-        className="custom-scroll max-h-[400px] overflow-hidden overflow-y-scroll"
+        className="custom-scroll max-h-[350px] overflow-hidden overflow-y-scroll"
       >
         <ItemGrid columns={4}>
           {sortedData.map((item, index) => {

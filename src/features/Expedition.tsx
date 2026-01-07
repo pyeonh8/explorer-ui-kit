@@ -9,9 +9,11 @@ import ExpeditionSetup from '@/features/ExpeditionSetup';
 import ExpeditionInProgress from './ExpeditionInProgress';
 import IconButton from '@/shared/ui/IconButton';
 import Modal from '@/shared/ui/modal/Modal';
+import ModalButton from '@/shared/ui/modal/ModalButton';
 import CollectionsModal from './CollectionsModal';
 import { RxLapTimer } from 'react-icons/rx';
 import { TbMusic } from 'react-icons/tb';
+import { IoIosWarning } from 'react-icons/io';
 // import { TbMusicOff } from 'react-icons/tb';
 
 // 탐험 페이지
@@ -25,6 +27,7 @@ const Expedition = ({
   const [isStarted, setIsStarted] = useState(false);
   const [timerTime, setTimerTime] = useState(1);
   const [selectedAmiibo, setSelectedAmiibo] = useState<string[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const timerCounts = [1, 2, 3, 4];
 
@@ -34,7 +37,7 @@ const Expedition = ({
       if (prev.includes(character))
         return prev.filter((item) => item !== character);
       if (prev.length >= 5) {
-        <Modal>최대 5개만 선택이 가능합니다.</Modal>;
+        setModalOpen(true);
         return prev;
       }
       return [...prev, character];
@@ -42,23 +45,49 @@ const Expedition = ({
   }, []);
 
   return (
-    <div className="grid grid-cols-[1fr_auto_1fr] gap-4 p-3">
+    <div className="grid grid-cols-[1fr_minmax(0,580px)_1fr] gap-4 p-3">
+      {/* 캐릭터 선택 모달 */}
+      <Modal
+        isOpen={modalOpen}
+        actionButton={
+          <ModalButton
+            onClick={() => {
+              setModalOpen(false);
+              console.log(modalOpen);
+            }}
+          >
+            닫기
+          </ModalButton>
+        }
+        hideCloseButton
+      >
+        <div className="flex flex-col items-center gap-3">
+          <IoIosWarning className="text-3xl text-orange-700" />
+          <span>
+            최대 캐릭터 <span className="font-black text-orange-700">5명</span>{' '}
+            까지 선택 가능합니다.
+          </span>
+        </div>
+      </Modal>
+
       {/* 모험 준비 상단 메뉴 */}
       {!isStarted ? (
-        <div className="flex flex-col gap-1.5">
+        <nav className="flex flex-col gap-1.5">
           <IconButton>
             <TbMusic className="text-[20px]" />
             <span className="text-[12px] font-bold whitespace-nowrap">
               음악
             </span>
           </IconButton>
+
           {/* 내 도감 */}
           <CollectionsModal isStarted={isStarted} />
+
           {/* 토글버튼으로 변경 */}
           <div className="flex flex-col gap-1.5 pt-4">
             {timerCounts.map((num) => {
               const selectStyle =
-                'border-b-[4px] border-t-[4px] bg-[#07B7B3] text-white';
+                'border-b-[4px] border-t-[4px] bg-[var(--color-accent)] text-white';
               return (
                 <IconButton
                   key={num}
@@ -73,16 +102,15 @@ const Expedition = ({
               );
             })}
           </div>
-        </div>
+        </nav>
       ) : (
         <div className="invisible"></div>
       )}
-
-      <div className="max-w-[650px] overflow-hidden rounded-2xl border-[var(--color-primary)] bg-white/100">
+      <div className="max-w-[580px] overflow-hidden rounded-2xl border-[var(--color-primary)] bg-white/100">
         {/* 헤더 로고 */}
         <ExpeditionHeader />
 
-        <div className="px-7 pt-3 pb-6">
+        <main className="px-7 pt-3 pb-6">
           {/* 캐릭터 화면 */}
           <CharacterPanel
             selectedAmiibo={selectedAmiibo}
@@ -107,13 +135,10 @@ const Expedition = ({
               collectibleItems={creatures}
             />
           )}
-        </div>
+        </main>
 
-        <div className="h-[20px] w-full bg-[url('/images/pattern.jpg')] bg-cover bg-center bg-no-repeat">
-          123
-        </div>
+        <footer className="h-4 w-full bg-[url('/images/pattern.jpg')] bg-cover bg-center bg-no-repeat"></footer>
       </div>
-
       <div className="invisible"></div>
     </div>
   );

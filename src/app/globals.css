@@ -10,7 +10,8 @@
 
   /* 주요 색상 */
   --color-primary: rgb(146, 218, 205);
-  --color-secondary: rgb(194, 230, 230);
+  --color-secondary: rgb(220, 245, 235);
+  --color-accent: rgb(7, 183, 179);
 
   /* 전경/컨테이너 색상 */
   --color-foreground: rgb(255, 249, 229);
@@ -19,7 +20,7 @@
 
   /* 폰트 색상 */
   --color-font: rgb(131, 113, 86);
-  --color-font-secondary: rgb(131, 113, 86);
+  --color-font-secondary: rgb(180, 167, 149);
   --color-font-accent: rgb(254, 211, 3);
 }
 
