@@ -13,7 +13,7 @@ const ModalButton = ({
   const { value, toggle } = useToggle();
 
   const baseStyle =
-    'flex items-center border-none bg-[var(--color-foreground-subtle)] font-bold';
+    'flex items-center border-none bg-[var(--color-foreground-subtle)] font-bold hover:bg-[var(--color-foreground-subtle)] hover:text-[var(--color-font)]';
   const finalClasses = twMerge(baseStyle, className);
 
   return (
