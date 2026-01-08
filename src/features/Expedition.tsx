@@ -28,6 +28,7 @@ const Expedition = ({
   const [timerTime, setTimerTime] = useState(1);
   const [selectedAmiibo, setSelectedAmiibo] = useState<string[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   const timerCounts = [1, 2, 3, 4];
 
@@ -106,7 +107,7 @@ const Expedition = ({
       ) : (
         <div className="invisible"></div>
       )}
-      <div className="max-w-[580px] overflow-hidden rounded-2xl border-[var(--color-primary)] bg-white/100">
+      <div className="max-w-[580px] overflow-hidden rounded-2xl border-[var(--color-primary)] bg-white">
         {/* 헤더 로고 */}
         <ExpeditionHeader />
 
@@ -115,6 +116,7 @@ const Expedition = ({
           <CharacterPanel
             selectedAmiibo={selectedAmiibo}
             villagers={translatedVillagers}
+            isTimerRunning={isTimerRunning}
           />
 
           {!isStarted ? (
@@ -133,6 +135,8 @@ const Expedition = ({
               onStart={setIsStarted}
               isStarted={isStarted}
               collectibleItems={creatures}
+              // isTimerRunning={isTimerRunning}
+              onTimerRunningChange={setIsTimerRunning}
             />
           )}
         </main>

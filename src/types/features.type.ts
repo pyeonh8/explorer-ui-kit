@@ -16,6 +16,7 @@ export interface ExpeditionSetupProps extends AmiiboCardListProps, Expedition {}
 export interface ExpeditionInProgressProps extends Expedition {
   isStarted: boolean;
   collectibleItems: Creature[];
+  onTimerRunningChange: (isRunning: boolean) => void;
 }
 
 // AmiiboCardList & AmiiboCard : 아미보카드

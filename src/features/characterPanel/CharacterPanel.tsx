@@ -1,43 +1,70 @@
-import { TranslateVillager } from '@/types/api.types';
+import { useMemo, useState } from 'react';
 import Image from 'next/image';
+import { TranslateVillager } from '@/types/api.types';
+import { VILLAGERS_HEIGHT } from '@/constants/villagersHeight';
 
 const CharacterPanel = ({
   selectedAmiibo,
   villagers,
+  isTimerRunning,
 }: {
   selectedAmiibo: string[];
   villagers: TranslateVillager[];
+  isTimerRunning: boolean;
 }) => {
-  const villagerMap = new Map(villagers.map((v) => [v.name, v]));
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
+
+  const villagerMap = useMemo(
+    () => new Map(villagers.map((v) => [v.name, v])),
+    [villagers]
+  );
 
   return (
-    // bg-[linear-gradient(0deg,rgba(146,218,205,1)_0%,rgba(192,240,183,1)_50%,rgba(255,255,173,1)_100%)]
-    <div className="relative h-[200px] w-full overflow-hidden rounded-[10px]">
+    <div className="relative h-[200px] w-[full] overflow-hidden rounded-[10px]">
       {/* 배경 */}
       <div className="absolute inset-0 scale-105 bg-[url('/images/character-bg01.jpg')] bg-cover bg-center opacity-80 blur-[3px]"></div>
 
       {/* 캐릭터 */}
-      <div className="relative z-10 flex h-full items-center justify-center gap-6">
-        {selectedAmiibo?.map((v) => {
+      <div className="relative z-10 flex h-[100%] items-end justify-center gap-4 px-5 pb-6">
+        {selectedAmiibo?.map((v, index) => {
           const target = villagerMap.get(v);
+          if (!target?.image_url) return null;
+
+          const isLoaded = loadedImages.has(target?.id || '');
+          const height = VILLAGERS_HEIGHT[target?.species || ''] || 120;
 
           return (
-            // flex flex-col items-center
-            <div key={target?.id} className="">
-              {/* flex h-20 items-end justify-center rounded-lg bg-gray-50/50 */}
-              <div className="">
-                {target?.image_url && (
-                  <Image
-                    src={target.image_url}
-                    alt={target.name}
-                    width={60}
-                    height={80}
-                  />
-                )}
-              </div>
-              {/* <span className="mt-2 text-[11px] font-medium">
-                {target?.koName}
-              </span> */}
+            <div
+              key={target?.id}
+              className="relative flex items-end"
+              style={{
+                height: `${height}px`,
+                width: 'auto',
+
+                animation: isTimerRunning
+                  ? `float 2s ease-in-out ${index * 0.3}s infinite`
+                  : 'none',
+              }}
+            >
+              {!isLoaded && (
+                <div className="absolute inset-0 animate-pulse rounded bg-gray-200/80" />
+              )}
+
+              <Image
+                src={target.image_url}
+                alt={target.name}
+                width={70}
+                height={70}
+                className={`relative object-contain transition-opacity duration-300 ${
+                  isLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ height: `auto`, width: `auto`, maxHeight: '100%' }}
+                onLoad={() => {
+                  setLoadedImages((prev) => new Set(prev).add(target.id));
+                }}
+                priority
+                unoptimized
+              />
             </div>
           );
         })}

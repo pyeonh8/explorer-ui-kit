@@ -40,6 +40,7 @@ export interface NookipediaVillagersProps {
   id: string;
   image_url: string;
   nh_details: nh_details;
+  species: string;
 }
 
 // 캐릭터 주민 Response

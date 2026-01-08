@@ -1,6 +1,7 @@
 // const AMIIBO_URL = 'https://www.amiiboapi.com/api/';
 const AMIIBO_URL = 'https://amiiboapi.onrender.com/api/'; // 임시
 const NOOKIPEDIA_URL = 'https://api.nookipedia.com/';
+// const NOOKIPEDIA_URL = 'https://nookipedia.com/w/api.php'; // 임시
 
 // const mockData = {
 //   amiibo: [
@@ -79,6 +80,11 @@ export async function getAmiiboData<T>(endPoint: string) {
 }
 
 export async function getNookipediaData<T>(endPoint: string) {
+  // 임시
+  // const cargoUrl = `${NOOKIPEDIA_URL}?action=cargoquery&format=json&tables=nh_villager&fields=name,species,image,icon&limit=500`;
+
+  // return await fetchData<T>(cargoUrl);
+
   const API_KEY = process.env.NOOKIPEDIA_API || '';
 
   return await fetchData<T>(`${NOOKIPEDIA_URL}${endPoint}`, {

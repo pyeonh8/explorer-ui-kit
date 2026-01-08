@@ -9,16 +9,18 @@ import { ItemGrid, RewardCard } from '@/shared/ui/ItemGrid';
 import { FaRegStopCircle } from 'react-icons/fa';
 import { FaRegCirclePlay } from 'react-icons/fa6';
 
+const POMODORO_TIMES = {
+  WORK: 0.1 * 60,
+  REST: 0.1 * 60,
+};
+
 const PomodoroTimer = ({
   timerTime: targetCycles = 1,
   isStarted,
   onStart,
   collectibleItems,
+  onTimerRunningChange,
 }: ExpeditionInProgressProps) => {
-  const POMODORO_TIMES = {
-    WORK: 0.01 * 60,
-    REST: 0.01 * 60,
-  };
   const [mode, setMode] = useState<'WORK' | 'REST'>('WORK');
   const [currentCycles, setCurrentCycle] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
@@ -50,9 +52,24 @@ const PomodoroTimer = ({
     },
   });
 
+  // isStarted true
   useEffect(() => {
     if (isStarted) start();
   }, [isStarted, start]);
+
+  // isStarted false
+  useEffect(() => {
+    if (!isStarted) {
+      reset();
+      if (isStarted) setCurrentReward(null);
+    }
+  }, [isStarted, reset, setCurrentReward]);
+
+  useEffect(() => {
+    onTimerRunningChange(isRunning);
+  }, [onTimerRunningChange, isRunning]);
+
+  // 모험으로 돌아가기 누르면 리셋되고...
 
   return (
     <div>
@@ -69,6 +86,7 @@ const PomodoroTimer = ({
       <button onClick={pause}>
         <FaRegStopCircle />
       </button>
+      <button onClick={reset}>리셋</button>
 
       {/* 모달 */}
       <Modal
