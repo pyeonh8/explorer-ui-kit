@@ -46,11 +46,11 @@ const AmiiboCardList = ({
 
   return (
     <>
-      <div className="flex justify-between gap-2 pt-5 pb-1">
+      <div className="flex justify-between gap-2 pt-5 pb-1.5">
         {/* 이름순 정렬 */}
         <button
           onClick={() => requestSort('koName')}
-          className="flex cursor-pointer gap-1 px-1.5 py-1 text-[15px] font-bold"
+          className="flex cursor-pointer items-center gap-2 pl-1 text-[15px] font-bold"
         >
           <span className="text-[20px]">
             {sortConfig.direction === 'asc' ? (
@@ -59,17 +59,20 @@ const AmiiboCardList = ({
               <TbSortDescending />
             )}
           </span>
-          이름순
+          <span className="translate-y-px">이름순</span>
         </button>
 
         {/* 성격순 필터 */}
-        <div ref={filterRef} className="group relative w-max">
+        <div ref={filterRef} className="group relative mr-1 w-max">
+          {/* px-1.5 py-1 items-center */}
           <button
             onClick={() => setIsFilterOpen((prev) => !prev)}
-            className="flex w-20 cursor-pointer items-center justify-between rounded-sm bg-(--color-secondary) px-1.5 py-1 text-[15px] font-bold"
+            className="flex w-21 translate-x-px cursor-pointer items-center justify-between rounded-sm bg-(--color-secondary) px-1.5 py-1 text-[14px] font-bold"
           >
-            {PERSONALITY_TRANSLATIONS[filterValue]}
-            <span className="text-(--color-font)/70">
+            <span className="translate-y-0.5">
+              {PERSONALITY_TRANSLATIONS[filterValue]}
+            </span>
+            <span className="text-(--color-accent)">
               {isFilterOpen ? <FaCaretUp /> : <FaCaretDown />}
             </span>
           </button>
@@ -82,7 +85,7 @@ const AmiiboCardList = ({
                       setFilterValue(key);
                       setIsFilterOpen(false);
                     }}
-                    className={`${filterValue === key ? 'font-bold underline' : ''} w-full cursor-pointer bg-white px-1.5 py-1 text-left text-(--color-font)/85 hover:underline`}
+                    className={`${filterValue === key ? 'font-bold underline' : ''} w-full cursor-pointer bg-white px-1.5 py-1 text-left text-[14px] text-(--color-font)/85 hover:underline`}
                   >
                     {PERSONALITY_TRANSLATIONS[key]}
                   </button>
@@ -112,9 +115,9 @@ const AmiiboCardList = ({
         {hasMore && (
           <div
             ref={observerRef}
-            className="flex h-20 items-center justify-center"
+            className="flex h-15 items-center justify-center"
           >
-            <span>아미보 불러오는 중... ⏳</span>
+            <span>아미보 불러오는 중...</span>
           </div>
         )}
       </div>
