@@ -11,7 +11,7 @@ const SelectedVillagers = ({
   onSelect,
 }: AmiiboSelectionProps) => {
   return (
-    <div className="flex h-[100px] items-center justify-center gap-4">
+    <div className="flex min-h-[100px] items-center justify-center gap-4">
       {selectedAmiibo.length > 0 ? (
         selectedAmiibo?.map((v) => {
           const target = villagerMap.get(v);
@@ -50,7 +50,7 @@ const SelectedVillagers = ({
               width={55}
             />
           )}
-          <div className="relative rounded-3xl bg-[#fff4c5] px-6 py-5 text-[17px] after:absolute after:top-1/2 after:-left-6 after:-translate-y-1/2 after:border-12 after:border-r-20 after:border-transparent after:border-r-[#fff4c5] after:content-['']">
+          <div className="relative rounded-3xl bg-[#fff4c5] px-6 py-3 text-[17px] after:absolute after:top-1/2 after:-left-6 after:-translate-y-1/2 after:border-12 after:border-r-20 after:border-transparent after:border-r-[#fff4c5] after:content-[''] sm:py-5">
             함께 모험을 떠날 친구들을 선택해주세요!
           </div>
         </>

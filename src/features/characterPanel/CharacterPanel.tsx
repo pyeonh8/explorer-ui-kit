@@ -20,7 +20,7 @@ const CharacterPanel = ({
   );
 
   return (
-    <div className="relative h-[200px] w-[full] overflow-hidden rounded-[10px]">
+    <div className="relative h-[150px] w-[full] overflow-hidden rounded-[10px] sm:h-[200px]">
       {/* 배경 */}
       <div className="absolute inset-0 scale-105 bg-[url('/images/character-bg01.jpg')] bg-cover bg-center opacity-80 blur-[3px]"></div>
 

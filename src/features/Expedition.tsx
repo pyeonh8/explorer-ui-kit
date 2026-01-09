@@ -11,9 +11,10 @@ import IconButton from '@/shared/ui/IconButton';
 import Modal from '@/shared/ui/modal/Modal';
 import ModalButton from '@/shared/ui/modal/ModalButton';
 import CollectionsModal from './CollectionsModal';
-import { RxLapTimer } from 'react-icons/rx';
 import { TbMusic } from 'react-icons/tb';
 import { IoIosWarning } from 'react-icons/io';
+import { FaHourglassStart } from 'react-icons/fa';
+
 // import { TbMusicOff } from 'react-icons/tb';
 
 // 탐험 페이지
@@ -84,7 +85,7 @@ const Expedition = ({
           {/* 내 도감 */}
           <CollectionsModal isStarted={isStarted} />
 
-          {/* 토글버튼으로 변경 */}
+          {/* 타이머 횟수 버튼 */}
           <div className="flex flex-col gap-1.5 pt-4">
             {timerCounts.map((num) => {
               const selectStyle =
@@ -95,7 +96,7 @@ const Expedition = ({
                   className={`${num === timerTime && selectStyle}`}
                   onClick={() => setTimerTime(num)}
                 >
-                  <RxLapTimer className="text-[20px]" />
+                  <FaHourglassStart className="text-[20px]" />
                   <span className="text-[12px] font-bold whitespace-nowrap">
                     x {num}
                   </span>

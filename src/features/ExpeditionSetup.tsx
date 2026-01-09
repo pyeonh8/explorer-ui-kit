@@ -1,14 +1,12 @@
 import AmiiboCardList from './amiibo/AmiiboCardList';
-
+import SelectedVillagers from './amiibo/SelectedVillagers';
 import Modal from '@/shared/ui/modal/Modal';
-
 import IconButton from '@/shared/ui/IconButton';
 import ModalButton from '@/shared/ui/modal/ModalButton';
-import { PiTimerBold } from 'react-icons/pi';
 import { ExpeditionSetupProps } from '@/types/features.type';
 import { IoIosWarning } from 'react-icons/io';
 import { RxLapTimer } from 'react-icons/rx';
-import SelectedVillagers from './amiibo/SelectedVillagers';
+import { RiLeafFill } from 'react-icons/ri';
 
 // 탐험 준비 화면
 const ExpeditionSetup = ({
@@ -22,14 +20,17 @@ const ExpeditionSetup = ({
 
   return (
     <>
-      {/*  */}
+      {/* 선택한 캐릭터 */}
       <SelectedVillagers selectedAmiibo={selectedAmiibo} onSelect={onSelect} />
 
-      {/*  */}
+      {/* 모험 시작 버튼 */}
       <Modal
         openButton={(open) => (
-          <IconButton onClick={open}>
-            <PiTimerBold /> 모험 시작!
+          <IconButton
+            className="m-auto min-h-[50px] w-[200px] max-w-full text-[20px] font-bold sm:min-h-[60px] sm:text-[23px]"
+            onClick={open}
+          >
+            <RiLeafFill /> 모험 Start !
           </IconButton>
         )}
         actionButton={
