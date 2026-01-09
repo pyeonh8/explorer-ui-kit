@@ -17,19 +17,19 @@ const ModalContent = ({
   if (!isOpen) return null;
 
   const baseStyle =
-    'grid max-w-[450px] grid-rows-[1fr_auto] rounded-2xl bg-[var(--color-foreground)] p-6';
+    'grid max-w-[450px] grid-rows-[1fr_auto] rounded-2xl bg-(--color-foreground) p-6';
 
   const finalClass = twMerge(baseStyle, className);
 
   return ReactDOM.createPortal(
-    <div className="modal-overlay bg-opacity-50 fixed inset-0 z-[9999] flex items-center justify-center bg-black/60">
+    <div className="modal-overlay bg-opacity-50 fixed inset-0 z-9999 flex items-center justify-center bg-black/60">
       {/* 모달 */}
       <div ref={modalRef} className="w-max">
         <div className={finalClass}>
           {/* 모달 컨텐츠 */}
           <div className="text-center text-[18px]">{children}</div>
           {/* 모달 버튼 */}
-          <div className="flex justify-center gap-3 !pt-5">
+          <div className="flex justify-center gap-3 pt-5!">
             {actionButton}
 
             {!hideCloseButton && (

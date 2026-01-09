@@ -18,7 +18,7 @@ export const RewardCard = ({ item }: { item: CreatureExtraInfo }) => {
   return (
     <li className="relative flex flex-col rounded-2xl bg-[#fff2bd] px-2 py-1">
       {item?.isNew && (
-        <span className="absolute -top-1 -left-1 -rotate-20 rounded-[8px] bg-[var(--color-primary)] px-2 py-1 text-[12px] leading-[13px] font-bold">
+        <span className="absolute -top-1 -left-1 -rotate-20 rounded-lg bg-(--color-primary) px-2 py-1 text-[12px] leading-[13px] font-bold">
           New
         </span>
       )}
@@ -46,7 +46,7 @@ export const CollectionCard = ({
   return (
     // grayscale
     <li
-      className={`flex flex-col items-center rounded-2xl bg-[#fff2bd] p-1 px-2 py-1 ${!isCollected && 'bg-[var(--color-foreground-inverse)] opacity-35'}`}
+      className={`flex flex-col items-center rounded-2xl bg-[#fff2bd] p-1 px-2 py-1 ${!isCollected && 'bg-(--color-foreground-inverse) opacity-35'}`}
     >
       <Image
         src={item.iconImage}
@@ -55,7 +55,7 @@ export const CollectionCard = ({
         alt={item.name}
         className={!isCollected ? `contrast-50 grayscale-100` : ''}
       />
-      <p className="text-[12px] font-bold text-[var(--color-font)]">
+      <p className="text-[12px] font-bold text-(--color-font)">
         {isCollected ? item.translations.kRko : '???'}
       </p>
     </li>

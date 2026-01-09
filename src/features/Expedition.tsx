@@ -88,7 +88,7 @@ const Expedition = ({
           <div className="flex flex-col gap-1.5 pt-4">
             {timerCounts.map((num) => {
               const selectStyle =
-                'border-b-[4px] border-t-[4px] bg-[var(--color-accent)] text-white';
+                'border-b-[4px] border-t-[4px] bg-(--color-accent) text-white';
               return (
                 <IconButton
                   key={num}
@@ -107,7 +107,7 @@ const Expedition = ({
       ) : (
         <div className="invisible"></div>
       )}
-      <div className="max-w-[580px] overflow-hidden rounded-2xl border-[var(--color-primary)] bg-white">
+      <div className="max-w-[580px] overflow-hidden rounded-2xl border-(--color-primary) bg-white">
         {/* 헤더 로고 */}
         <ExpeditionHeader />
 

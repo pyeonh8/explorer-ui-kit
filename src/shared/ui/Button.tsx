@@ -3,7 +3,7 @@ import { ButtonProps } from '@/types/common.types';
 
 const Button = ({ children = '', className = '', ...rest }: ButtonProps) => {
   const baseStyle =
-    'transform cursor-pointer rounded-2xl border-x-3 border-t-[1px] border-b-[7px] border-[var(--color-primary)] bg-white p-2 hover:border-t-[4px] hover:border-b-[4px] transition-all min-h-[46px] hover:bg-[var(--color-accent)] hover:text-white ';
+    'transform cursor-pointer rounded-2xl border-x-3 border-t-[1px] border-b-[7px] border-(--color-primary) bg-white p-2 hover:border-t-[4px] hover:border-b-[4px] transition-all min-h-[46px] hover:bg-(--color-accent) hover:text-white ';
 
   const finalClasses = twMerge(baseStyle, className);
 
