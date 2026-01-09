@@ -10,7 +10,7 @@ const AmiiboCard = ({ amiibo, isSelected, onSelect }: AmiiboCardProps) => {
       }}
       className="cursor-pointer transition-transform hover:scale-105"
     >
-      <div className="overflow- relative aspect-[69/97] w-full rounded-[5px] bg-[var(--color-secondary)]">
+      <div className="overflow- relative aspect-69/97 w-full rounded-[5px] bg-(--color-secondary)">
         <Image
           src={amiibo.image}
           alt={amiibo.character}

@@ -8,6 +8,7 @@ import { PiTimerBold } from 'react-icons/pi';
 import { ExpeditionSetupProps } from '@/types/features.type';
 import { IoIosWarning } from 'react-icons/io';
 import { RxLapTimer } from 'react-icons/rx';
+import SelectedVillagers from './amiibo/SelectedVillagers';
 
 // 탐험 준비 화면
 const ExpeditionSetup = ({
@@ -21,6 +22,10 @@ const ExpeditionSetup = ({
 
   return (
     <>
+      {/*  */}
+      <SelectedVillagers selectedAmiibo={selectedAmiibo} onSelect={onSelect} />
+
+      {/*  */}
       <Modal
         openButton={(open) => (
           <IconButton onClick={open}>

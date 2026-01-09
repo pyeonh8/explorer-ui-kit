@@ -82,7 +82,7 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
         </IconButton>
       )}
     >
-      <span className="flex items-center justify-center gap-2 border-b-2 border-[var(--color-font)]/20 pb-3 text-2xl">
+      <span className="flex items-center justify-center gap-2 border-b-2 border-(--color-font)/20 pb-3 text-2xl">
         <FaBook />
         <h1 className="font-bold">My 도감</h1>
       </span>
@@ -93,9 +93,9 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
           <li key={key} className="flex w-18 justify-center text-[13px]">
             <button
               onClick={() => setFilterValue(key)}
-              className={`flex w-full cursor-pointer flex-col items-center rounded-2xl bg-[var(--color-foreground-inverse)] pt-1.5 pb-1 text-[var(--color-font-secondary)] transition-all hover:bg-[var(--color-accent)] hover:text-white ${filterValue === key ? '!bg-[var(--color-accent)] text-white' : ''}`}
+              className={`flex w-full cursor-pointer flex-col items-center rounded-2xl bg-(--color-foreground-inverse) pt-1.5 pb-1 text-(--color-font-secondary) transition-all hover:bg-(--color-accent) hover:text-white ${filterValue === key ? 'bg-(--color-accent)! text-white' : ''}`}
             >
-              <span className="pb-[2px] text-[22px]">{CREATURE_ICON[key]}</span>
+              <span className="pb-0.5 text-[22px]">{CREATURE_ICON[key]}</span>
               {CREATURE_ATTRIBUTE[key]}
             </button>
           </li>

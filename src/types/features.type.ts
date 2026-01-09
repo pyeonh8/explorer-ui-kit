@@ -1,8 +1,6 @@
 import { TranslatedAmiibo } from './api.types';
 import { Creature } from 'animal-crossing/lib/types/Creature';
 
-export type AmiiboSelectHandler = (character: string) => void;
-
 // 모험
 export interface Expedition {
   timerTime: number;
@@ -19,11 +17,18 @@ export interface ExpeditionInProgressProps extends Expedition {
   onTimerRunningChange: (isRunning: boolean) => void;
 }
 
-// AmiiboCardList & AmiiboCard : 아미보카드
-export interface AmiiboCardListProps {
-  translatedAmiibo: TranslatedAmiibo[];
+// 선택된 주민 핸들러
+export type AmiiboSelectHandler = (character: string) => void;
+
+// 선택된 주민들
+export interface AmiiboSelectionProps {
   selectedAmiibo: string[];
   onSelect: AmiiboSelectHandler;
+}
+
+// AmiiboCardList & AmiiboCard : 아미보카드
+export interface AmiiboCardListProps extends AmiiboSelectionProps {
+  translatedAmiibo: TranslatedAmiibo[];
 }
 
 export interface AmiiboCardProps {

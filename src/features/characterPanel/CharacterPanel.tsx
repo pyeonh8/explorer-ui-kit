@@ -25,7 +25,7 @@ const CharacterPanel = ({
       <div className="absolute inset-0 scale-105 bg-[url('/images/character-bg01.jpg')] bg-cover bg-center opacity-80 blur-[3px]"></div>
 
       {/* 캐릭터 */}
-      <div className="relative z-10 flex h-[100%] items-end justify-center gap-4 px-5 pb-6">
+      <div className="relative z-10 flex h-full items-end justify-center gap-4 px-5 pb-6">
         {selectedAmiibo?.map((v, index) => {
           const target = villagerMap.get(v);
           if (!target?.image_url) return null;
