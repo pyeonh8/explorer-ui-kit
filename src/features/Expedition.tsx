@@ -108,11 +108,11 @@ const Expedition = ({
       ) : (
         <div className="invisible"></div>
       )}
-      <div className="max-w-[580px] overflow-hidden rounded-2xl border-(--color-primary) bg-white">
+      <div className="max-w-[600px] overflow-hidden rounded-2xl border-(--color-primary) bg-white">
         {/* 헤더 로고 */}
         <ExpeditionHeader />
 
-        <main className="px-7 pt-3 pb-6">
+        <main className="sm: px-7 pt-3 pb-3">
           {/* 캐릭터 화면 */}
           <CharacterPanel
             selectedAmiibo={selectedAmiibo}

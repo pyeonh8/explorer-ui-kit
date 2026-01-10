@@ -50,7 +50,7 @@ const AmiiboCardList = ({
         {/* 이름순 정렬 */}
         <button
           onClick={() => requestSort('koName')}
-          className="flex cursor-pointer items-center gap-2 pl-1 text-[15px] font-bold"
+          className="flex cursor-pointer items-center gap-1 pl-1 text-[15px] font-bold"
         >
           <span className="text-[20px]">
             {sortConfig.direction === 'asc' ? (
@@ -64,7 +64,6 @@ const AmiiboCardList = ({
 
         {/* 성격순 필터 */}
         <div ref={filterRef} className="group relative mr-1 w-max">
-          {/* px-1.5 py-1 items-center */}
           <button
             onClick={() => setIsFilterOpen((prev) => !prev)}
             className="flex w-21 translate-x-px cursor-pointer items-center justify-between rounded-sm bg-(--color-secondary) px-1.5 py-1 text-[14px] font-bold"
@@ -97,8 +96,8 @@ const AmiiboCardList = ({
       </div>
 
       {/* 카드 */}
-      <div className="custom-scroll max-h-[580px] overflow-hidden overflow-y-scroll">
-        <div className="grid grid-cols-4 gap-3">
+      <div className="custom-scroll max-h-[calc(100vh-620px)] min-h-[250px] overflow-hidden overflow-y-scroll p-1">
+        <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
           {slicedData?.map((amiibo) => {
             const isSelected = selectedIds.includes(amiibo.character);
 
