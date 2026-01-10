@@ -37,3 +37,6 @@ export interface ItemGridProps {
   children: React.ReactNode;
   columns?: number;
 }
+
+// npc 말풍선 UI
+export type InfoBubbleProps = ButtonProps;

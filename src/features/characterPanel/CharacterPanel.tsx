@@ -25,7 +25,7 @@ const CharacterPanel = ({
       <div className="absolute inset-0 scale-105 bg-[url('/images/character-bg01.jpg')] bg-cover bg-center opacity-80 blur-[3px]"></div>
 
       {/* 캐릭터 */}
-      <div className="relative z-10 flex h-full items-end justify-center gap-4 px-5 pb-6">
+      <div className="relative z-10 flex h-full items-end justify-center gap-4 px-5">
         {selectedAmiibo?.map((v, index) => {
           const target = villagerMap.get(v);
           if (!target?.image_url) return null;
@@ -36,7 +36,7 @@ const CharacterPanel = ({
           return (
             <div
               key={target?.id}
-              className="relative flex items-end"
+              className="relative bottom-3 flex items-end sm:bottom-7"
               style={{
                 height: `${height}px`,
                 width: 'auto',
@@ -58,7 +58,7 @@ const CharacterPanel = ({
                 className={`relative object-contain transition-opacity duration-300 ${
                   isLoaded ? 'opacity-100' : 'opacity-0'
                 }`}
-                style={{ height: `auto`, width: `auto`, maxHeight: '100%' }}
+                style={{ height: `auto`, width: `auto`, maxHeight: '90%' }}
                 onLoad={() => {
                   setLoadedImages((prev) => new Set(prev).add(target.id));
                 }}

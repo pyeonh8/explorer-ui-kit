@@ -112,7 +112,7 @@ const Expedition = ({
         {/* 헤더 로고 */}
         <ExpeditionHeader />
 
-        <main className="sm: px-7 pt-3 pb-3">
+        <main className="px-4 pt-3 pb-3 sm:px-7">
           {/* 캐릭터 화면 */}
           <CharacterPanel
             selectedAmiibo={selectedAmiibo}
