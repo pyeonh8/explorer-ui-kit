@@ -76,9 +76,11 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
   return (
     <Modal
       openButton={(open) => (
-        <IconButton onClick={open}>
-          <FaBook className="text-[20px]" />
-          <span className="text-[12px] font-bold whitespace-nowrap">도감</span>
+        <IconButton onClick={open} className="gap-1.5 pl-2">
+          <FaBook className="text-[18px] sm:text-[20px]" />
+          <span className="hidden text-[12px] font-bold whitespace-nowrap sm:block">
+            도감
+          </span>
         </IconButton>
       )}
     >
