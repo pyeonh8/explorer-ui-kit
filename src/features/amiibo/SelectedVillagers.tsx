@@ -22,7 +22,7 @@ const SelectedVillagers = ({
               <button
                 key={target.filename}
                 onClick={() => {
-                  onSelect(target.name);
+                  onSelect(target.translations.kRko);
                 }}
                 className="group relative flex cursor-pointer flex-col items-center rounded-2xl bg-(--color-secondary) p-1"
               >

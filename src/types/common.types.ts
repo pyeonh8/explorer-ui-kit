@@ -39,4 +39,9 @@ export interface ItemGridProps {
 }
 
 // npc 말풍선 UI
-export type InfoBubbleProps = ButtonProps;
+export type NPCType = 'isabelle' | 'resetti';
+
+export interface InfoBubbleProps extends ButtonProps {
+  npc?: NPCType;
+  imageSize?: number;
+}
