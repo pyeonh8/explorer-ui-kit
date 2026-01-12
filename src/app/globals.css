@@ -10,7 +10,8 @@
 
   /* 주요 색상 */
   --color-primary: rgb(146, 218, 205);
-  --color-secondary: rgb(194, 230, 230);
+  --color-secondary: rgb(220, 245, 235);
+  --color-accent: rgb(7, 183, 179);
 
   /* 전경/컨테이너 색상 */
   --color-foreground: rgb(255, 249, 229);
@@ -19,7 +20,7 @@
 
   /* 폰트 색상 */
   --color-font: rgb(131, 113, 86);
-  --color-font-secondary: rgb(131, 113, 86);
+  --color-font-secondary: rgb(180, 167, 149);
   --color-font-accent: rgb(254, 211, 3);
 }
 
@@ -28,5 +29,39 @@
     background-color: rgb(var(--background));
     color: var(--color-font);
     font-family: var(--font-mainFontR), sans-serif;
+  }
+}
+
+@layer components {
+  .custom-scroll {
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) transparent;
+  }
+
+  /* Chrome, Safari, Edge */
+  .custom-scroll::-webkit-scrollbar {
+    width: 10px; /* 세로 스크롤 너비 */
+  }
+
+  .custom-scroll::-webkit-scrollbar-track {
+    background: transparent; /* 스크롤바 뒷 배경 */
+    border-radius: 999px;
+  }
+
+  .custom-scroll::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 999px;
+    border: 3px solid #fff9e3;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
   }
 }
