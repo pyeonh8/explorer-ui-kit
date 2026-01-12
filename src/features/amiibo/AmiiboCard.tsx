@@ -25,7 +25,7 @@ const AmiiboCard = ({ amiibo, isSelected, onSelect }: AmiiboCardProps) => {
           src={amiibo.image}
           alt={amiibo.character}
           fill={true}
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+          sizes="(max-width: 768px) 33vw, 25vw"
           className="object-contain"
         />
       </div>
