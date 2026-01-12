@@ -15,7 +15,7 @@ const CharacterPanel = ({
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
 
   const villagerMap = useMemo(
-    () => new Map(villagers.map((v) => [v.name, v])),
+    () => new Map(villagers.map((v) => [v.koName, v])),
     [villagers]
   );
 

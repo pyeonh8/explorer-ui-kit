@@ -7,7 +7,7 @@ const AmiiboCard = ({ amiibo, isSelected, onSelect }: AmiiboCardProps) => {
   return (
     <button
       onClick={() => {
-        onSelect(amiibo.character);
+        onSelect(amiibo.koName);
       }}
       className={`cursor-pointer transition-transform ${isSelected ? 'hover:scale-100' : 'hover:scale-105'}`}
     >

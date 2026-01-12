@@ -47,7 +47,6 @@ const Expedition = ({
   }, []);
 
   return (
-    // p-3
     <div className="grid grid-cols-[1fr_minmax(0,580px)_1fr] gap-4">
       {/* 캐릭터 선택 모달 */}
       <Modal

@@ -46,6 +46,7 @@ const AmiiboCardList = ({
 
   return (
     <>
+      {/* 필터 정렬 */}
       <div className="flex justify-between gap-2 pt-5 pb-1.5">
         {/* 이름순 정렬 */}
         <button
@@ -95,11 +96,11 @@ const AmiiboCardList = ({
         </div>
       </div>
 
-      {/* 카드 */}
+      {/* 카드 목록 */}
       <div className="custom-scroll max-h-[calc(100vh-620px)] min-h-[250px] overflow-hidden overflow-y-scroll p-1">
         <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
           {slicedData?.map((amiibo) => {
-            const isSelected = selectedIds.includes(amiibo.character);
+            const isSelected = selectedIds.includes(amiibo.koName);
 
             return (
               <AmiiboCard

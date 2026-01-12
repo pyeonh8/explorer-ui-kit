@@ -4,7 +4,7 @@ import { AmiiboSelectionProps } from '@/types/features.type';
 import { MdCancel } from 'react-icons/md';
 import InfoBubble from '@/shared/ui/InfoBubble';
 
-const villagerMap = new Map(villagers.map((v) => [v.name, v]));
+const villagerMap = new Map(villagers.map((v) => [v.translations.kRko, v]));
 
 const SelectedVillagers = ({
   selectedAmiibo,
