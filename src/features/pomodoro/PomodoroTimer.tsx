@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ExpeditionInProgressProps } from '@/types/features.type';
+import { PomodoroTimerProps } from '@/types/features.type';
 import useTimer from '@/shared/hooks/useTimer';
 import UseReward from './UseReward';
 import formatTime from '@/shared/utils/formatTime';
@@ -12,8 +12,8 @@ import { FaRegCirclePlay } from 'react-icons/fa6';
 import { LuAlarmClockCheck } from 'react-icons/lu';
 
 const POMODORO_TIMES = {
-  WORK: 25 * 60,
-  REST: 5 * 60,
+  WORK: 0.2 * 60,
+  REST: 0.2 * 60,
 };
 
 const PomodoroTimer = ({
@@ -22,10 +22,14 @@ const PomodoroTimer = ({
   onStart,
   collectibleItems,
   onTimerRunningChange,
-}: ExpeditionInProgressProps) => {
+  isTimeOut,
+  setIsTimeOut,
+}: PomodoroTimerProps) => {
   const [mode, setMode] = useState<'WORK' | 'REST'>('WORK');
   const [currentCycles, setCurrentCycle] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
+
+  // 모험이 끝났을 때에 안내 변경!!!!!!!!!
 
   // 랜덤 보상 훅
   const { currentReward, generateReward, setCurrentReward } =
@@ -67,13 +71,16 @@ const PomodoroTimer = ({
     }
   }, [isStarted, reset, setCurrentReward]);
 
+  // 타이머 실행 유무
   useEffect(() => {
     onTimerRunningChange(isRunning);
   }, [onTimerRunningChange, isRunning]);
 
-  // 모험으로 돌아가기 누르면 리셋되고...
-
-  // console.log(timerCount);
+  // 타이머가 0일 때 true
+  useEffect(() => {
+    if (timerCount !== 0 && !isTimeOut) return;
+    setIsTimeOut(true);
+  }, [setIsTimeOut, timerCount, isTimeOut]);
 
   return (
     <article>
@@ -114,16 +121,20 @@ const PomodoroTimer = ({
         </time>
         {/* <p>{isRunning ? '실행 중' : '정지됨'}</p> */}
         <div className="h-6 text-[20px] opacity-50 sm:text-2xl">
-          {isRunning ? (
-            <button onClick={pause} className="cursor-pointer">
-              {/* 멈춤 */}
-              <FaRegStopCircle />
-            </button>
-          ) : (
-            <button onClick={start} className="cursor-pointer">
-              {/* 시작 */}
-              <FaRegCirclePlay />
-            </button>
+          {!isTimeOut && (
+            <>
+              {isRunning ? (
+                <button onClick={pause} className="cursor-pointer">
+                  {/* 멈춤 */}
+                  <FaRegStopCircle />
+                </button>
+              ) : (
+                <button onClick={start} className="cursor-pointer">
+                  {/* 시작 */}
+                  <FaRegCirclePlay />
+                </button>
+              )}
+            </>
           )}
         </div>
         <LuAlarmClockCheck className="absolute top-[43%] left-1/2 -translate-1/2 text-7xl text-(--color-primary) opacity-40 sm:text-8xl" />

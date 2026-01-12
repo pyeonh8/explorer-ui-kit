@@ -27,7 +27,7 @@ const ExpeditionSetup = ({
       <Modal
         openButton={(open) => (
           <IconButton
-            className="m-auto min-h-[50px] w-[200px] max-w-full text-[20px] font-bold sm:min-h-[60px] sm:text-[23px]"
+            className="m-auto min-h-[55px] w-[200px] max-w-full text-[20px] font-bold sm:min-h-[60px] sm:text-[23px]"
             onClick={open}
           >
             <RiLeafFill /> 모험 Start !

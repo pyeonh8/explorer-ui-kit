@@ -48,17 +48,3 @@ export type NookipediaVillagersResponse = NookipediaVillagersProps[];
 
 // 캐릭터 주민 번역
 export type TranslateVillager = NookipediaVillagersProps & EntityExtraInfo;
-
-// 수집 아이템 API
-// export interface NookipediaItemProps {
-//   name: string;
-//   number?: number;
-//   image_url: string;
-//   render_url?: string;
-// }
-
-// 수집 아이템 Response
-// export type NookipediaItemResponse = NookipediaItemProps[];
-
-// 수집 아이템 번역
-// export type TranslateItem = NookipediaItemProps & EntityExtraInfo;

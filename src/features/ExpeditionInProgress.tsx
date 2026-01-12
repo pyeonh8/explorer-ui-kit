@@ -45,6 +45,9 @@ const ExpeditionInProgress = ({
     },
   ]);
 
+  // 남은 시간이 0일 때 true
+  const [isTimeOut, setIsTimeOut] = useState(false);
+
   const scrollRef = useRef<HTMLUListElement>(null);
 
   // 컴포넌트가 처음 로드될 때 '휴식 중'이 찍히는 걸 막기 위한 장치
@@ -140,6 +143,8 @@ const ExpeditionInProgress = ({
         onStart={onStart}
         collectibleItems={collectibleItems}
         onTimerRunningChange={onTimerRunningChange}
+        isTimeOut={isTimeOut}
+        setIsTimeOut={setIsTimeOut}
       />
       {/* 임시... 타이머 진행 중일 때 안내모달 넣기 */}
       <div className="rounded-2xl bg-(--color-foreground)">
