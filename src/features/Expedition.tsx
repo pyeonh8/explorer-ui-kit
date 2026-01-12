@@ -11,11 +11,10 @@ import IconButton from '@/shared/ui/IconButton';
 import Modal from '@/shared/ui/modal/Modal';
 import ModalButton from '@/shared/ui/modal/ModalButton';
 import CollectionsModal from './CollectionsModal';
-import { TbMusic } from 'react-icons/tb';
 import { IoIosWarning } from 'react-icons/io';
 import { FaHourglassStart } from 'react-icons/fa';
-
-// import { TbMusicOff } from 'react-icons/tb';
+import { MdMusicNote } from 'react-icons/md';
+// import { MdMusicOff } from "react-icons/md";
 
 // 탐험 페이지
 const Expedition = ({
@@ -31,6 +30,7 @@ const Expedition = ({
   const [modalOpen, setModalOpen] = useState(false);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
+  // 뽀모도로 타이머 횟수
   const timerCounts = [1, 2, 3, 4];
 
   // 모험 캐릭터 선택
@@ -47,7 +47,7 @@ const Expedition = ({
   }, []);
 
   return (
-    <div className="grid grid-cols-[1fr_minmax(0,580px)_1fr] gap-4">
+    <div className="grid grid-cols-[1fr_minmax(0,580px)_1fr] gap-2.5 sm:gap-4">
       {/* 캐릭터 선택 모달 */}
       <Modal
         isOpen={modalOpen}
@@ -73,41 +73,42 @@ const Expedition = ({
       </Modal>
 
       {/* 모험 준비 상단 메뉴 */}
-      {!isStarted ? (
-        <nav className="flex flex-col gap-1.5">
-          <IconButton>
-            <TbMusic className="text-[20px]" />
-            <span className="text-[12px] font-bold whitespace-nowrap">
-              음악
-            </span>
-          </IconButton>
+      <nav className="flex flex-col gap-1.5 pl-2">
+        <IconButton>
+          <MdMusicNote className="text-[21px] sm:text-[25px]" />
+          <span className="hidden text-[12px] font-bold whitespace-nowrap sm:block">
+            음악
+          </span>
+        </IconButton>
 
-          {/* 내 도감 */}
-          <CollectionsModal isStarted={isStarted} />
+        {/* 내 도감 */}
+        <CollectionsModal isStarted={isStarted} />
 
-          {/* 타이머 횟수 버튼 */}
-          <div className="flex flex-col gap-1.5 pt-4">
-            {timerCounts.map((num) => {
-              const selectStyle =
-                'border-b-[4px] border-t-[4px] bg-(--color-accent) text-white';
-              return (
-                <IconButton
-                  key={num}
-                  className={`${num === timerTime && selectStyle}`}
-                  onClick={() => setTimerTime(num)}
-                >
-                  <FaHourglassStart className="text-[20px]" />
-                  <span className="text-[12px] font-bold whitespace-nowrap">
-                    x {num}
-                  </span>
-                </IconButton>
-              );
-            })}
-          </div>
-        </nav>
-      ) : (
-        <div className="invisible"></div>
-      )}
+        {/* 타이머 횟수 버튼 */}
+        {!isStarted && (
+          <>
+            <div className="flex flex-col gap-2 pt-4">
+              {timerCounts.map((num) => {
+                const selectStyle =
+                  'border-b-[4px] border-t-[4px] bg-(--color-accent) text-white';
+                return (
+                  <IconButton
+                    key={num}
+                    className={`${num === timerTime && selectStyle} snm w-full justify-between gap-0.5 sm:justify-center sm:gap-1.5`}
+                    onClick={() => setTimerTime(num)}
+                  >
+                    <FaHourglassStart className="text-[17px] sm:text-[20px]" />
+                    <span className="text-[12px] font-bold whitespace-nowrap">
+                      x {num}
+                    </span>
+                  </IconButton>
+                );
+              })}
+            </div>
+          </>
+        )}
+      </nav>
+
       <div className="max-w-[600px] overflow-hidden rounded-2xl border-(--color-primary) bg-white">
         {/* 헤더 로고 */}
         <ExpeditionHeader />
