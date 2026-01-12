@@ -41,9 +41,7 @@ const SelectedVillagers = ({
           })}
         </div>
       ) : (
-        <>
-          <InfoBubble>함께 모험을 떠날 친구들을 선택해주세요!</InfoBubble>
-        </>
+        <InfoBubble>함께 모험을 떠날 친구들을 선택해주세요!</InfoBubble>
       )}
     </div>
   );

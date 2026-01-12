@@ -15,6 +15,7 @@ export interface ExpeditionInProgressProps extends Expedition {
   isStarted: boolean;
   collectibleItems: Creature[];
   onTimerRunningChange: (isRunning: boolean) => void;
+  isTimerRunning?: boolean;
 }
 
 // 선택된 주민 핸들러

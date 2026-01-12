@@ -47,7 +47,8 @@ const Expedition = ({
   }, []);
 
   return (
-    <div className="grid grid-cols-[1fr_minmax(0,580px)_1fr] gap-4 p-3">
+    // p-3
+    <div className="grid grid-cols-[1fr_minmax(0,580px)_1fr] gap-4">
       {/* 캐릭터 선택 모달 */}
       <Modal
         isOpen={modalOpen}
@@ -136,7 +137,7 @@ const Expedition = ({
               onStart={setIsStarted}
               isStarted={isStarted}
               collectibleItems={creatures}
-              // isTimerRunning={isTimerRunning}
+              isTimerRunning={isTimerRunning}
               onTimerRunningChange={setIsTimerRunning}
             />
           )}
