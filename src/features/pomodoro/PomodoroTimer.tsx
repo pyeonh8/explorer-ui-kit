@@ -12,8 +12,8 @@ import { FaRegCirclePlay } from 'react-icons/fa6';
 import { LuAlarmClockCheck } from 'react-icons/lu';
 
 const POMODORO_TIMES = {
-  WORK: 0.1 * 60,
-  REST: 0.1 * 60,
+  WORK: 25 * 60,
+  REST: 5 * 60,
 };
 
 const PomodoroTimer = ({

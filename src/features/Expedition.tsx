@@ -138,6 +138,7 @@ const Expedition = ({
               collectibleItems={creatures}
               isTimerRunning={isTimerRunning}
               onTimerRunningChange={setIsTimerRunning}
+              selectedAmiibo={selectedAmiibo}
             />
           )}
         </main>
