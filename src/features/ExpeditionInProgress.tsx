@@ -18,13 +18,13 @@ const getRandomItem = <T,>(items: T[]): T => {
   return items[randomIndex];
 };
 
-const now = new Date();
-const timeString = now.toLocaleTimeString('ko-KR', {
-  hour12: true,
-  hour: '2-digit',
-  minute: '2-digit',
-  // second: '2-digit',
-});
+const timeString = (now: Date) =>
+  now.toLocaleTimeString('ko-KR', {
+    hour12: true,
+    hour: '2-digit',
+    minute: '2-digit',
+    // second: '2-digit',
+  });
 
 // 탐험 진행 화면
 const ExpeditionInProgress = ({
@@ -40,7 +40,7 @@ const ExpeditionInProgress = ({
     {
       type: 'system',
       text: '오늘의 모험을 시작해볼까요?',
-      time: timeString,
+      time: timeString(new Date()),
       borderStyle: 'bottom',
     },
   ]);
@@ -79,7 +79,7 @@ const ExpeditionInProgress = ({
             {
               type: 'system',
               text: '모험을 재시작합니다.',
-              time: timeString,
+              time: timeString(new Date()),
               borderStyle: 'bottom',
             },
           ]
@@ -87,7 +87,7 @@ const ExpeditionInProgress = ({
             {
               type: 'system',
               text: '모험을 중지합니다.',
-              time: timeString,
+              time: timeString(new Date()),
               borderStyle: 'top',
             },
             {
@@ -115,12 +115,12 @@ const ExpeditionInProgress = ({
             type: 'animal',
             name: nextAmiibo,
             text: nextMessage,
-            time: timeString,
+            time: timeString(new Date()),
           },
         ]);
       };
 
-      const intervalId = setInterval(updateLog, 50000);
+      const intervalId = setInterval(updateLog, 1000);
       return () => clearInterval(intervalId);
     }
   }, [isTimerRunning, selectedAmiibo]);
