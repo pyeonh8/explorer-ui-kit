@@ -26,7 +26,7 @@ const AmiiboCard = ({ amiibo, isSelected, onSelect }: AmiiboCardProps) => {
           alt={amiibo.character}
           fill={true}
           sizes="(max-width: 768px) 33vw, 25vw"
-          className="object-contain"
+          className="object-cover object-left"
         />
       </div>
       <div
