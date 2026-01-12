@@ -72,10 +72,11 @@ const Expedition = ({
         </div>
       </Modal>
 
-      {/* 모험 준비 상단 메뉴 */}
+      {/* 상단 메뉴 */}
       <nav className="flex flex-col gap-1.5 pl-2">
+        {/* 음악 */}
         <IconButton>
-          <MdMusicNote className="text-[21px] sm:text-[25px]" />
+          <MdMusicNote className="text-[22px] sm:text-[22px]" />
           <span className="hidden text-[12px] font-bold whitespace-nowrap sm:block">
             음악
           </span>
