@@ -14,8 +14,8 @@ import { LuAlarmClockCheck } from 'react-icons/lu';
 import { FaGift } from 'react-icons/fa6';
 
 const POMODORO_TIMES = {
-  WORK: 0.2 * 60,
-  REST: 0.1 * 60,
+  WORK: 25 * 60,
+  REST: 5 * 60,
 };
 
 const PomodoroTimer = ({
@@ -49,9 +49,25 @@ const PomodoroTimer = ({
         } else {
           // 타이머 종료일 떄
           setTimeout(() => {
-            setModalOpen(true);
+            // 타이머 끝남 true
             setIsTimeOut(true);
+
+            // 보상 모달 오픈
+            setModalOpen(true);
+
+            // 보상 아이템 랜덤 뽑기
             generateReward(3 * targetCycles);
+
+            // 타이머 종료 안내 로그
+            setLogs((prev) => [
+              ...prev,
+              {
+                type: 'system',
+                text: '모험이 완료됐습니다.',
+                time: formatDate(),
+                borderStyle: 'bottom',
+              },
+            ]);
           }, 0);
         }
       }
@@ -83,11 +99,10 @@ const PomodoroTimer = ({
         ];
     if (isRunning) {
       pause();
-      setLogs((prev) => [...prev, ...msg]);
     } else {
       start();
-      setLogs((prev) => [...prev, ...msg]);
     }
+    setLogs((prev) => [...prev, ...msg]);
   };
 
   // 타이머 모드가 바뀌면 리셋 후 재시작
@@ -162,7 +177,7 @@ const PomodoroTimer = ({
 
       {/* 타이머 */}
       <section
-        className={`relative flex flex-col items-center pt-6 pb-2 sm:pt-8 sm:pb-3`}
+        className={`relative flex flex-col items-center pb-2 sm:pb-3 ${isTimeOut ? 'pt-2 sm:pt-3' : 'pt-4 sm:pt-6'}`}
       >
         <time
           className="relative z-10 text-6xl font-bold sm:text-7xl"
@@ -173,7 +188,6 @@ const PomodoroTimer = ({
         {!isTimeOut && (
           <div className="h-6 text-[20px] opacity-50 sm:text-2xl">
             <button onClick={handleToggleTimer} className="cursor-pointer">
-              {/* 멈춤 */}
               {isRunning ? <FaRegStopCircle /> : <FaRegCirclePlay />}
             </button>
           </div>
@@ -183,7 +197,7 @@ const PomodoroTimer = ({
 
       {/* 보상 */}
       <section className="pb-4 text-center">
-        <div className="mb-2 flex items-center justify-center gap-2 text-[14px] sm:text-[16px]">
+        <div className="mb-2.5 flex items-center justify-center gap-2 text-[14px] sm:text-[16px]">
           <FaGift />
           {!isTimeOut ? (
             <h3 className="translate-y-px">
@@ -234,7 +248,7 @@ const PomodoroTimer = ({
               if (isStarted) setCurrentReward(null);
             }}
           >
-            다시 준비하기
+            준비하러 돌아가기
           </ModalButton>
         }
       >

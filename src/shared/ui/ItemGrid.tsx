@@ -45,7 +45,7 @@ export const RewardCard = ({
         priority
         className="m-auto"
       />
-      <span className="text-[13px] sm:text-[11px]">
+      <span className="text-[11px] sm:text-[13px]">
         {item?.translations.kRko}
       </span>
     </li>
