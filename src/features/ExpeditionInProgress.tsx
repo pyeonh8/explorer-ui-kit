@@ -1,30 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { ExpeditionInProgressProps } from '@/types/features.type';
-import PomodoroTimer from './pomodoro/PomodoroTimer';
-import Button from '@/shared/ui/Button';
+import { ExpeditionInProgressProps, LogEntry } from '@/types/features.type';
 import { RANDOM_LOGS } from '@/constants/RANDOM_LOGS';
+import Button from '@/shared/ui/Button';
 import InfoBubble from '@/shared/ui/InfoBubble';
-
-type LogEntry = {
-  type?: 'system' | 'animal' | 'npc';
-  name?: string;
-  text: string;
-  time?: string;
-  borderStyle?: 'top' | 'bottom';
-};
-
-const getRandomItem = <T,>(items: T[]): T => {
-  const randomIndex = Math.floor(Math.random() * items.length);
-  return items[randomIndex];
-};
-
-const timeString = (now: Date) =>
-  now.toLocaleTimeString('ko-KR', {
-    hour12: true,
-    hour: '2-digit',
-    minute: '2-digit',
-    // second: '2-digit',
-  });
+import PomodoroTimer from './pomodoro/PomodoroTimer';
+import { getRandomItem } from '@/shared/utils/random';
+import formatDate from '@/shared/utils/formatDate';
 
 // 탐험 진행 화면
 const ExpeditionInProgress = ({
@@ -40,7 +21,7 @@ const ExpeditionInProgress = ({
     {
       type: 'system',
       text: '오늘의 모험을 시작해볼까요?',
-      time: timeString(new Date()),
+      time: formatDate(),
       borderStyle: 'bottom',
     },
   ]);
@@ -50,61 +31,6 @@ const ExpeditionInProgress = ({
 
   const scrollRef = useRef<HTMLUListElement>(null);
 
-  // 컴포넌트가 처음 로드될 때 '휴식 중'이 찍히는 걸 막기 위해 값을 메모리에 저장
-  const isMounting = useRef(true);
-  // 타이머가 처음 실행 될 때 '다시 모험'이 찍히는 걸 막기 위해 값을 메모리에 저장
-  const isInitialStart = useRef(true);
-
-  // 타이머 시작/멈춤 로그
-  useEffect(() => {
-    // 1. 모험 시작 전 기록X 또는 타이머 0일 때
-    if (!isStarted || isTimeOut) {
-      isMounting.current = true;
-      isInitialStart.current = true;
-      return;
-    }
-
-    // 2. 컴포넌트 마운트 시점 출력 무시
-    if (isMounting.current) {
-      isMounting.current = false;
-      return;
-    }
-
-    // 3. 타이머가 재생 되었을 때, '맨 처음 시작'인지 '일시정지 후 재시작'인지 판별
-    if (isTimerRunning && isInitialStart.current) {
-      isInitialStart.current = false;
-      return;
-    }
-
-    const timeoutId = setTimeout(() => {
-      const msg: LogEntry[] = isTimerRunning
-        ? [
-            {
-              type: 'system',
-              text: '모험을 재시작합니다.',
-              time: timeString(new Date()),
-              borderStyle: 'bottom',
-            },
-          ]
-        : [
-            {
-              type: 'system',
-              text: '모험을 중지합니다.',
-              time: timeString(new Date()),
-              borderStyle: 'top',
-            },
-            {
-              type: 'npc',
-              name: 'resetti',
-              text: '휴식은 모험 끝낸 뒤에 하라고 말 안 했드나!',
-            },
-          ];
-      setLogs((prevLogs) => [...prevLogs, ...msg]);
-    }, 0);
-
-    return () => clearTimeout(timeoutId);
-  }, [isTimerRunning, isStarted, isTimeOut]);
-
   // 타이머 완료 로그
   useEffect(() => {
     if (isTimeOut) {
@@ -112,7 +38,7 @@ const ExpeditionInProgress = ({
         const timeOutMsg: LogEntry = {
           type: 'system',
           text: '모험이 완료됐습니다.',
-          time: timeString(new Date()),
+          time: formatDate(),
           borderStyle: 'bottom',
         };
         setLogs((prevLogs) => [...prevLogs, timeOutMsg]);
@@ -134,7 +60,7 @@ const ExpeditionInProgress = ({
             type: 'animal',
             name: nextAmiibo,
             text: nextMessage,
-            time: timeString(new Date()),
+            time: formatDate(),
           },
         ]);
       };
@@ -161,6 +87,7 @@ const ExpeditionInProgress = ({
         onTimerRunningChange={onTimerRunningChange}
         isTimeOut={isTimeOut}
         setIsTimeOut={setIsTimeOut}
+        setLogs={setLogs}
       />
       {/* 임시... 타이머 진행 중일 때 안내모달 넣기 */}
       <div className="rounded-2xl bg-(--color-foreground)">

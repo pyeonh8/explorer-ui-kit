@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { TranslatedAmiibo } from './api.types';
 import { Creature } from 'animal-crossing/lib/types/Creature';
 
@@ -26,9 +27,20 @@ export interface ExpeditionInProgressProps
 }
 
 // 뽀모도로 타이머
+export type LogType = 'system' | 'animal' | 'npc';
+
+export interface LogEntry {
+  type?: LogType;
+  name?: string;
+  text: string;
+  time?: string;
+  borderStyle?: 'top' | 'bottom';
+}
+
 export interface PomodoroTimerProps extends Expedition, ExpeditionController {
   isTimeOut: boolean;
   setIsTimeOut: (timeOut: boolean) => void;
+  setLogs: Dispatch<SetStateAction<LogEntry[]>>;
 }
 
 // 선택된 주민 핸들러

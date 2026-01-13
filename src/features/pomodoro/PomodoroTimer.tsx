@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { PomodoroTimerProps } from '@/types/features.type';
+import { LogEntry, PomodoroTimerProps } from '@/types/features.type';
 import useTimer from '@/shared/hooks/useTimer';
 import UseReward from './UseReward';
 import formatTime from '@/shared/utils/formatTime';
 import Modal from '@/shared/ui/modal/Modal';
 import ModalButton from '@/shared/ui/modal/ModalButton';
 import InfoBubble from '@/shared/ui/InfoBubble';
+import formatDate from '@/shared/utils/formatDate';
 import { ItemGrid, RewardCard } from '@/shared/ui/ItemGrid';
 import { FaRegStopCircle } from 'react-icons/fa';
 import { FaRegCirclePlay } from 'react-icons/fa6';
@@ -25,6 +26,7 @@ const PomodoroTimer = ({
   onTimerRunningChange,
   isTimeOut,
   setIsTimeOut,
+  setLogs,
 }: PomodoroTimerProps) => {
   const [mode, setMode] = useState<'WORK' | 'REST'>('WORK');
   const [currentCycles, setCurrentCycle] = useState(1);
@@ -40,19 +42,12 @@ const PomodoroTimer = ({
     onComplete: () => {
       if (mode === 'WORK') {
         setMode('REST');
-        // reset();
-        // start();
       } else {
         if (currentCycles < targetCycles) {
           setCurrentCycle((prev) => prev + 1);
           setMode('WORK');
-          // reset();
-          // start();
         } else {
-          // 타이머 종료
-          // setModalOpen(true);
-          // setIsTimeOut(true);
-          // generateReward(3 * targetCycles);
+          // 타이머 종료일 떄
           setTimeout(() => {
             setModalOpen(true);
             setIsTimeOut(true);
@@ -63,6 +58,38 @@ const PomodoroTimer = ({
     },
   });
 
+  const handleToggleTimer = () => {
+    const msg: LogEntry[] = isRunning
+      ? [
+          {
+            type: 'system',
+            text: '모험을 중지합니다.',
+            time: formatDate(),
+            borderStyle: 'top',
+          },
+          {
+            type: 'npc',
+            name: 'resetti',
+            text: '휴식은 모험 끝낸 뒤에 하라고 말 안 했드나!',
+          },
+        ]
+      : [
+          {
+            type: 'system',
+            text: '모험을 재시작합니다.',
+            time: formatDate(),
+            borderStyle: 'bottom',
+          },
+        ];
+    if (isRunning) {
+      pause();
+      setLogs((prev) => [...prev, ...msg]);
+    } else {
+      start();
+      setLogs((prev) => [...prev, ...msg]);
+    }
+  };
+
   // 타이머 모드가 바뀌면 리셋 후 재시작
   useEffect(() => {
     if (isStarted && !isTimeOut) {
@@ -70,6 +97,11 @@ const PomodoroTimer = ({
       start();
     }
   }, [mode, currentCycles, isStarted, isTimeOut, reset, start]);
+
+  // 타이머 실행 유무
+  useEffect(() => {
+    onTimerRunningChange(isRunning);
+  }, [onTimerRunningChange, isRunning]);
 
   // isStarted true
   useEffect(() => {
@@ -83,11 +115,6 @@ const PomodoroTimer = ({
       if (isStarted) setCurrentReward(null);
     }
   }, [isStarted, reset, setCurrentReward]);
-
-  // 타이머 실행 유무
-  useEffect(() => {
-    onTimerRunningChange(isRunning);
-  }, [onTimerRunningChange, isRunning]);
 
   return (
     <article>
@@ -134,7 +161,6 @@ const PomodoroTimer = ({
       </aside>
 
       {/* 타이머 */}
-      {/* isTimeOut */}
       <section
         className={`relative flex flex-col items-center pt-6 pb-2 sm:pt-8 sm:pb-3`}
       >
@@ -146,17 +172,10 @@ const PomodoroTimer = ({
         </time>
         {!isTimeOut && (
           <div className="h-6 text-[20px] opacity-50 sm:text-2xl">
-            {isRunning ? (
-              <button onClick={pause} className="cursor-pointer">
-                {/* 멈춤 */}
-                <FaRegStopCircle />
-              </button>
-            ) : (
-              <button onClick={start} className="cursor-pointer">
-                {/* 시작 */}
-                <FaRegCirclePlay />
-              </button>
-            )}
+            <button onClick={handleToggleTimer} className="cursor-pointer">
+              {/* 멈춤 */}
+              {isRunning ? <FaRegStopCircle /> : <FaRegCirclePlay />}
+            </button>
           </div>
         )}
         <LuAlarmClockCheck className="absolute top-[43%] left-1/2 -translate-1/2 text-7xl text-(--color-primary) opacity-40 sm:text-8xl" />
