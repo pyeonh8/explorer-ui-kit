@@ -36,6 +36,7 @@ export interface ModalContentProps
 export interface ItemGridProps {
   children: React.ReactNode;
   columns?: number;
+  className?: string;
 }
 
 // npc 말풍선 UI
