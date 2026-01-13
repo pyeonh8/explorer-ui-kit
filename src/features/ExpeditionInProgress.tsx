@@ -50,15 +50,15 @@ const ExpeditionInProgress = ({
 
   const scrollRef = useRef<HTMLUListElement>(null);
 
-  // 컴포넌트가 처음 로드될 때 '휴식 중'이 찍히는 걸 막기 위한 장치
+  // 컴포넌트가 처음 로드될 때 '휴식 중'이 찍히는 걸 막기 위해 값을 메모리에 저장
   const isMounting = useRef(true);
-  // 타이머가 처음 실행 될 때 '다시 모험'이 찍히는 걸 막기 위한 장치
+  // 타이머가 처음 실행 될 때 '다시 모험'이 찍히는 걸 막기 위해 값을 메모리에 저장
   const isInitialStart = useRef(true);
 
-  // 타이머 시작/멈춤 버튼 로그
+  // 타이머 시작/멈춤 로그
   useEffect(() => {
-    // 1. 모험 시작 전 기록X
-    if (!isStarted) {
+    // 1. 모험 시작 전 기록X 또는 타이머 0일 때
+    if (!isStarted || isTimeOut) {
       isMounting.current = true;
       isInitialStart.current = true;
       return;
@@ -70,7 +70,7 @@ const ExpeditionInProgress = ({
       return;
     }
 
-    // 3. 타이머가 true가 되었을 때, '맨 처음 시작'인지 '일시정지 후 재시작'인지 판별
+    // 3. 타이머가 재생 되었을 때, '맨 처음 시작'인지 '일시정지 후 재시작'인지 판별
     if (isTimerRunning && isInitialStart.current) {
       isInitialStart.current = false;
       return;
@@ -103,7 +103,23 @@ const ExpeditionInProgress = ({
     }, 0);
 
     return () => clearTimeout(timeoutId);
-  }, [isTimerRunning, isStarted]);
+  }, [isTimerRunning, isStarted, isTimeOut]);
+
+  // 타이머 완료 로그
+  useEffect(() => {
+    if (isTimeOut) {
+      const timeoutId = setTimeout(() => {
+        const timeOutMsg: LogEntry = {
+          type: 'system',
+          text: '모험이 완료됐습니다.',
+          time: timeString(new Date()),
+          borderStyle: 'bottom',
+        };
+        setLogs((prevLogs) => [...prevLogs, timeOutMsg]);
+        return () => clearTimeout(timeoutId);
+      }, 0);
+    }
+  }, [isTimeOut]);
 
   // 동물 친구들 로그
   useEffect(() => {
@@ -155,7 +171,7 @@ const ExpeditionInProgress = ({
           {logs.map((log, index) => (
             <li
               key={index}
-              className={`border-dashed border-(--color-primary) px-2 text-[14px] leading-tight sm:text-[16px] ${log.type === 'system' ? 'py-3 text-center' : 'py-1'} ${log.borderStyle === 'top' && 'mt-2 border-t-2'} ${log.borderStyle === 'bottom' && 'mb-2 border-b-2'}`}
+              className={`border-dashed border-(--color-primary) px-2 text-[14px] leading-tight sm:text-[15px] ${log.type === 'system' ? 'py-3 text-center' : 'py-1'} ${log.borderStyle === 'top' && 'mt-2 border-t-2'} ${log.borderStyle === 'bottom' && 'mb-2 border-b-2'}`}
             >
               {log.type === 'animal' && (
                 <p>
@@ -191,6 +207,7 @@ const ExpeditionInProgress = ({
         onClick={() => {
           onStart(false);
           onTimerRunningChange(false);
+          setIsTimeOut(false);
         }}
       >
         탐험 준비하러 가기
