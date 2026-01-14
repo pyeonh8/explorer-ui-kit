@@ -3,6 +3,7 @@ import { LogEntry, PomodoroTimerProps } from '@/types/features.type';
 import useTimer from '@/shared/hooks/useTimer';
 import UseReward from './UseReward';
 import formatTime from '@/shared/utils/formatTime';
+import Button from '@/shared/ui/Button';
 import Modal from '@/shared/ui/modal/Modal';
 import ModalButton from '@/shared/ui/modal/ModalButton';
 import InfoBubble from '@/shared/ui/InfoBubble';
@@ -187,9 +188,9 @@ const PomodoroTimer = ({
         </time>
         {!isTimeOut && (
           <div className="h-6 text-[20px] opacity-50 sm:text-2xl">
-            <button onClick={handleToggleTimer} className="cursor-pointer">
+            <Button variant="plain" onClick={handleToggleTimer}>
               {isRunning ? <FaRegStopCircle /> : <FaRegCirclePlay />}
-            </button>
+            </Button>
           </div>
         )}
         <LuAlarmClockCheck className="absolute top-[43%] left-1/2 -translate-1/2 text-7xl text-(--color-primary) opacity-40 sm:text-8xl" />
