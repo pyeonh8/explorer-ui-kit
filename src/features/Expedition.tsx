@@ -11,10 +11,11 @@ import IconButton from '@/shared/ui/IconButton';
 import Modal from '@/shared/ui/modal/Modal';
 import ModalButton from '@/shared/ui/modal/ModalButton';
 import CollectionsModal from './CollectionsModal';
+import useSound from '@/shared/hooks/useSound';
 import { IoIosWarning } from 'react-icons/io';
 import { FaHourglassStart } from 'react-icons/fa';
 import { MdMusicNote } from 'react-icons/md';
-// import { MdMusicOff } from "react-icons/md";
+import { MdMusicOff } from 'react-icons/md';
 
 // 탐험 페이지
 const Expedition = ({
@@ -46,37 +47,27 @@ const Expedition = ({
     });
   }, []);
 
+  // 배경음
+  const { isPlaying, toggle } = useSound({
+    src: '/sounds/BGM.mp3',
+    loop: true,
+  });
+
   return (
     <div className="grid grid-cols-[1fr_minmax(0,580px)_1fr] gap-2.5 sm:gap-4">
-      {/* 캐릭터 선택 모달 */}
-      <Modal
-        isOpen={modalOpen}
-        actionButton={
-          <ModalButton
-            onClick={() => {
-              setModalOpen(false);
-              console.log(modalOpen);
-            }}
-          >
-            닫기
-          </ModalButton>
-        }
-        hideCloseButton
-      >
-        <div className="flex flex-col items-center gap-3">
-          <IoIosWarning className="text-3xl text-orange-700" />
-          <span>
-            최대 캐릭터 <span className="font-black text-orange-700">5명</span>{' '}
-            까지 선택 가능합니다.
-          </span>
-        </div>
-      </Modal>
-
       {/* 상단 메뉴 */}
       <nav className="flex flex-col gap-1.5 pl-2">
         {/* 음악 */}
-        <IconButton>
-          <MdMusicNote className="text-[22px] sm:text-[22px]" />
+        <IconButton
+          onClick={() => {
+            toggle();
+          }}
+        >
+          {isPlaying ? (
+            <MdMusicNote className="text-[22px] sm:text-[22px]" />
+          ) : (
+            <MdMusicOff className="text-[22px] sm:text-[22px]" />
+          )}
           <span className="hidden text-[12px] font-bold whitespace-nowrap sm:block">
             음악
           </span>
@@ -148,6 +139,30 @@ const Expedition = ({
         <footer className="h-4 w-full bg-[url('/images/pattern.jpg')] bg-cover bg-center bg-no-repeat"></footer>
       </div>
       <div className="invisible"></div>
+
+      {/* 캐릭터 선택 모달 */}
+      <Modal
+        isOpen={modalOpen}
+        actionButton={
+          <ModalButton
+            onClick={() => {
+              setModalOpen(false);
+              console.log(modalOpen);
+            }}
+          >
+            닫기
+          </ModalButton>
+        }
+        hideCloseButton
+      >
+        <div className="flex flex-col items-center gap-3">
+          <IoIosWarning className="text-3xl text-orange-700" />
+          <span>
+            최대 캐릭터 <span className="font-black text-orange-700">5명</span>{' '}
+            까지 선택 가능합니다.
+          </span>
+        </div>
+      </Modal>
     </div>
   );
 };
