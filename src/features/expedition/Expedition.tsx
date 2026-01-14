@@ -3,14 +3,14 @@
 import { useCallback, useState } from 'react';
 import { creatures } from 'animal-crossing';
 import { TranslatedAmiibo, TranslateVillager } from '@/types/api.types';
-import CharacterPanel from './characterPanel/CharacterPanel';
+import CharacterPanel from './components/CharacterPanel';
 import ExpeditionHeader from './ExpeditionHeader';
-import ExpeditionSetup from '@/features/ExpeditionSetup';
-import ExpeditionInProgress from './ExpeditionInProgress';
+import ExpeditionSetup from '@/features/expedition/ExpeditionSetup';
+import ExpeditionInProgress from './ExpeditionPlay';
 import IconButton from '@/shared/ui/IconButton';
 import Modal from '@/shared/ui/modal/Modal';
 import ModalButton from '@/shared/ui/modal/ModalButton';
-import CollectionsModal from './CollectionsModal';
+import CollectionsModal from './components/CollectionsModal';
 import useSound from '@/shared/hooks/useSound';
 import { IoIosWarning } from 'react-icons/io';
 import { FaHourglassStart } from 'react-icons/fa';

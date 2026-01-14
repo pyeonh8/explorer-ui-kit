@@ -2,7 +2,7 @@ import amiiboService from '@/shared/api/amiiboService';
 import nookipediaVillagersService from '@/shared/api/nookipediaVillagersService';
 import filterAmiiboCard from '@/shared/utils/filterAmiiboCard';
 import { TranslatedAmiibo } from '@/types/api.types';
-import Expedition from '@/features/Expedition';
+import Expedition from '@/features/expedition/Expedition';
 import dataTransformer from '@/shared/utils/dataTransformer';
 
 export default async function AmiiboPage() {

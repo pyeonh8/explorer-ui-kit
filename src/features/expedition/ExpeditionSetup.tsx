@@ -1,5 +1,5 @@
-import AmiiboCardList from './amiibo/AmiiboCardList';
-import SelectedVillagers from './amiibo/SelectedVillagers';
+import CharacterCardList from '../characters/CharacterCardList';
+import SelectedVillagers from '../characters/CharacterSlot';
 import Modal from '@/shared/ui/modal/Modal';
 import IconButton from '@/shared/ui/IconButton';
 import ModalButton from '@/shared/ui/modal/ModalButton';
@@ -65,7 +65,7 @@ const ExpeditionSetup = ({
         </div>
       </Modal>
 
-      <AmiiboCardList
+      <CharacterCardList
         translatedAmiibo={translatedAmiibo}
         selectedCharacters={selectedCharacters}
         onCharacterSelect={onCharacterSelect}
