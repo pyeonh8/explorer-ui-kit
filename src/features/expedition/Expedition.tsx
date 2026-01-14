@@ -1,21 +1,18 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { creatures } from 'animal-crossing';
 import { TranslatedAmiibo, TranslateVillager } from '@/types/api.types';
 import CharacterPanel from './components/CharacterPanel';
 import ExpeditionHeader from './ExpeditionHeader';
+import ExpeditionNav from './ExpeditionNav';
 import ExpeditionSetup from '@/features/expedition/ExpeditionSetup';
 import ExpeditionPlay from './ExpeditionPlay';
-import IconButton from '@/shared/ui/IconButton';
 import Modal from '@/shared/ui/modal/Modal';
 import ModalButton from '@/shared/ui/modal/ModalButton';
-import CollectionsModal from './components/CollectionsModal';
-import useSound from '@/shared/hooks/useSound';
+import IconButton from '@/shared/ui/IconButton';
 import { IoIosWarning } from 'react-icons/io';
 import { FaHourglassStart } from 'react-icons/fa';
-import { MdMusicNote } from 'react-icons/md';
-import { MdMusicOff } from 'react-icons/md';
 
 // 탐험 페이지
 const Expedition = ({
@@ -52,152 +49,79 @@ const Expedition = ({
     });
   }, []);
 
-  // 대기 배경음
-  const {
-    toggle: playSetupBgm,
-    pause: pauseSetupBgm,
-    stop: stopSetupBgm,
-  } = useSound({
-    src: '/sounds/bgm-default.mp3',
-    volume: 1,
-    loop: true,
-  });
-
-  // 타이머 완료 배경음
-  const {
-    toggle: playFinishBgm,
-    pause: pauseFinishBgm,
-    stop: stopFinishBgm,
-  } = useSound({
-    src: '/sounds/bgm-timer-finish.mp3',
-    volume: 1,
-    loop: true,
-  });
-
-  useEffect(() => {
-    if (!isBgmEnabled) {
-      pauseSetupBgm();
-      pauseFinishBgm();
-      return;
-    }
-
-    if (!isAdventureStarted) {
-      // 대기 브금
-      stopFinishBgm();
-      playSetupBgm();
-    } else {
-      // 모험 시작
-      if (isTimerFinished) {
-        // 타이머 완료
-        stopSetupBgm();
-        playFinishBgm();
-      } else {
-        pauseFinishBgm();
-        pauseSetupBgm();
-      }
-    }
-
-    return () => {
-      pauseSetupBgm();
-      pauseFinishBgm();
-    };
-  }, [
-    isBgmEnabled,
-    playSetupBgm,
-    playFinishBgm,
-    pauseSetupBgm,
-    pauseFinishBgm,
-    stopSetupBgm,
-    stopFinishBgm,
-    isAdventureStarted,
-    isTimerFinished,
-  ]);
-
   return (
     <div className="grid grid-cols-[1fr_minmax(0,580px)_1fr] gap-2.5 sm:gap-4">
-      {/* 상단 메뉴 */}
-      <nav className="flex flex-col gap-1.5 pl-2">
-        {/* 음악 */}
-        <IconButton
-          onClick={() => {
-            setIsBgmEnabled((prev) => !prev);
-          }}
-        >
-          <span className="text-[22px] sm:text-[22px]">
-            {isBgmEnabled ? <MdMusicNote /> : <MdMusicOff />}
-          </span>
-          <span className="hidden text-[12px] font-bold whitespace-nowrap sm:block">
-            음악
-          </span>
-        </IconButton>
-
-        {/* 내 도감 */}
-        <CollectionsModal isAdventureStarted={isAdventureStarted} />
-
+      <aside className="pl-2">
+        {/* 좌측 메뉴 */}
+        <ExpeditionNav
+          isBgmEnabled={isBgmEnabled}
+          setIsBgmEnabled={setIsBgmEnabled}
+          isAdventureStarted={isAdventureStarted}
+          isTimerFinished={isTimerFinished}
+        />
         {/* 타이머 횟수 버튼 */}
         {!isAdventureStarted && (
-          <>
-            <div className="flex flex-col gap-2 pt-4">
-              {SESSION_OPTIONS.map((num) => {
-                const selectStyle =
-                  'border-b-[4px] border-t-[4px] bg-(--color-accent) text-white';
-                return (
-                  <IconButton
-                    key={num}
-                    className={`${num === goalRounds && selectStyle} snm w-full justify-between gap-0.5 sm:justify-center sm:gap-1.5`}
-                    onClick={() => setGoalRounds(num)}
-                  >
-                    <FaHourglassStart className="text-[17px] sm:text-[20px]" />
-                    <span className="text-[12px] font-bold whitespace-nowrap">
-                      x {num}
-                    </span>
-                  </IconButton>
-                );
-              })}
-            </div>
-          </>
+          <section className="flex flex-col gap-2 pt-4">
+            {SESSION_OPTIONS.map((num) => {
+              const selectStyle =
+                'border-b-[4px] border-t-[4px] bg-(--color-accent) text-white';
+              return (
+                <IconButton
+                  key={num}
+                  className={`${num === goalRounds && selectStyle} snm w-full justify-between gap-0.5 sm:justify-center sm:gap-1.5`}
+                  onClick={() => setGoalRounds(num)}
+                >
+                  <FaHourglassStart className="text-[17px] sm:text-[20px]" />
+                  <span className="text-[12px] font-bold whitespace-nowrap">
+                    x {num}
+                  </span>
+                </IconButton>
+              );
+            })}
+          </section>
         )}
-      </nav>
+      </aside>
 
-      <div className="max-w-[600px] overflow-hidden rounded-2xl border-(--color-primary) bg-white">
+      <main className="max-w-[600px] overflow-hidden rounded-2xl border-(--color-primary) bg-white">
         {/* 헤더 로고 */}
         <ExpeditionHeader />
 
-        <main className="px-4 pt-3 pb-3 sm:px-7">
-          {/* 캐릭터 화면 */}
-          <CharacterPanel
+        {/* <main className="px-4 pt-3 pb-3 sm:px-7">
+          
+        </main> */}
+        {/* 캐릭터 화면 */}
+        <CharacterPanel
+          selectedCharacters={selectedCharacters}
+          villagers={translatedVillagers}
+          isTimerRunning={isTimerRunning}
+        />
+
+        {!isAdventureStarted ? (
+          // 탐험 준비
+          <ExpeditionSetup
+            goalRounds={goalRounds}
+            onAdventureStart={setIsAdventureStarted}
+            translatedAmiibo={translatedAmiibo}
             selectedCharacters={selectedCharacters}
-            villagers={translatedVillagers}
-            isTimerRunning={isTimerRunning}
+            onCharacterSelect={toggleCharacterSelection}
           />
+        ) : (
+          // 탐험 시작
+          <ExpeditionPlay
+            goalRounds={goalRounds}
+            collectibleItems={creatures}
+            isAdventureStarted={isAdventureStarted}
+            onAdventureStart={setIsAdventureStarted}
+            selectedCharacters={selectedCharacters}
+            isTimerRunning={isTimerRunning}
+            onTimerRunningChange={setIsTimerRunning}
+            isTimerFinished={isTimerFinished}
+            setIsTimerFinished={setIsTimerFinished}
+          />
+        )}
 
-          {!isAdventureStarted ? (
-            // 탐험 준비
-            <ExpeditionSetup
-              goalRounds={goalRounds}
-              onAdventureStart={setIsAdventureStarted}
-              translatedAmiibo={translatedAmiibo}
-              selectedCharacters={selectedCharacters}
-              onCharacterSelect={toggleCharacterSelection}
-            />
-          ) : (
-            // 탐험 시작
-            <ExpeditionPlay
-              goalRounds={goalRounds}
-              collectibleItems={creatures}
-              isAdventureStarted={isAdventureStarted}
-              onAdventureStart={setIsAdventureStarted}
-              selectedCharacters={selectedCharacters}
-              isTimerRunning={isTimerRunning}
-              onTimerRunningChange={setIsTimerRunning}
-              isTimerFinished={isTimerFinished}
-              setIsTimerFinished={setIsTimerFinished}
-            />
-          )}
-        </main>
-
-        <footer className="h-4 w-full bg-[url('/images/pattern.jpg')] bg-cover bg-center bg-no-repeat"></footer>
-      </div>
+        <div className="h-4 w-full bg-[url('/images/pattern.jpg')] bg-cover bg-center bg-no-repeat"></div>
+      </main>
       <div className="invisible"></div>
 
       {/* 캐릭터 선택 모달 */}
