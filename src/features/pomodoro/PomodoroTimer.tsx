@@ -13,10 +13,11 @@ import { FaRegStopCircle } from 'react-icons/fa';
 import { FaRegCirclePlay } from 'react-icons/fa6';
 import { LuAlarmClockCheck } from 'react-icons/lu';
 import { FaGift } from 'react-icons/fa6';
+import useSoundEffect from '@/shared/hooks/useSoundEffect';
 
 const POMODORO_TIMES = {
-  WORK: 25 * 60,
-  REST: 5 * 60,
+  WORK: 0.2 * 60,
+  REST: 0.1 * 60,
 };
 
 const PomodoroTimer = ({
@@ -37,19 +38,38 @@ const PomodoroTimer = ({
   const { currentReward, generateReward, setCurrentReward } =
     UseReward(collectibleItems);
 
+  // 타이머 시작 효과음
+  const { play: playWorkStartSfx } = useSoundEffect({
+    src: '/sounds/sfx-timer-start.mp3',
+  });
+
+  // 타이머 휴식 효과음
+  const { play: playRestStartSfx } = useSoundEffect({
+    src: '/sounds/sfx-timer-break.mp3',
+  });
+
+  // 타이머 완료 효과음
+  const { play: playAllDoneSfx } = useSoundEffect({
+    src: '/sounds/sfx-timer-end.mp3',
+  });
+
   // 타이머 훅
   const { timerCount, isRunning, start, pause, reset } = useTimer({
     initialValue: mode === 'WORK' ? POMODORO_TIMES.WORK : POMODORO_TIMES.REST,
     onComplete: () => {
       if (mode === 'WORK') {
         setMode('REST');
+        playRestStartSfx();
       } else {
         if (currentCycles < targetCycles) {
           setCurrentCycle((prev) => prev + 1);
           setMode('WORK');
+          playWorkStartSfx();
         } else {
           // 타이머 종료일 떄
           setTimeout(() => {
+            playAllDoneSfx();
+
             // 타이머 끝남 true
             setIsTimeOut(true);
 
@@ -121,8 +141,11 @@ const PomodoroTimer = ({
 
   // isStarted true
   useEffect(() => {
-    if (isStarted) start();
-  }, [isStarted, start]);
+    if (isStarted) {
+      playWorkStartSfx();
+      start();
+    }
+  }, [isStarted, start, playWorkStartSfx]);
 
   // isStarted false
   useEffect(() => {
