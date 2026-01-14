@@ -3,6 +3,7 @@ import { creatures } from 'animal-crossing';
 import { Creature } from 'animal-crossing/lib/types/Creature';
 import Modal from '@/shared/ui/modal/Modal';
 import { ItemGrid, CollectionCard } from '@/shared/ui/ItemGrid';
+import Button from '@/shared/ui/Button';
 import IconButton from '@/shared/ui/IconButton';
 import getSavedStorageIds from '@/shared/utils/getSavedStorageIds';
 import useFilter from '@/shared/hooks/useFilter';
@@ -93,22 +94,23 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
       <ul className="flex justify-center gap-4 py-4">
         {filterKeys.map((key) => (
           <li key={key} className="flex w-18 justify-center text-[13px]">
-            <button
+            <Button
               onClick={() => setFilterValue(key)}
-              className={`flex w-full cursor-pointer flex-col items-center rounded-2xl bg-(--color-foreground-inverse) pt-1.5 pb-1 text-(--color-font-secondary) transition-all hover:bg-(--color-accent) hover:text-white ${filterValue === key ? 'bg-(--color-accent)! text-white' : ''}`}
+              className={`flex w-full flex-col items-center rounded-2xl pt-1.5 pb-1 transition-all hover:border-(--color-primary) hover:bg-(--color-accent) hover:text-white ${filterValue === key ? 'border-(--color-primary) bg-(--color-accent)! text-white' : 'border-(--color-font-secondary) bg-(--color-foreground-inverse) text-(--color-font-secondary)'}`}
             >
               <span className="pb-0.5 text-[22px]">{CREATURE_ICON[key]}</span>
               {CREATURE_ATTRIBUTE[key]}
-            </button>
+            </Button>
           </li>
         ))}
       </ul>
 
       {/* 이름순 정렬 */}
       <div className="pb-2">
-        <button
+        <Button
+          variant="plain"
           onClick={() => requestSort('kRko')}
-          className="flex cursor-pointer gap-1 text-[15px] font-bold"
+          className="flex gap-1 text-[15px] font-bold"
         >
           <span className="text-[20px]">
             {sortConfig.direction === 'asc' ? (
@@ -118,7 +120,7 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
             )}
           </span>
           이름순
-        </button>
+        </Button>
       </div>
 
       <div

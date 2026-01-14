@@ -1,15 +1,17 @@
 import { memo } from 'react';
 import Image from 'next/image';
 import { AmiiboCardProps } from '@/types/features.type';
+import Button from '@/shared/ui/Button';
 import { FaCheck } from 'react-icons/fa6';
 
 const AmiiboCard = ({ amiibo, isSelected, onSelect }: AmiiboCardProps) => {
   return (
-    <button
+    <Button
+      variant="plain"
       onClick={() => {
         onSelect(amiibo.koName);
       }}
-      className={`cursor-pointer transition-transform ${isSelected ? 'hover:scale-100' : 'hover:scale-105'}`}
+      className={`transition-transform ${isSelected ? 'hover:scale-100' : 'hover:scale-105'}`}
     >
       <div
         className={`relative aspect-69/97 w-full overflow-hidden rounded-[5px] bg-(--color-secondary)`}
@@ -34,7 +36,7 @@ const AmiiboCard = ({ amiibo, isSelected, onSelect }: AmiiboCardProps) => {
       >
         {amiibo.koName}
       </div>
-    </button>
+    </Button>
   );
 };
 

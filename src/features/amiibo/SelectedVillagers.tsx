@@ -3,6 +3,7 @@ import { villagers } from 'animal-crossing';
 import { AmiiboSelectionProps } from '@/types/features.type';
 import { MdCancel } from 'react-icons/md';
 import InfoBubble from '@/shared/ui/InfoBubble';
+import Button from '@/shared/ui/Button';
 
 const villagerMap = new Map(villagers.map((v) => [v.translations.kRko, v]));
 
@@ -19,12 +20,13 @@ const SelectedVillagers = ({
             if (!target?.iconImage) return null;
 
             return (
-              <button
+              <Button
+                variant="plain"
                 key={target.filename}
                 onClick={() => {
                   onSelect(target.translations.kRko);
                 }}
-                className="group relative flex cursor-pointer flex-col items-center rounded-2xl bg-(--color-secondary) p-1"
+                className="group relative flex flex-col items-center rounded-2xl bg-(--color-secondary) p-1"
               >
                 <MdCancel className="absolute top-1.5 right-1.5 rounded-2xl bg-white text-[15px] text-(--color-accent)/80 opacity-0 transition-all group-hover:opacity-100" />
                 <Image
@@ -36,7 +38,7 @@ const SelectedVillagers = ({
                 <span className="relative -top-1 text-[12px] font-bold">
                   {target.translations.kRko}
                 </span>
-              </button>
+              </Button>
             );
           })}
         </div>
