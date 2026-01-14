@@ -4,7 +4,7 @@ import { AmiiboCardProps } from '@/types/features.type';
 import Button from '@/shared/ui/Button';
 import { FaCheck } from 'react-icons/fa6';
 
-const AmiiboCard = ({
+const CharacterCard = ({
   amiibo,
   isSelected,
   onCharacterSelect,
@@ -44,4 +44,4 @@ const AmiiboCard = ({
   );
 };
 
-export default memo(AmiiboCard);
+export default memo(CharacterCard);

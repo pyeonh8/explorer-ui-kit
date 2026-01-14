@@ -3,7 +3,7 @@ import { ExpeditionInProgressProps, LogEntry } from '@/types/features.type';
 import { RANDOM_LOGS } from '@/constants/randomLogs';
 import IconButton from '@/shared/ui/IconButton';
 import InfoBubble from '@/shared/ui/InfoBubble';
-import PomodoroTimer from './pomodoro/PomodoroTimer';
+import PomodoroTimer from '../pomodoro/PomodoroTimer';
 import { getRandomItem } from '@/shared/utils/random';
 import formatDate from '@/shared/utils/formatDate';
 import { LuCornerUpLeft } from 'react-icons/lu';

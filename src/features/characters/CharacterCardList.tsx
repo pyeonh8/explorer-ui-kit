@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { AmiiboCardListProps } from '@/types/features.type';
-import AmiiboCard from './AmiiboCard';
+import CharacterCard from './CharacterCard';
 import useSort from '@/shared/hooks/useSort';
 import useFilter from '@/shared/hooks/useFilter';
 import useInfiniteScroll from '@/shared/hooks/useInfiniteScroll';
@@ -12,7 +12,7 @@ import { TbSortDescending } from 'react-icons/tb';
 import { FaCaretDown } from 'react-icons/fa';
 import { FaCaretUp } from 'react-icons/fa';
 
-const AmiiboCardList = ({
+const CharacterCardList = ({
   translatedAmiibo,
   selectedCharacters,
   onCharacterSelect,
@@ -107,7 +107,7 @@ const AmiiboCardList = ({
             const isSelected = selectedCharacters.includes(amiibo.koName);
 
             return (
-              <AmiiboCard
+              <CharacterCard
                 key={amiibo.head + amiibo.tail}
                 amiibo={amiibo}
                 isSelected={isSelected}
@@ -129,4 +129,4 @@ const AmiiboCardList = ({
   );
 };
 
-export default AmiiboCardList;
+export default CharacterCardList;
