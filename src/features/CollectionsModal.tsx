@@ -10,7 +10,7 @@ import useFilter from '@/shared/hooks/useFilter';
 import useSort from '@/shared/hooks/useSort';
 import { TbSortAscending } from 'react-icons/tb';
 import { TbSortDescending } from 'react-icons/tb';
-import { CREATURE_ATTRIBUTE } from '@/constants/creatureAttribute';
+import { CREATURE_ATTRIBUTES } from '@/constants/creatureAttributes';
 import { FaBook } from 'react-icons/fa';
 import { IoIosBug } from 'react-icons/io';
 import { IoFish } from 'react-icons/io5';
@@ -53,7 +53,7 @@ const CollectionsModal = ({
   }, [isAdventureStarted]);
 
   // 필터
-  const filterKeys = Object.keys(CREATURE_ATTRIBUTE);
+  const filterKeys = Object.keys(CREATURE_ATTRIBUTES);
   const { filteredData, filterValue, setFilterValue } = useFilter(
     collection,
     'sourceSheet'
@@ -103,7 +103,7 @@ const CollectionsModal = ({
               className={`flex w-full flex-col items-center rounded-2xl pt-1.5 pb-1 transition-all hover:border-(--color-primary) hover:bg-(--color-accent) hover:text-white ${filterValue === key ? 'border-(--color-primary) bg-(--color-accent)! text-white' : 'border-(--color-font-secondary) bg-(--color-foreground-inverse) text-(--color-font-secondary)'}`}
             >
               <span className="pb-0.5 text-[22px]">{CREATURE_ICON[key]}</span>
-              {CREATURE_ATTRIBUTE[key]}
+              {CREATURE_ATTRIBUTES[key]}
             </Button>
           </li>
         ))}

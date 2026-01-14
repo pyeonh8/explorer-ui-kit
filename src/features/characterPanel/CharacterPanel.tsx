@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { CharacterPanelProps } from '@/types/features.type';
-import { VILLAGERS_HEIGHT } from '@/constants/villagersHeight';
+import { CHARACTER_HEIGHT } from '@/constants/characterHeights';
 
 const CharacterPanel = ({
   selectedCharacters,
@@ -27,7 +27,7 @@ const CharacterPanel = ({
           if (!target?.image_url) return null;
 
           const isLoaded = loadedImages.has(target?.id || '');
-          const height = VILLAGERS_HEIGHT[target?.species || ''] || 120;
+          const height = CHARACTER_HEIGHT[target?.species || ''] || 120;
 
           return (
             <div

@@ -1,4 +1,4 @@
-export const VILLAGERS_HEIGHT: Record<string, number> = {
+export const CHARACTER_HEIGHT: Record<string, number> = {
   // 140px
   Horse: 140,
   Eagle: 140,

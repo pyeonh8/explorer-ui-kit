@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ExpeditionInProgressProps, LogEntry } from '@/types/features.type';
-import { RANDOM_LOGS } from '@/constants/RANDOM_LOGS';
+import { RANDOM_LOGS } from '@/constants/randomLogs';
 import IconButton from '@/shared/ui/IconButton';
 import InfoBubble from '@/shared/ui/InfoBubble';
 import PomodoroTimer from './pomodoro/PomodoroTimer';
