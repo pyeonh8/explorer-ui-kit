@@ -9,12 +9,25 @@ export interface Expedition {
   onAdventureStart: (start: boolean) => void;
 }
 
-// 모험 준비 화면
+// 모험 메뉴
+
+// 모험 배경음악
+export interface useExpeditionBgmProps {
+  isBgmEnabled: boolean;
+  isAdventureStarted: boolean;
+  isTimerFinished: boolean;
+}
+
+export interface ExpeditionNavProps extends useExpeditionBgmProps {
+  setIsBgmEnabled: Dispatch<SetStateAction<boolean>>;
+}
+
+// 모험대기 화면
 export interface ExpeditionSetupProps
   extends CharacterCardListProps,
     Expedition {}
 
-// 모험 진행 화면 공통
+// 모험진행 공통
 export interface isTimerFinished {
   isTimerFinished: boolean;
   setIsTimerFinished: (timeOut: boolean) => void;
