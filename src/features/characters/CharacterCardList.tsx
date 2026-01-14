@@ -101,7 +101,7 @@ const CharacterCardList = ({
       </div>
 
       {/* 카드 목록 */}
-      <div className="custom-scroll max-h-[calc(100vh-620px)] min-h-[250px] overflow-hidden overflow-y-scroll p-1">
+      <div className="custom-scroll h-[550px] max-h-[calc(100vh-620px)] min-h-[250px] overflow-hidden overflow-y-scroll p-1">
         <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
           {slicedData?.map((amiibo) => {
             const isSelected = selectedCharacters.includes(amiibo.koName);
