@@ -6,7 +6,7 @@ import { TranslatedAmiibo, TranslateVillager } from '@/types/api.types';
 import CharacterPanel from './components/CharacterPanel';
 import ExpeditionHeader from './ExpeditionHeader';
 import ExpeditionSetup from '@/features/expedition/ExpeditionSetup';
-import ExpeditionInProgress from './ExpeditionPlay';
+import ExpeditionPlay from './ExpeditionPlay';
 import IconButton from '@/shared/ui/IconButton';
 import Modal from '@/shared/ui/modal/Modal';
 import ModalButton from '@/shared/ui/modal/ModalButton';
@@ -25,11 +25,12 @@ const Expedition = ({
   translatedAmiibo: TranslatedAmiibo[];
   translatedVillagers: TranslateVillager[];
 }) => {
+  const [modalOpen, setModalOpen] = useState(false);
   const [isAdventureStarted, setIsAdventureStarted] = useState(false);
   const [goalRounds, setGoalRounds] = useState(1);
   const [selectedCharacters, setSelectedCharacters] = useState<string[]>([]);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [isTimerFinished, setIsTimerFinished] = useState(false);
 
   // 타이머 횟차
   const SESSION_OPTIONS = [1, 2, 3, 4];
@@ -126,7 +127,7 @@ const Expedition = ({
             />
           ) : (
             // 탐험 시작
-            <ExpeditionInProgress
+            <ExpeditionPlay
               goalRounds={goalRounds}
               collectibleItems={creatures}
               isAdventureStarted={isAdventureStarted}
@@ -134,6 +135,8 @@ const Expedition = ({
               selectedCharacters={selectedCharacters}
               isTimerRunning={isTimerRunning}
               onTimerRunningChange={setIsTimerRunning}
+              isTimerFinished={isTimerFinished}
+              setIsTimerFinished={setIsTimerFinished}
             />
           )}
         </main>

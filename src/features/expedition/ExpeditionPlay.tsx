@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ExpeditionInProgressProps, LogEntry } from '@/types/features.type';
+import { ExpeditionPlayProps, LogEntry } from '@/types/features.type';
 import { RANDOM_LOGS } from '@/constants/randomLogs';
 import IconButton from '@/shared/ui/IconButton';
 import InfoBubble from '@/shared/ui/InfoBubble';
@@ -12,7 +12,7 @@ import ModalButton from '@/shared/ui/modal/ModalButton';
 import { IoIosWarning } from 'react-icons/io';
 
 // 탐험 진행 화면
-const ExpeditionInProgress = ({
+const ExpeditionPlay = ({
   goalRounds,
   isAdventureStarted,
   onAdventureStart,
@@ -20,7 +20,9 @@ const ExpeditionInProgress = ({
   isTimerRunning,
   onTimerRunningChange,
   selectedCharacters: selectedAmiibo,
-}: ExpeditionInProgressProps) => {
+  isTimerFinished,
+  setIsTimerFinished,
+}: ExpeditionPlayProps) => {
   const [logs, setLogs] = useState<LogEntry[]>([
     {
       type: 'system',
@@ -29,7 +31,6 @@ const ExpeditionInProgress = ({
       borderStyle: 'bottom',
     },
   ]);
-  const [isTimeOut, setIsTimeOut] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   const scrollRef = useRef<HTMLUListElement>(null);
@@ -37,7 +38,7 @@ const ExpeditionInProgress = ({
   const handleRestAndExit = () => {
     onAdventureStart(false);
     onTimerRunningChange(false);
-    setIsTimeOut(false);
+    setIsTimerFinished(false);
   };
 
   // 동물 친구들 로그
@@ -78,8 +79,8 @@ const ExpeditionInProgress = ({
         onAdventureStart={onAdventureStart}
         collectibleItems={collectibleItems}
         onTimerRunningChange={onTimerRunningChange}
-        isTimeOut={isTimeOut}
-        setIsTimeOut={setIsTimeOut}
+        isTimerFinished={isTimerFinished}
+        setIsTimerFinished={setIsTimerFinished}
         setLogs={setLogs}
       />
       <div className="rounded-2xl bg-(--color-foreground)">
@@ -127,7 +128,7 @@ const ExpeditionInProgress = ({
       <div className="flex items-center justify-center pt-3">
         <IconButton
           onClick={() => {
-            if (!isTimeOut) {
+            if (!isTimerFinished) {
               setModalOpen(true);
               return;
             }
@@ -175,4 +176,4 @@ const ExpeditionInProgress = ({
     </>
   );
 };
-export default ExpeditionInProgress;
+export default ExpeditionPlay;

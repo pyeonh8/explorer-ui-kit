@@ -26,8 +26,8 @@ const PomodoroTimer = ({
   onAdventureStart,
   collectibleItems,
   onTimerRunningChange,
-  isTimeOut,
-  setIsTimeOut,
+  isTimerFinished,
+  setIsTimerFinished,
   setLogs,
 }: PomodoroTimerProps) => {
   const [mode, setMode] = useState<'WORK' | 'REST'>('WORK');
@@ -71,7 +71,7 @@ const PomodoroTimer = ({
             playAllDoneSfx();
 
             // 타이머 끝남 true
-            setIsTimeOut(true);
+            setIsTimerFinished(true);
 
             // 보상 모달 오픈
             setModalOpen(true);
@@ -128,11 +128,11 @@ const PomodoroTimer = ({
 
   // 타이머 모드가 바뀌면 리셋 후 재시작
   useEffect(() => {
-    if (isAdventureStarted && !isTimeOut) {
+    if (isAdventureStarted && !isTimerFinished) {
       reset();
       start();
     }
-  }, [mode, currentCycles, isAdventureStarted, isTimeOut, reset, start]);
+  }, [mode, currentCycles, isAdventureStarted, isTimerFinished, reset, start]);
 
   // 타이머 실행 유무
   useEffect(() => {
@@ -160,7 +160,7 @@ const PomodoroTimer = ({
       {/* 안내 말풍선 */}
       <aside className="py-2">
         <InfoBubble className="text-center sm:py-3">
-          {!isTimeOut ? (
+          {!isTimerFinished ? (
             <>
               <h2 className="mt-1 text-[22px] font-black sm:text-2xl">
                 동물 친구들이{' '}
@@ -201,7 +201,7 @@ const PomodoroTimer = ({
 
       {/* 타이머 */}
       <section
-        className={`relative flex flex-col items-center pb-2 sm:pb-3 ${isTimeOut ? 'pt-2 sm:pt-3' : 'pt-4 sm:pt-6'}`}
+        className={`relative flex flex-col items-center pb-2 sm:pb-3 ${isTimerFinished ? 'pt-2 sm:pt-3' : 'pt-4 sm:pt-6'}`}
       >
         <time
           className="relative z-10 text-6xl font-bold sm:text-7xl"
@@ -209,7 +209,7 @@ const PomodoroTimer = ({
         >
           {formatTime(timerCount)}
         </time>
-        {!isTimeOut && (
+        {!isTimerFinished && (
           <div className="h-6 text-[20px] opacity-50 sm:text-2xl">
             <Button variant="plain" onClick={handleToggleTimer}>
               {isRunning ? <FaRegStopCircle /> : <FaRegCirclePlay />}
@@ -223,7 +223,7 @@ const PomodoroTimer = ({
       <section className="pb-4 text-center">
         <div className="mb-2.5 flex items-center justify-center gap-2 text-[14px] sm:text-[16px]">
           <FaGift />
-          {!isTimeOut ? (
+          {!isTimerFinished ? (
             <h3 className="translate-y-px">
               모험이 끝나면{' '}
               <span className="text-(--color-accent)">
@@ -247,7 +247,7 @@ const PomodoroTimer = ({
                 : 'grid-cols-6'
           }`}
         >
-          {isTimeOut && (
+          {isTimerFinished && (
             <>
               {currentReward?.map((item, index) => (
                 <RewardCard

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { villagers } from 'animal-crossing';
-import { AmiiboSelectionProps } from '@/types/features.type';
+import { CharacterSlotProps } from '@/types/features.type';
 import { MdCancel } from 'react-icons/md';
 import InfoBubble from '@/shared/ui/InfoBubble';
 import Button from '@/shared/ui/Button';
@@ -10,7 +10,7 @@ const villagerMap = new Map(villagers.map((v) => [v.translations.kRko, v]));
 const SelectedVillagers = ({
   selectedCharacters,
   onCharacterSelect,
-}: AmiiboSelectionProps) => {
+}: CharacterSlotProps) => {
   return (
     <div className="my-2 flex min-h-[76px] justify-center">
       {selectedCharacters.length > 0 ? (
