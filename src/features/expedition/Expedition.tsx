@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { creatures } from 'animal-crossing';
 import { TranslatedAmiibo, TranslateVillager } from '@/types/api.types';
 import CharacterPanel from './components/CharacterPanel';
@@ -31,6 +31,7 @@ const Expedition = ({
   const [selectedCharacters, setSelectedCharacters] = useState<string[]>([]);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [isTimerFinished, setIsTimerFinished] = useState(false);
+  const [isBgmEnabled, setIsBgmEnabled] = useState(false);
 
   // 타이머 횟차
   const SESSION_OPTIONS = [1, 2, 3, 4];
@@ -51,12 +52,56 @@ const Expedition = ({
     });
   }, []);
 
-  // 배경음
-  const { isPlaying, toggle } = useSound({
+  // 대기 배경음
+  const { toggle: playSetupBgm, pause: pauseSetupBgm } = useSound({
     src: '/sounds/bgm-default.mp3',
     volume: 1,
     loop: true,
   });
+
+  // 타이머 완료 배경음
+  const { toggle: playFinishBgm, pause: pauseFinishBgm } = useSound({
+    src: '/sounds/bgm-timer-finish.mp3',
+    volume: 1,
+    loop: true,
+  });
+
+  useEffect(() => {
+    if (!isBgmEnabled) {
+      pauseSetupBgm();
+      pauseFinishBgm();
+      return;
+    }
+
+    if (!isAdventureStarted) {
+      // 대기 브금
+      pauseFinishBgm();
+      playSetupBgm();
+    } else {
+      // 모험 시작
+      if (isTimerFinished) {
+        // 타이머 완료
+        pauseSetupBgm();
+        playFinishBgm();
+      } else {
+        pauseFinishBgm();
+        pauseSetupBgm();
+      }
+    }
+
+    return () => {
+      pauseSetupBgm();
+      pauseFinishBgm();
+    };
+  }, [
+    isBgmEnabled,
+    playSetupBgm,
+    playFinishBgm,
+    pauseSetupBgm,
+    pauseFinishBgm,
+    isAdventureStarted,
+    isTimerFinished,
+  ]);
 
   return (
     <div className="grid grid-cols-[1fr_minmax(0,580px)_1fr] gap-2.5 sm:gap-4">
@@ -65,11 +110,11 @@ const Expedition = ({
         {/* 음악 */}
         <IconButton
           onClick={() => {
-            toggle();
+            setIsBgmEnabled((prev) => !prev);
           }}
         >
           <span className="text-[22px] sm:text-[22px]">
-            {isPlaying ? <MdMusicNote /> : <MdMusicOff />}
+            {isBgmEnabled ? <MdMusicNote /> : <MdMusicOff />}
           </span>
           <span className="hidden text-[12px] font-bold whitespace-nowrap sm:block">
             음악

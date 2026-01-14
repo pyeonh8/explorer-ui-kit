@@ -49,8 +49,8 @@ const PomodoroTimer = ({
   });
 
   // 타이머 완료 효과음
-  const { play: playAllDoneSfx } = useSoundEffect({
-    src: '/sounds/sfx-timer-end.mp3',
+  const { play: playFinishSfx } = useSoundEffect({
+    src: '/sounds/sfx-timer-finish.mp3',
   });
 
   // 타이머 훅
@@ -68,7 +68,7 @@ const PomodoroTimer = ({
         } else {
           // 타이머 종료일 떄
           setTimeout(() => {
-            playAllDoneSfx();
+            playFinishSfx();
 
             // 타이머 끝남 true
             setIsTimerFinished(true);
@@ -269,6 +269,7 @@ const PomodoroTimer = ({
             onClick={() => {
               setModalOpen(false);
               onAdventureStart(false);
+              setIsTimerFinished(false);
               if (isAdventureStarted) setCurrentReward(null);
             }}
           >
