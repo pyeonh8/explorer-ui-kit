@@ -29,7 +29,11 @@ const CREATURE_ICON: Record<string, React.ReactNode> = {
   'Sea Creatures': <FaDisease />,
 };
 
-const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
+const CollectionsModal = ({
+  isAdventureStarted,
+}: {
+  isAdventureStarted: boolean;
+}) => {
   const [savedCollections, setSaveCollections] = useState<string[]>(() => {
     if (typeof window !== 'undefined') {
       const saved = getSavedStorageIds('my-treasure-box');
@@ -45,8 +49,8 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
       if (saved) setSaveCollections(saved);
     };
 
-    if (!isStarted) syncData();
-  }, [isStarted]);
+    if (!isAdventureStarted) syncData();
+  }, [isAdventureStarted]);
 
   // 필터
   const filterKeys = Object.keys(CREATURE_ATTRIBUTE);

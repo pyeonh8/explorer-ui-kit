@@ -8,14 +8,14 @@ import Button from '@/shared/ui/Button';
 const villagerMap = new Map(villagers.map((v) => [v.translations.kRko, v]));
 
 const SelectedVillagers = ({
-  selectedAmiibo,
-  onSelect,
+  selectedCharacters,
+  onCharacterSelect,
 }: AmiiboSelectionProps) => {
   return (
     <div className="my-2 flex min-h-[76px] justify-center">
-      {selectedAmiibo.length > 0 ? (
+      {selectedCharacters.length > 0 ? (
         <div className="flex items-center justify-center gap-4">
-          {selectedAmiibo?.map((v) => {
+          {selectedCharacters?.map((v) => {
             const target = villagerMap.get(v);
             if (!target?.iconImage) return null;
 
@@ -24,7 +24,7 @@ const SelectedVillagers = ({
                 variant="plain"
                 key={target.filename}
                 onClick={() => {
-                  onSelect(target.translations.kRko);
+                  onCharacterSelect(target.translations.kRko);
                 }}
                 className="group relative flex flex-col items-center rounded-2xl bg-(--color-secondary) p-1"
               >

@@ -21,9 +21,9 @@ const POMODORO_TIMES = {
 };
 
 const PomodoroTimer = ({
-  timerTime: targetCycles = 1,
-  isStarted,
-  onStart,
+  goalRounds = 1,
+  isAdventureStarted,
+  onAdventureStart,
   collectibleItems,
   onTimerRunningChange,
   isTimeOut,
@@ -61,7 +61,7 @@ const PomodoroTimer = ({
         setMode('REST');
         playRestStartSfx();
       } else {
-        if (currentCycles < targetCycles) {
+        if (currentCycles < goalRounds) {
           setCurrentCycle((prev) => prev + 1);
           setMode('WORK');
           playWorkStartSfx();
@@ -77,7 +77,7 @@ const PomodoroTimer = ({
             setModalOpen(true);
 
             // 보상 아이템 랜덤 뽑기
-            generateReward(3 * targetCycles);
+            generateReward(3 * goalRounds);
 
             // 타이머 종료 안내 로그
             setLogs((prev) => [
@@ -128,11 +128,11 @@ const PomodoroTimer = ({
 
   // 타이머 모드가 바뀌면 리셋 후 재시작
   useEffect(() => {
-    if (isStarted && !isTimeOut) {
+    if (isAdventureStarted && !isTimeOut) {
       reset();
       start();
     }
-  }, [mode, currentCycles, isStarted, isTimeOut, reset, start]);
+  }, [mode, currentCycles, isAdventureStarted, isTimeOut, reset, start]);
 
   // 타이머 실행 유무
   useEffect(() => {
@@ -141,19 +141,19 @@ const PomodoroTimer = ({
 
   // isStarted true
   useEffect(() => {
-    if (isStarted) {
+    if (isAdventureStarted) {
       playWorkStartSfx();
       start();
     }
-  }, [isStarted, start, playWorkStartSfx]);
+  }, [isAdventureStarted, start, playWorkStartSfx]);
 
   // isStarted false
   useEffect(() => {
-    if (!isStarted) {
+    if (!isAdventureStarted) {
       reset();
-      if (isStarted) setCurrentReward(null);
+      if (isAdventureStarted) setCurrentReward(null);
     }
-  }, [isStarted, reset, setCurrentReward]);
+  }, [isAdventureStarted, reset, setCurrentReward]);
 
   return (
     <article>
@@ -176,7 +176,7 @@ const PomodoroTimer = ({
                 )}
               </h2>
               <p className="mt-1 text-[13px] sm:text-[14px]">
-                총 {targetCycles}회 탐험 중{' '}
+                총 {goalRounds}회 탐험 중{' '}
                 <span className="text-(--color-accent)">
                   {' '}
                   {currentCycles}회 진행
@@ -191,7 +191,7 @@ const PomodoroTimer = ({
               </h2>
               <p className="mt-1 text-[13px] sm:text-[14px]">
                 총{' '}
-                <span className="text-(--color-accent)">{targetCycles}회 </span>{' '}
+                <span className="text-(--color-accent)">{goalRounds}회 </span>{' '}
                 모험이 완료했습니다.
               </p>
             </>
@@ -228,7 +228,7 @@ const PomodoroTimer = ({
               모험이 끝나면{' '}
               <span className="text-(--color-accent)">
                 {' '}
-                {3 * targetCycles}개의 선물
+                {3 * goalRounds}개의 선물
               </span>
               이 기다리고 있어요!
             </h3>
@@ -240,9 +240,9 @@ const PomodoroTimer = ({
         </div>
         <ItemGrid
           className={`mx-auto w-fit h-[${60 * 3}px] ${
-            targetCycles === 1
+            goalRounds === 1
               ? 'grid-cols-3'
-              : targetCycles === 3
+              : goalRounds === 3
                 ? 'grid-cols-5'
                 : 'grid-cols-6'
           }`}
@@ -268,8 +268,8 @@ const PomodoroTimer = ({
           <ModalButton
             onClick={() => {
               setModalOpen(false);
-              onStart(false);
-              if (isStarted) setCurrentReward(null);
+              onAdventureStart(false);
+              if (isAdventureStarted) setCurrentReward(null);
             }}
           >
             준비하러 돌아가기

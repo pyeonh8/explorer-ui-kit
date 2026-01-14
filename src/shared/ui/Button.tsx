@@ -9,7 +9,7 @@ const Button = ({
   onClick,
   ...rest
 }: ButtonProps) => {
-  const { play } = useSoundEffect({ src: '/sounds/clickSfx.mp3' });
+  const { play } = useSoundEffect({ src: '/sounds/sfx-click.mp3' });
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     play();

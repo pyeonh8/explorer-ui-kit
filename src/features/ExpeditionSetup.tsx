@@ -10,18 +10,21 @@ import { RiLeafFill } from 'react-icons/ri';
 
 // 탐험 준비 화면
 const ExpeditionSetup = ({
+  goalRounds,
+  onAdventureStart,
   translatedAmiibo,
-  selectedAmiibo,
-  onSelect,
-  timerTime,
-  onStart,
+  selectedCharacters,
+  onCharacterSelect,
 }: ExpeditionSetupProps) => {
-  const notChoice = selectedAmiibo.length === 0;
+  const notChoice = selectedCharacters.length === 0;
 
   return (
     <>
       {/* 선택한 캐릭터 */}
-      <SelectedVillagers selectedAmiibo={selectedAmiibo} onSelect={onSelect} />
+      <SelectedVillagers
+        selectedCharacters={selectedCharacters}
+        onCharacterSelect={onCharacterSelect}
+      />
 
       {/* 모험 시작 버튼 */}
       <Modal
@@ -35,7 +38,9 @@ const ExpeditionSetup = ({
         )}
         actionButton={
           !notChoice && (
-            <ModalButton onClick={() => onStart(true)}>타이머 시작</ModalButton>
+            <ModalButton onClick={() => onAdventureStart(true)}>
+              타이머 시작
+            </ModalButton>
           )
         }
       >
@@ -44,8 +49,8 @@ const ExpeditionSetup = ({
             <>
               <RxLapTimer className="text-3xl text-(--color-accent)" />
               <ul>
-                <li className="font-bold">{`${timerTime}회 동안 모험이 시작됩니다!`}</li>
-                <li className="text-[16px]">{`${25 * timerTime}분 집중과 ${5 * timerTime}분 휴식이 준비되어 있습니다.`}</li>
+                <li className="font-bold">{`${goalRounds}회 동안 모험이 시작됩니다!`}</li>
+                <li className="text-[16px]">{`${25 * goalRounds}분 집중과 ${5 * goalRounds}분 휴식이 준비되어 있습니다.`}</li>
               </ul>
             </>
           ) : (
@@ -62,8 +67,8 @@ const ExpeditionSetup = ({
 
       <AmiiboCardList
         translatedAmiibo={translatedAmiibo}
-        selectedAmiibo={selectedAmiibo}
-        onSelect={onSelect}
+        selectedCharacters={selectedCharacters}
+        onCharacterSelect={onCharacterSelect}
       />
     </>
   );

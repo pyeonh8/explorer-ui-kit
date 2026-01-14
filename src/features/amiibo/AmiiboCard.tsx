@@ -4,12 +4,16 @@ import { AmiiboCardProps } from '@/types/features.type';
 import Button from '@/shared/ui/Button';
 import { FaCheck } from 'react-icons/fa6';
 
-const AmiiboCard = ({ amiibo, isSelected, onSelect }: AmiiboCardProps) => {
+const AmiiboCard = ({
+  amiibo,
+  isSelected,
+  onCharacterSelect,
+}: AmiiboCardProps) => {
   return (
     <Button
       variant="plain"
       onClick={() => {
-        onSelect(amiibo.koName);
+        onCharacterSelect(amiibo.koName);
       }}
       className={`transition-transform ${isSelected ? 'hover:scale-100' : 'hover:scale-105'}`}
     >

@@ -13,13 +13,13 @@ import { IoIosWarning } from 'react-icons/io';
 
 // 탐험 진행 화면
 const ExpeditionInProgress = ({
-  timerTime,
-  isStarted,
-  onStart,
+  goalRounds,
+  isAdventureStarted,
+  onAdventureStart,
   collectibleItems,
   isTimerRunning,
   onTimerRunningChange,
-  selectedAmiibo,
+  selectedCharacters: selectedAmiibo,
 }: ExpeditionInProgressProps) => {
   const [logs, setLogs] = useState<LogEntry[]>([
     {
@@ -35,7 +35,7 @@ const ExpeditionInProgress = ({
   const scrollRef = useRef<HTMLUListElement>(null);
 
   const handleRestAndExit = () => {
-    onStart(false);
+    onAdventureStart(false);
     onTimerRunningChange(false);
     setIsTimeOut(false);
   };
@@ -73,9 +73,9 @@ const ExpeditionInProgress = ({
   return (
     <>
       <PomodoroTimer
-        timerTime={timerTime}
-        isStarted={isStarted}
-        onStart={onStart}
+        goalRounds={goalRounds}
+        isAdventureStarted={isAdventureStarted}
+        onAdventureStart={onAdventureStart}
         collectibleItems={collectibleItems}
         onTimerRunningChange={onTimerRunningChange}
         isTimeOut={isTimeOut}
@@ -83,7 +83,6 @@ const ExpeditionInProgress = ({
         setLogs={setLogs}
       />
       <div className="rounded-2xl bg-(--color-foreground)">
-        {/* max-h-[calc(100vh-620px)] min-h-[250px] */}
         <ul
           ref={scrollRef}
           className="custom-scroll h-[250px] max-h-[calc(100vh-720px)] min-h-[150px] overflow-hidden overflow-y-scroll px-3 py-3"
