@@ -5,7 +5,7 @@ import saveStorageId from '@/shared/utils/saveStorageIds';
 import { getRandomItems } from '@/shared/utils/random';
 
 // 보상 랜덤 뽑기
-const UseReward = (collectibleItems: Creature[]) => {
+const useReward = (collectibleItems: Creature[]) => {
   const [currentReward, setCurrentReward] = useState<
     CreatureExtraInfo[] | null
   >(null);
@@ -31,4 +31,4 @@ const UseReward = (collectibleItems: Creature[]) => {
   return { currentReward, generateReward, setCurrentReward };
 };
 
-export default UseReward;
+export default useReward;
