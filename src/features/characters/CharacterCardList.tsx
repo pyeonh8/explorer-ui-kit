@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { AmiiboCardListProps } from '@/types/features.type';
+import { CharacterCardListProps } from '@/types/features.type';
 import CharacterCard from './CharacterCard';
 import useSort from '@/shared/hooks/useSort';
 import useFilter from '@/shared/hooks/useFilter';
@@ -16,7 +16,7 @@ const CharacterCardList = ({
   translatedAmiibo,
   selectedCharacters,
   onCharacterSelect,
-}: AmiiboCardListProps) => {
+}: CharacterCardListProps) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const filterRef = useRef<HTMLDivElement>(null);

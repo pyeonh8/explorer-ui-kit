@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import Image from 'next/image';
-import { AmiiboCardProps } from '@/types/features.type';
+import { CharacterCardProps } from '@/types/features.type';
 import Button from '@/shared/ui/Button';
 import { FaCheck } from 'react-icons/fa6';
 
@@ -8,7 +8,7 @@ const CharacterCard = ({
   amiibo,
   isSelected,
   onCharacterSelect,
-}: AmiiboCardProps) => {
+}: CharacterCardProps) => {
   return (
     <Button
       variant="plain"

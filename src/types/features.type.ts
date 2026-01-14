@@ -10,9 +10,16 @@ export interface Expedition {
 }
 
 // 모험 준비 화면
-export interface ExpeditionSetupProps extends AmiiboCardListProps, Expedition {}
+export interface ExpeditionSetupProps
+  extends CharacterCardListProps,
+    Expedition {}
 
 // 모험 진행 화면 공통
+export interface isTimerFinished {
+  isTimerFinished: boolean;
+  setIsTimerFinished: (timeOut: boolean) => void;
+}
+
 export interface ExpeditionController {
   isAdventureStarted: boolean;
   collectibleItems: Creature[];
@@ -20,9 +27,10 @@ export interface ExpeditionController {
 }
 
 // 모험 진행 화면
-export interface ExpeditionInProgressProps
+export interface ExpeditionPlayProps
   extends Expedition,
-    ExpeditionController {
+    ExpeditionController,
+    isTimerFinished {
   isTimerRunning: boolean;
   selectedCharacters: string[];
 }
@@ -45,9 +53,10 @@ export interface LogEntry {
   borderStyle?: 'top' | 'bottom';
 }
 
-export interface PomodoroTimerProps extends Expedition, ExpeditionController {
-  isTimeOut: boolean;
-  setIsTimeOut: (timeOut: boolean) => void;
+export interface PomodoroTimerProps
+  extends Expedition,
+    ExpeditionController,
+    isTimerFinished {
   setLogs: Dispatch<SetStateAction<LogEntry[]>>;
 }
 
@@ -55,17 +64,17 @@ export interface PomodoroTimerProps extends Expedition, ExpeditionController {
 export type AmiiboSelectHandler = (character: string) => void;
 
 // 선택된 주민들
-export interface AmiiboSelectionProps {
+export interface CharacterSlotProps {
   selectedCharacters: string[];
   onCharacterSelect: AmiiboSelectHandler;
 }
 
-// AmiiboCardList & AmiiboCard : 아미보카드
-export interface AmiiboCardListProps extends AmiiboSelectionProps {
+// 캐릭터 카드
+export interface CharacterCardListProps extends CharacterSlotProps {
   translatedAmiibo: TranslatedAmiibo[];
 }
 
-export interface AmiiboCardProps {
+export interface CharacterCardProps {
   amiibo: TranslatedAmiibo;
   isSelected: boolean;
   onCharacterSelect: AmiiboSelectHandler;
