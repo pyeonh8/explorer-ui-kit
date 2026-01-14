@@ -5,9 +5,11 @@ import { ButtonProps } from '@/types/common.types';
 const IconButton = ({
   children = '',
   className = '',
+  variant = 'default',
   ...rest
 }: ButtonProps) => {
-  const baseStyle = 'flex items-center gap-[4px] justify-center';
+  const baseStyle =
+    variant === 'plain' ? '' : 'flex items-center gap-[4px] justify-center';
   const finalClasses = twMerge(baseStyle, className);
 
   return (
