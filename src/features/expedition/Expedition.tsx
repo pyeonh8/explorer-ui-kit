@@ -83,42 +83,42 @@ const Expedition = ({
       </aside>
 
       <main className="max-w-[600px] overflow-hidden rounded-2xl border-(--color-primary) bg-white">
-        {/* 헤더 로고 */}
+        {/* 헤더 */}
         <ExpeditionHeader />
 
-        {/* <main className="px-4 pt-3 pb-3 sm:px-7">
-          
-        </main> */}
-        {/* 캐릭터 화면 */}
-        <CharacterPanel
-          selectedCharacters={selectedCharacters}
-          villagers={translatedVillagers}
-          isTimerRunning={isTimerRunning}
-        />
-
-        {!isAdventureStarted ? (
-          // 탐험 준비
-          <ExpeditionSetup
-            goalRounds={goalRounds}
-            onAdventureStart={setIsAdventureStarted}
-            translatedAmiibo={translatedAmiibo}
+        {/* 컨텐츠 영역 */}
+        <section className="px-2 pt-2 pb-3 sm:px-3">
+          {/* 캐릭터 화면 */}
+          <CharacterPanel
             selectedCharacters={selectedCharacters}
-            onCharacterSelect={toggleCharacterSelection}
-          />
-        ) : (
-          // 탐험 시작
-          <ExpeditionPlay
-            goalRounds={goalRounds}
-            collectibleItems={creatures}
-            isAdventureStarted={isAdventureStarted}
-            onAdventureStart={setIsAdventureStarted}
-            selectedCharacters={selectedCharacters}
+            villagers={translatedVillagers}
             isTimerRunning={isTimerRunning}
-            onTimerRunningChange={setIsTimerRunning}
-            isTimerFinished={isTimerFinished}
-            setIsTimerFinished={setIsTimerFinished}
           />
-        )}
+
+          {!isAdventureStarted ? (
+            // 탐험 준비
+            <ExpeditionSetup
+              goalRounds={goalRounds}
+              onAdventureStart={setIsAdventureStarted}
+              translatedAmiibo={translatedAmiibo}
+              selectedCharacters={selectedCharacters}
+              onCharacterSelect={toggleCharacterSelection}
+            />
+          ) : (
+            // 탐험 시작
+            <ExpeditionPlay
+              goalRounds={goalRounds}
+              collectibleItems={creatures}
+              isAdventureStarted={isAdventureStarted}
+              onAdventureStart={setIsAdventureStarted}
+              selectedCharacters={selectedCharacters}
+              isTimerRunning={isTimerRunning}
+              onTimerRunningChange={setIsTimerRunning}
+              isTimerFinished={isTimerFinished}
+              setIsTimerFinished={setIsTimerFinished}
+            />
+          )}
+        </section>
 
         <div className="h-4 w-full bg-[url('/images/pattern.jpg')] bg-cover bg-center bg-no-repeat"></div>
       </main>

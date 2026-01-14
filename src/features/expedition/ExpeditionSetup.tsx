@@ -1,5 +1,5 @@
 import CharacterCardList from '../characters/CharacterCardList';
-import SelectedVillagers from '../characters/CharacterSlot';
+import CharacterSlot from '../characters/CharacterSlot';
 import Modal from '@/shared/ui/modal/Modal';
 import IconButton from '@/shared/ui/IconButton';
 import ModalButton from '@/shared/ui/modal/ModalButton';
@@ -21,12 +21,12 @@ const ExpeditionSetup = ({
   return (
     <>
       {/* 선택한 캐릭터 */}
-      <SelectedVillagers
+      <CharacterSlot
         selectedCharacters={selectedCharacters}
         onCharacterSelect={onCharacterSelect}
       />
 
-      {/* 모험 시작 버튼 */}
+      {/* 뽀모도로 타이머 시작 버튼 */}
       <Modal
         openButton={(open) => (
           <IconButton

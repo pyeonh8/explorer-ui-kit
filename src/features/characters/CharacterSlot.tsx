@@ -7,7 +7,7 @@ import Button from '@/shared/ui/Button';
 
 const villagerMap = new Map(villagers.map((v) => [v.translations.kRko, v]));
 
-const SelectedVillagers = ({
+const CharacterSlot = ({
   selectedCharacters,
   onCharacterSelect,
 }: CharacterSlotProps) => {
@@ -51,4 +51,4 @@ const SelectedVillagers = ({
   );
 };
 
-export default SelectedVillagers;
+export default CharacterSlot;
