@@ -24,14 +24,7 @@ const useSound = (options: UseSoundProps = {}) => {
   const [currentTime, setCurrentTime] = useState(0);
 
   // 재생
-  const play = useCallback(() => {
-    // if (audioRef.current) {
-    //   // 재생 위치를 처음으로 되돌림
-    //   audioRef.current.currentTime = 0;
-    // }
-
-    setIsPlaying(true);
-  }, []);
+  const play = useCallback(() => setIsPlaying(true), []);
 
   // 정지
   const pause = useCallback(() => setIsPlaying(false), []);

@@ -7,6 +7,7 @@ type ReactNode = React.ReactNode;
 export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   children?: ReactNode;
   className?: string;
+  variant?: 'default' | 'plain';
 };
 
 // ToggleButton: 토글 버튼
