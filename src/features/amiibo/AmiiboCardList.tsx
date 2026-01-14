@@ -6,7 +6,7 @@ import useFilter from '@/shared/hooks/useFilter';
 import useInfiniteScroll from '@/shared/hooks/useInfiniteScroll';
 import useClickOutside from '@/shared/hooks/useClickOutside';
 import Button from '@/shared/ui/Button';
-import { PERSONALITY_TRANSLATIONS } from '@/constants/amiiboPersonality';
+import { PERSONALITY_TRANSLATIONS } from '@/constants/characterPersonalities';
 import { TbSortAscending } from 'react-icons/tb';
 import { TbSortDescending } from 'react-icons/tb';
 import { FaCaretDown } from 'react-icons/fa';
