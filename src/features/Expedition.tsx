@@ -25,20 +25,23 @@ const Expedition = ({
   translatedAmiibo: TranslatedAmiibo[];
   translatedVillagers: TranslateVillager[];
 }) => {
-  const [isStarted, setIsStarted] = useState(false);
-  const [timerTime, setTimerTime] = useState(1);
-  const [selectedAmiibo, setSelectedAmiibo] = useState<string[]>([]);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [isAdventureStarted, setIsAdventureStarted] = useState(false);
+  const [goalRounds, setGoalRounds] = useState(1);
+  const [selectedCharacters, setSelectedCharacters] = useState<string[]>([]);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  // 뽀모도로 타이머 횟수
-  const timerCounts = [1, 2, 3, 4];
+  // 타이머 횟차
+  const SESSION_OPTIONS = [1, 2, 3, 4];
 
   // 모험 캐릭터 선택
-  const handleSelect = useCallback((character: string) => {
-    setSelectedAmiibo((prev) => {
+  const toggleCharacterSelection = useCallback((character: string) => {
+    setSelectedCharacters((prev) => {
+      // 이미 선택된 경우: 선택 해제
       if (prev.includes(character))
         return prev.filter((item) => item !== character);
+
+      // 2. 최대 개수 도달 시: 경고
       if (prev.length >= 5) {
         setModalOpen(true);
         return prev;
@@ -49,7 +52,8 @@ const Expedition = ({
 
   // 배경음
   const { isPlaying, toggle } = useSound({
-    src: '/sounds/BGM.mp3',
+    src: '/sounds/bgm-default.mp3',
+    volume: 1,
     loop: true,
   });
 
@@ -63,31 +67,29 @@ const Expedition = ({
             toggle();
           }}
         >
-          {isPlaying ? (
-            <MdMusicNote className="text-[22px] sm:text-[22px]" />
-          ) : (
-            <MdMusicOff className="text-[22px] sm:text-[22px]" />
-          )}
+          <span className="text-[22px] sm:text-[22px]">
+            {isPlaying ? <MdMusicNote /> : <MdMusicOff />}
+          </span>
           <span className="hidden text-[12px] font-bold whitespace-nowrap sm:block">
             음악
           </span>
         </IconButton>
 
         {/* 내 도감 */}
-        <CollectionsModal isStarted={isStarted} />
+        <CollectionsModal isAdventureStarted={isAdventureStarted} />
 
         {/* 타이머 횟수 버튼 */}
-        {!isStarted && (
+        {!isAdventureStarted && (
           <>
             <div className="flex flex-col gap-2 pt-4">
-              {timerCounts.map((num) => {
+              {SESSION_OPTIONS.map((num) => {
                 const selectStyle =
                   'border-b-[4px] border-t-[4px] bg-(--color-accent) text-white';
                 return (
                   <IconButton
                     key={num}
-                    className={`${num === timerTime && selectStyle} snm w-full justify-between gap-0.5 sm:justify-center sm:gap-1.5`}
-                    onClick={() => setTimerTime(num)}
+                    className={`${num === goalRounds && selectStyle} snm w-full justify-between gap-0.5 sm:justify-center sm:gap-1.5`}
+                    onClick={() => setGoalRounds(num)}
                   >
                     <FaHourglassStart className="text-[17px] sm:text-[20px]" />
                     <span className="text-[12px] font-bold whitespace-nowrap">
@@ -108,30 +110,30 @@ const Expedition = ({
         <main className="px-4 pt-3 pb-3 sm:px-7">
           {/* 캐릭터 화면 */}
           <CharacterPanel
-            selectedAmiibo={selectedAmiibo}
+            selectedCharacters={selectedCharacters}
             villagers={translatedVillagers}
             isTimerRunning={isTimerRunning}
           />
 
-          {!isStarted ? (
+          {!isAdventureStarted ? (
             // 탐험 준비
             <ExpeditionSetup
+              goalRounds={goalRounds}
+              onAdventureStart={setIsAdventureStarted}
               translatedAmiibo={translatedAmiibo}
-              selectedAmiibo={selectedAmiibo}
-              onSelect={handleSelect}
-              timerTime={timerTime}
-              onStart={setIsStarted}
+              selectedCharacters={selectedCharacters}
+              onCharacterSelect={toggleCharacterSelection}
             />
           ) : (
             // 탐험 시작
             <ExpeditionInProgress
-              timerTime={timerTime}
-              onStart={setIsStarted}
-              isStarted={isStarted}
+              goalRounds={goalRounds}
               collectibleItems={creatures}
+              isAdventureStarted={isAdventureStarted}
+              onAdventureStart={setIsAdventureStarted}
+              selectedCharacters={selectedCharacters}
               isTimerRunning={isTimerRunning}
               onTimerRunningChange={setIsTimerRunning}
-              selectedAmiibo={selectedAmiibo}
             />
           )}
         </main>

@@ -1,17 +1,13 @@
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
-import { TranslateVillager } from '@/types/api.types';
+import { CharacterPanelProps } from '@/types/features.type';
 import { VILLAGERS_HEIGHT } from '@/constants/villagersHeight';
 
 const CharacterPanel = ({
-  selectedAmiibo,
+  selectedCharacters,
   villagers,
   isTimerRunning,
-}: {
-  selectedAmiibo: string[];
-  villagers: TranslateVillager[];
-  isTimerRunning: boolean;
-}) => {
+}: CharacterPanelProps) => {
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
 
   const villagerMap = useMemo(
@@ -26,7 +22,7 @@ const CharacterPanel = ({
 
       {/* 캐릭터 */}
       <div className="relative z-10 flex h-full items-end justify-center gap-4 px-5">
-        {selectedAmiibo?.map((v, index) => {
+        {selectedCharacters?.map((v, index) => {
           const target = villagerMap.get(v);
           if (!target?.image_url) return null;
 

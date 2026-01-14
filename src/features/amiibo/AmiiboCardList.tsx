@@ -14,8 +14,8 @@ import { FaCaretUp } from 'react-icons/fa';
 
 const AmiiboCardList = ({
   translatedAmiibo,
-  selectedAmiibo: selectedIds,
-  onSelect,
+  selectedCharacters,
+  onCharacterSelect,
 }: AmiiboCardListProps) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -104,14 +104,14 @@ const AmiiboCardList = ({
       <div className="custom-scroll max-h-[calc(100vh-620px)] min-h-[250px] overflow-hidden overflow-y-scroll p-1">
         <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
           {slicedData?.map((amiibo) => {
-            const isSelected = selectedIds.includes(amiibo.koName);
+            const isSelected = selectedCharacters.includes(amiibo.koName);
 
             return (
               <AmiiboCard
                 key={amiibo.head + amiibo.tail}
                 amiibo={amiibo}
                 isSelected={isSelected}
-                onSelect={onSelect}
+                onCharacterSelect={onCharacterSelect}
               />
             );
           })}
