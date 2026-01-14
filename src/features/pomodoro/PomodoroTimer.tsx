@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { LogEntry, PomodoroTimerProps } from '@/types/features.type';
 import useTimer from '@/shared/hooks/useTimer';
-import UseReward from './UseReward';
+import useReward from './useReward';
 import formatTime from '@/shared/utils/formatTime';
 import Button from '@/shared/ui/Button';
 import Modal from '@/shared/ui/modal/Modal';
@@ -36,7 +36,7 @@ const PomodoroTimer = ({
 
   // 랜덤 보상 훅
   const { currentReward, generateReward, setCurrentReward } =
-    UseReward(collectibleItems);
+    useReward(collectibleItems);
 
   // 타이머 시작 효과음
   const { play: playWorkStartSfx } = useSoundEffect({

@@ -53,14 +53,22 @@ const Expedition = ({
   }, []);
 
   // 대기 배경음
-  const { toggle: playSetupBgm, pause: pauseSetupBgm } = useSound({
+  const {
+    toggle: playSetupBgm,
+    pause: pauseSetupBgm,
+    stop: stopSetupBgm,
+  } = useSound({
     src: '/sounds/bgm-default.mp3',
     volume: 1,
     loop: true,
   });
 
   // 타이머 완료 배경음
-  const { toggle: playFinishBgm, pause: pauseFinishBgm } = useSound({
+  const {
+    toggle: playFinishBgm,
+    pause: pauseFinishBgm,
+    stop: stopFinishBgm,
+  } = useSound({
     src: '/sounds/bgm-timer-finish.mp3',
     volume: 1,
     loop: true,
@@ -75,13 +83,13 @@ const Expedition = ({
 
     if (!isAdventureStarted) {
       // 대기 브금
-      pauseFinishBgm();
+      stopFinishBgm();
       playSetupBgm();
     } else {
       // 모험 시작
       if (isTimerFinished) {
         // 타이머 완료
-        pauseSetupBgm();
+        stopSetupBgm();
         playFinishBgm();
       } else {
         pauseFinishBgm();
@@ -99,6 +107,8 @@ const Expedition = ({
     playFinishBgm,
     pauseSetupBgm,
     pauseFinishBgm,
+    stopSetupBgm,
+    stopFinishBgm,
     isAdventureStarted,
     isTimerFinished,
   ]);
