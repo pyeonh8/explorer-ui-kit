@@ -80,43 +80,56 @@ const CollectionsModal = ({
 
   return (
     <Modal
+      title="My 도감"
       openButton={(open) => (
-        <IconButton onClick={open} className="gap-1.5 pl-2">
-          <FaBook className="text-[18px] sm:text-[20px]" />
+        <IconButton
+          aria-label="도감 열기"
+          aria-haspopup="dialog"
+          onClick={open}
+          className="gap-1.5 pl-2"
+        >
+          <FaBook aria-hidden="true" className="text-[18px] sm:text-[20px]" />
           <span className="hidden text-[12px] font-bold whitespace-nowrap sm:block">
             도감
           </span>
         </IconButton>
       )}
     >
-      <span className="flex items-center justify-center gap-2 border-b-2 border-(--color-font)/20 pb-3 text-2xl">
+      {/* 모달 헤더 */}
+      <header className="flex items-center justify-center gap-2 border-b-2 border-(--color-font)/20 pb-3 text-2xl">
         <FaBook />
-        <h1 className="font-bold">My 도감</h1>
-      </span>
+        <h2 className="font-bold">My 도감</h2>
+      </header>
 
-      {/* 메뉴 */}
-      <ul className="flex justify-center gap-4 py-4">
-        {filterKeys.map((key) => (
-          <li key={key} className="flex w-18 justify-center text-[13px]">
-            <Button
-              onClick={() => setFilterValue(key)}
-              className={`flex w-full flex-col items-center rounded-2xl pt-1.5 pb-1 transition-all hover:border-(--color-primary) hover:bg-(--color-accent) hover:text-white ${filterValue === key ? 'border-(--color-primary) bg-(--color-accent)! text-white' : 'border-(--color-font-secondary) bg-(--color-foreground-inverse) text-(--color-font-secondary)'}`}
-            >
-              <span className="pb-0.5 text-[22px]">{CREATURE_ICON[key]}</span>
-              {CREATURE_ATTRIBUTES[key]}
-            </Button>
-          </li>
-        ))}
-      </ul>
+      {/* 도감 메뉴 */}
+      <nav aria-label="도감 카테고리 선택">
+        <ul className="flex justify-center gap-4 py-4">
+          {filterKeys.map((key) => (
+            <li key={key} className="flex w-18 justify-center text-[13px]">
+              <Button
+                aria-pressed={filterValue === key}
+                onClick={() => setFilterValue(key)}
+                className={`flex w-full flex-col items-center rounded-2xl pt-1.5 pb-1 transition-all hover:border-(--color-primary) hover:bg-(--color-accent) hover:text-white ${filterValue === key ? 'border-(--color-primary) bg-(--color-accent)! text-white' : 'border-(--color-font-secondary) bg-(--color-foreground-inverse) text-(--color-font-secondary)'}`}
+              >
+                <span aria-hidden="true" className="pb-0.5 text-[22px]">
+                  {CREATURE_ICON[key]}
+                </span>
+                {CREATURE_ATTRIBUTES[key]}
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-      {/* 이름순 정렬 */}
+      {/* 정렬 버튼 */}
       <div className="pb-2">
         <Button
           variant="plain"
+          aria-label={`이름순 ${sortConfig.direction === 'asc' ? '내림차순' : '오름차순'}`}
           onClick={() => requestSort('kRko')}
           className="flex gap-1 text-[15px] font-bold"
         >
-          <span className="text-[20px]">
+          <span aria-hidden="true" className="text-[20px]">
             {sortConfig.direction === 'asc' ? (
               <TbSortAscending />
             ) : (
@@ -127,7 +140,9 @@ const CollectionsModal = ({
         </Button>
       </div>
 
-      <div
+      {/* 수집 가능한 생물 목록 */}
+      <article
+        aria-label="도감 목록"
         ref={scrollRef}
         className="custom-scroll max-h-[350px] overflow-hidden overflow-y-scroll"
       >
@@ -144,7 +159,7 @@ const CollectionsModal = ({
             );
           })}
         </ItemGrid>
-      </div>
+      </article>
     </Modal>
   );
 };
