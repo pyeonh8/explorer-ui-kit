@@ -17,9 +17,12 @@ const CharacterPanel = ({
 
   return (
     <figure
-      aria-label="현재 선택된 캐릭터 화면"
+      aria-labelledby="selected-character-panel"
       className="relative h-[150px] w-[full] overflow-hidden rounded-[10px] sm:h-[170px]"
     >
+      <h3 id="selected-character-panel" className="sr-only">
+        현재 선택된 캐릭터 화면
+      </h3>
       {/* 배경 */}
       <div className="absolute inset-0 scale-105 bg-[url('/images/character-bg01.jpg')] bg-cover bg-center opacity-80 blur-[3px]"></div>
 

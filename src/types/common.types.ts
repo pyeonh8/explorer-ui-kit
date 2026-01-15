@@ -27,6 +27,7 @@ export interface ModalProps {
   onClose?: () => void;
   className?: string;
   title?: string;
+  role?: string;
 }
 
 // ModalContent: 모달 컨텐츠
@@ -47,4 +48,5 @@ export type NPCType = 'isabelle' | 'resetti';
 export interface InfoBubbleProps extends ButtonProps {
   npc?: NPCType;
   imageSize?: number;
+  title?: string;
 }

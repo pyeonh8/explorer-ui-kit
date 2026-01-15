@@ -31,11 +31,7 @@ export const RewardCard = ({
   imageSize?: number;
 }) => {
   return (
-    <li
-      role="img"
-      aria-label={`${item?.translations.kRko} ${item?.isNew ? '새로 얻은 생물' : ''}`}
-      className="relative flex flex-col rounded-2xl bg-[#fff2bd] px-2 py-1"
-    >
+    <li className="relative flex flex-col rounded-2xl bg-[#fff2bd] px-2 py-1">
       {item?.isNew && (
         <span
           aria-hidden={true}
@@ -46,13 +42,13 @@ export const RewardCard = ({
       )}
       <Image
         src={item?.iconImage}
-        alt={item?.translations.kRko}
+        alt={`${item?.translations.kRko} ${item?.isNew ? '새로 얻은 생물' : ''}`}
         width={imageSize}
         height={imageSize}
         priority
         className="m-auto"
       />
-      <span className="text-[11px] sm:text-[13px]">
+      <span aria-hidden="true" className="text-[11px] sm:text-[13px]">
         {item?.translations.kRko}
       </span>
     </li>
@@ -69,16 +65,13 @@ export const CollectionCard = ({
 }) => {
   return (
     <li
-      role="img"
-      aria-label={`${isCollected ? item?.translations.kRko : '미획득 생물'}`}
       className={`flex flex-col items-center rounded-2xl bg-[#fff2bd] p-1 px-2 py-1 ${!isCollected && 'bg-(--color-foreground-inverse) opacity-35'}`}
     >
       <Image
-        aria-hidden="true"
         src={item.iconImage}
+        alt={`${isCollected ? item?.translations.kRko : '미획득 생물'}`}
         width={80}
         height={80}
-        alt={item.translations.kRko}
         className={!isCollected ? `contrast-50 grayscale-100` : ''}
       />
       <span
