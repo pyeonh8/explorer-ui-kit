@@ -3,7 +3,6 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
-  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
@@ -17,13 +16,6 @@ const nextConfig: NextConfig = {
         // Nookipedia API 이미지 호스트
         protocol: 'https',
         hostname: 'dodo.ac',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        // PomodoroTimer의 creatures 이미지 호스트
-        protocol: 'https',
-        hostname: 'acnhcdn.com',
         port: '',
         pathname: '/**',
       },

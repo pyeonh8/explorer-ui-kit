@@ -45,11 +45,6 @@ const useTimer = (options: UseTimerProps = {}) => {
     setTimerCount(effectiveInitialValue);
   }, [effectiveInitialValue]);
 
-  // 외부에서 initialValue(모드 시간)가 바뀌면 타이머 숫자를 즉시 동기화
-  useEffect(() => {
-    setTimerCount(effectiveInitialValue);
-  }, [effectiveInitialValue]);
-
   useEffect(() => {
     onCompleteRef.current = onComplete;
   }, [onComplete]);
