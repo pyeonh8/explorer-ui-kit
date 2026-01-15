@@ -10,7 +10,7 @@ const ExpeditionHeader = () => {
         </div>
 
         {/* 헤더 하단 물결 */}
-        <div className="absolute bottom-0 left-0 w-[101%]">
+        <div aria-hidden="true" className="absolute bottom-0 left-0 w-[101%]">
           <svg
             viewBox="0 0 1440 95"
             fill="none"
