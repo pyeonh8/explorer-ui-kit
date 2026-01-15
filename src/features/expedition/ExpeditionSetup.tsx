@@ -26,18 +26,18 @@ const ExpeditionSetup = ({
         onCharacterSelect={onCharacterSelect}
       />
 
-      {/* 뽀모도로 타이머 시작 버튼 */}
+      {/*  타이머 시작 버튼 */}
       <section aria-labelledby="timer-start-title">
         <h3 id="timer-start-title" className="sr-only">
-          뽀모도로 타이머 시작하기
+          모험 시작하기 (타이머 시작)
         </h3>
 
         <Modal
-          title={`${!notChoice ? '뽀모도로 타이머 시작 안내' : '경고 안내'}`}
+          title={`${!notChoice ? '타이머 시작 안내' : '경고 안내'}`}
           role={`${!notChoice ? 'dialog' : 'alertdialog'}`}
           openButton={(open) => (
             <IconButton
-              aria-label="뽀모도로 타이머 시작하기 안내창 열기"
+              aria-label="타이머 시작하기 안내창 열기"
               className="m-auto min-h-[55px] w-[200px] max-w-full text-[20px] font-bold sm:min-h-[60px] sm:text-[23px]"
               onClick={open}
             >

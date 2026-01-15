@@ -31,7 +31,10 @@ export const RewardCard = ({
   imageSize?: number;
 }) => {
   return (
-    <li className="relative flex flex-col rounded-2xl bg-[#fff2bd] px-2 py-1">
+    <li
+      aria-label={`${item?.translations.kRko} ${item?.isNew ? '새로 얻은 생물' : ''}`}
+      className="relative flex flex-col rounded-2xl bg-[#fff2bd] px-2 py-1"
+    >
       {item?.isNew && (
         <span
           aria-hidden={true}
@@ -42,7 +45,7 @@ export const RewardCard = ({
       )}
       <Image
         src={item?.iconImage}
-        alt={`${item?.translations.kRko} ${item?.isNew ? '새로 얻은 생물' : ''}`}
+        alt=""
         width={imageSize}
         height={imageSize}
         priority
@@ -65,11 +68,12 @@ export const CollectionCard = ({
 }) => {
   return (
     <li
+      aria-label={`${isCollected ? item?.translations.kRko : '미획득 생물'}`}
       className={`flex flex-col items-center rounded-2xl bg-[#fff2bd] p-1 px-2 py-1 ${!isCollected && 'bg-(--color-foreground-inverse) opacity-35'}`}
     >
       <Image
         src={item.iconImage}
-        alt={`${isCollected ? item?.translations.kRko : '미획득 생물'}`}
+        alt=""
         width={80}
         height={80}
         className={!isCollected ? `contrast-50 grayscale-100` : ''}
