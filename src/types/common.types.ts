@@ -26,6 +26,7 @@ export interface ModalProps {
   isOpen?: boolean;
   onClose?: () => void;
   className?: string;
+  title?: string;
 }
 
 // ModalContent: 모달 컨텐츠
