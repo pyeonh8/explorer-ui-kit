@@ -58,7 +58,7 @@ const CharacterSlot = ({
           })}
         </ul>
       ) : (
-        <InfoBubble title="뽀모도로 타이머 캐릭터 선택 안내">
+        <InfoBubble title="타이머 캐릭터 선택 안내">
           함께 모험을 떠날 친구들을 선택해주세요! (최대 5명)
         </InfoBubble>
       )}

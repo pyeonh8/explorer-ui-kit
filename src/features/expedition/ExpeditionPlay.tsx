@@ -59,7 +59,7 @@ const ExpeditionPlay = ({
         ]);
       };
 
-      const intervalId = setInterval(updateLog, 3500);
+      const intervalId = setInterval(updateLog, 4500);
       return () => clearInterval(intervalId);
     }
   }, [isTimerRunning, selectedAmiibo]);
@@ -83,14 +83,24 @@ const ExpeditionPlay = ({
         setIsTimerFinished={setIsTimerFinished}
         setLogs={setLogs}
       />
-      <div className="rounded-2xl bg-(--color-foreground)">
+      <section
+        aria-labelledby="expedition-logs-title"
+        className="rounded-2xl bg-(--color-foreground)"
+      >
+        <h3 id="expedition-logs-title" className="sr-only">
+          타이머 모험 로그
+        </h3>
+
         <ul
+          role="log"
+          aria-live="polite"
+          aria-relevant="additions text"
           ref={scrollRef}
           className="custom-scroll h-[250px] max-h-[calc(100vh-720px)] min-h-[150px] overflow-hidden overflow-y-scroll px-3 py-3"
         >
           {logs.map((log, index) => (
             <li
-              key={index}
+              key={`${log.text}-${index}`}
               className={`border-dashed border-(--color-primary) px-2 text-[14px] leading-tight sm:text-[15px] ${log.type === 'system' ? 'py-3 text-center' : 'py-1'} ${log.borderStyle === 'top' && 'mt-2 border-t-2'} ${log.borderStyle === 'bottom' && 'mb-2 border-b-2'}`}
             >
               {log.type === 'animal' && (
@@ -103,30 +113,37 @@ const ExpeditionPlay = ({
                 </p>
               )}
               {log.type === 'system' && (
-                <div className="flex flex-col">
+                <span className="flex flex-col">
                   <time className="text-[14px]">{log.time}</time>
                   <strong className="text-[20px]">{log.text}</strong>
-                </div>
+                </span>
               )}
               {log.type === 'npc' && (
-                <article>
-                  <InfoBubble
-                    npc={'resetti'}
-                    imageSize={48}
-                    className="bg-(--color-primary) px-4 py-2.5 font-bold after:border-r-(--color-primary) sm:px-4 sm:py-3"
-                  >
-                    {log.text}
-                  </InfoBubble>
-                </article>
+                <InfoBubble
+                  title="타이머 일시중지 안내"
+                  npc={'resetti'}
+                  imageSize={48}
+                  className="bg-(--color-primary) px-4 py-2.5 font-bold after:border-r-(--color-primary) sm:px-4 sm:py-3"
+                >
+                  {log.text}
+                </InfoBubble>
               )}
             </li>
           ))}
         </ul>
-      </div>
+      </section>
 
-      {/* 모험 준비하러 가기 버튼/모달 */}
-      <div className="flex items-center justify-center pt-3">
+      {/* 타이머 종료 및 이동 제어 */}
+      <section
+        aria-labelledby="exit-action-title"
+        className="flex items-center justify-center pt-3"
+      >
+        <h3 id="exit-action-title" className="sr-only">
+          타이머 종료 및 이동 제어
+        </h3>
+
         <IconButton
+          aria-label="타이머 준비 화면으로 돌아가기"
           onClick={() => {
             if (!isTimerFinished) {
               setModalOpen(true);
@@ -137,11 +154,13 @@ const ExpeditionPlay = ({
           }}
           className="min-h-[50px] font-bold"
         >
-          <LuCornerUpLeft />
+          <LuCornerUpLeft aria-hidden="true" />
           모험 준비하러 가기
         </IconButton>
 
         <Modal
+          role="alertdialog"
+          title="모험 중단 안내"
           isOpen={modalOpen}
           actionButton={
             <>
@@ -165,14 +184,17 @@ const ExpeditionPlay = ({
           hideCloseButton
         >
           <div className="flex flex-col items-center gap-3">
-            <IoIosWarning className="text-3xl text-orange-700" />
-            <span>
+            <IoIosWarning
+              aria-hidden="true"
+              className="text-3xl text-orange-700"
+            />
+            <p>
               지금 모험 준비하러 돌아가면 <br />{' '}
               <strong>타이머가 리셋되고 보상을 받을 수 없어요!</strong>
-            </span>
+            </p>
           </div>
         </Modal>
-      </div>
+      </section>
     </>
   );
 };

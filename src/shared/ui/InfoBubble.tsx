@@ -33,7 +33,7 @@ const InfoBubble = ({
           width={imageSize}
         />
         <div className={finalClasses}>
-          <h2 className="sr-only">{title}</h2>
+          <h4 className="sr-only">{title}</h4>
           <p>{children}</p>
         </div>
       </div>

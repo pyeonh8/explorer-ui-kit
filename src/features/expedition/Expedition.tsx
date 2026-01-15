@@ -61,7 +61,7 @@ const Expedition = ({
         />
         {/* 타이머 횟수 버튼 */}
         {!isAdventureStarted && (
-          <section aria-label="뽀모도로 타이머 설정">
+          <section aria-label="타이머 설정">
             <h2 className="sr-only">반복 횟수 선택</h2>
             <ul className="flex flex-col gap-2 pt-4">
               {SESSION_OPTIONS.map((num) => {
@@ -103,9 +103,7 @@ const Expedition = ({
           className="px-2 pt-2 pb-3 sm:px-3"
         >
           <h2 id="expedition-status-title" className="sr-only">
-            {!isAdventureStarted
-              ? '뽀모도로 타이머 준비 화면'
-              : '뽀모도로 타이머 화면'}
+            {!isAdventureStarted ? ' 타이머 준비 화면' : ' 타이머 화면'}
           </h2>
 
           {/* 캐릭터 화면 */}
