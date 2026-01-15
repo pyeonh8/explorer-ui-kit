@@ -5,11 +5,10 @@ import Modal from '@/shared/ui/modal/Modal';
 import { ItemGrid, CollectionCard } from '@/shared/ui/ItemGrid';
 import Button from '@/shared/ui/Button';
 import IconButton from '@/shared/ui/IconButton';
+import SortButton from '@/shared/ui/SortButton';
 import getSavedStorageIds from '@/shared/utils/getSavedStorageIds';
 import useFilter from '@/shared/hooks/useFilter';
 import useSort from '@/shared/hooks/useSort';
-import { TbSortAscending } from 'react-icons/tb';
-import { TbSortDescending } from 'react-icons/tb';
 import { CREATURE_ATTRIBUTES } from '@/constants/creatureAttributes';
 import { FaBook } from 'react-icons/fa';
 import { IoIosBug } from 'react-icons/io';
@@ -123,21 +122,11 @@ const CollectionsModal = ({
 
       {/* 정렬 버튼 */}
       <div className="pb-2">
-        <Button
-          variant="plain"
-          aria-label={`이름순 ${sortConfig.direction === 'asc' ? '내림차순' : '오름차순'}`}
-          onClick={() => requestSort('kRko')}
-          className="flex gap-1 text-[15px] font-bold"
-        >
-          <span aria-hidden="true" className="text-[20px]">
-            {sortConfig.direction === 'asc' ? (
-              <TbSortAscending />
-            ) : (
-              <TbSortDescending />
-            )}
-          </span>
-          이름순
-        </Button>
+        <SortButton
+          sortKey="kRko"
+          requestSort={requestSort}
+          sortConfig={sortConfig}
+        />
       </div>
 
       {/* 수집 가능한 생물 목록 */}

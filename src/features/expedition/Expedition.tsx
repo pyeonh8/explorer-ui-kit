@@ -97,7 +97,17 @@ const Expedition = ({
         <ExpeditionHeader />
 
         {/* 컨텐츠 영역 */}
-        <section className="px-2 pt-2 pb-3 sm:px-3">
+        <section
+          aria-labelledby="adventure-status-title"
+          aria-live="polite"
+          className="px-2 pt-2 pb-3 sm:px-3"
+        >
+          <h2 id="expedition-status-title" className="sr-only">
+            {!isAdventureStarted
+              ? '뽀모도로 타이머 준비 화면'
+              : '뽀모도로 타이머 화면'}
+          </h2>
+
           {/* 캐릭터 화면 */}
           <CharacterPanel
             selectedCharacters={selectedCharacters}
@@ -134,8 +144,10 @@ const Expedition = ({
       </main>
       <div className="invisible"></div>
 
-      {/* 캐릭터 선택 모달 */}
+      {/* 캐릭터 선택 경고 모달 */}
       <Modal
+        title="경고 안내"
+        role="alertdialog"
         isOpen={modalOpen}
         actionButton={
           <ModalButton
@@ -150,11 +162,14 @@ const Expedition = ({
         hideCloseButton
       >
         <div className="flex flex-col items-center gap-3">
-          <IoIosWarning className="text-3xl text-orange-700" />
-          <span>
-            최대 캐릭터 <span className="font-black text-orange-700">5명</span>{' '}
-            까지 선택 가능합니다.
-          </span>
+          <IoIosWarning
+            aria-hidden="true"
+            className="text-3xl text-orange-700"
+          />
+          <p>
+            최대 캐릭터 <strong className="text-orange-700">5명</strong> 까지
+            선택 가능합니다.
+          </p>
         </div>
       </Modal>
     </div>

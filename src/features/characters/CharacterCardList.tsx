@@ -6,9 +6,8 @@ import useFilter from '@/shared/hooks/useFilter';
 import useInfiniteScroll from '@/shared/hooks/useInfiniteScroll';
 import useClickOutside from '@/shared/hooks/useClickOutside';
 import Button from '@/shared/ui/Button';
+import SortButton from '@/shared/ui/SortButton';
 import { PERSONALITY_TRANSLATIONS } from '@/constants/characterPersonalities';
-import { TbSortAscending } from 'react-icons/tb';
-import { TbSortDescending } from 'react-icons/tb';
 import { FaCaretDown } from 'react-icons/fa';
 import { FaCaretUp } from 'react-icons/fa';
 
@@ -47,27 +46,24 @@ const CharacterCardList = ({
 
   return (
     <>
-      {/* 필터 정렬 */}
-      <div className="flex justify-between gap-2 pt-5 pb-1.5">
-        {/* 이름순 정렬 */}
-        <Button
-          variant="plain"
-          onClick={() => requestSort('koName')}
-          className="flex items-center gap-1 pl-1 text-[15px] font-bold"
-        >
-          <span className="text-[20px]">
-            {sortConfig.direction === 'asc' ? (
-              <TbSortAscending />
-            ) : (
-              <TbSortDescending />
-            )}
-          </span>
-          <span className="translate-y-px">이름순</span>
-        </Button>
+      <div
+        role="group"
+        aria-label="캐릭터 목록 정렬 및 필터"
+        className="flex justify-between gap-2 pt-5 pb-1.5"
+      >
+        {/* 정렬 정렬 */}
+        <SortButton
+          sortKey="koName"
+          requestSort={requestSort}
+          sortConfig={sortConfig}
+        />
 
         {/* 성격순 필터 */}
         <div ref={filterRef} className="group relative mr-1 w-max">
           <Button
+            aria-label={`성격 필터 메뉴: ${PERSONALITY_TRANSLATIONS[filterValue]}. 클릭 시 목록 ${isFilterOpen ? '닫기' : '열기'}`}
+            aria-haspopup="listbox"
+            aria-expanded={isFilterOpen}
             variant="plain"
             onClick={() => setIsFilterOpen((prev) => !prev)}
             className="flex w-21 translate-x-px items-center justify-between rounded-sm bg-(--color-secondary) px-1.5 py-1 text-[14px] font-bold"
@@ -75,15 +71,20 @@ const CharacterCardList = ({
             <span className="translate-y-0.5">
               {PERSONALITY_TRANSLATIONS[filterValue]}
             </span>
-            <span className="text-(--color-accent)">
+            <span aria-hidden="true" className="text-(--color-accent)">
               {isFilterOpen ? <FaCaretUp /> : <FaCaretDown />}
             </span>
           </Button>
           {isFilterOpen && (
-            <ul className="absolute right-0 z-99 flex w-full flex-col text-[15px] whitespace-nowrap shadow-xl">
+            <ul
+              role="listbox"
+              className="absolute right-0 z-99 flex w-full flex-col text-[15px] whitespace-nowrap shadow-xl"
+            >
               {filterKeys.map((key) => (
-                <li key={key}>
+                <li key={key} role="none">
                   <Button
+                    role="option"
+                    aria-selected={filterValue === key}
                     variant="plain"
                     onClick={() => {
                       setFilterValue(key);
@@ -100,31 +101,40 @@ const CharacterCardList = ({
         </div>
       </div>
 
-      {/* 카드 목록 */}
-      <div className="custom-scroll h-[550px] max-h-[calc(100vh-620px)] min-h-[250px] overflow-hidden overflow-y-scroll p-1">
-        <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
+      {/* 캐릭터 카드 목록 */}
+      <section
+        aria-labelledby="character-list-title"
+        className="custom-scroll h-[550px] max-h-[calc(100vh-620px)] min-h-[250px] overflow-hidden overflow-y-scroll p-1"
+      >
+        <h3 id="character-list-title" className="sr-only">
+          캐릭터 선택 목록
+        </h3>
+
+        <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4">
           {slicedData?.map((amiibo) => {
             const isSelected = selectedCharacters.includes(amiibo.koName);
 
             return (
-              <CharacterCard
-                key={amiibo.head + amiibo.tail}
-                amiibo={amiibo}
-                isSelected={isSelected}
-                onCharacterSelect={onCharacterSelect}
-              />
+              <li key={amiibo.head + amiibo.tail}>
+                <CharacterCard
+                  amiibo={amiibo}
+                  isSelected={isSelected}
+                  onCharacterSelect={onCharacterSelect}
+                />
+              </li>
             );
           })}
-        </div>
+        </ul>
         {hasMore && (
-          <div
+          <p
             ref={observerRef}
+            aria-live="polite"
             className="flex h-15 items-center justify-center"
           >
             <span>아미보 불러오는 중...</span>
-          </div>
+          </p>
         )}
-      </div>
+      </section>
     </>
   );
 };
