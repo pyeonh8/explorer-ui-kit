@@ -7,6 +7,7 @@ type ReactNode = React.ReactNode;
 export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   children?: ReactNode;
   className?: string;
+  variant?: 'default' | 'plain';
 };
 
 // ToggleButton: 토글 버튼
@@ -25,6 +26,8 @@ export interface ModalProps {
   isOpen?: boolean;
   onClose?: () => void;
   className?: string;
+  title?: string;
+  role?: string;
 }
 
 // ModalContent: 모달 컨텐츠
@@ -36,6 +39,7 @@ export interface ModalContentProps
 export interface ItemGridProps {
   children: React.ReactNode;
   columns?: number;
+  className?: string;
 }
 
 // npc 말풍선 UI
@@ -44,4 +48,5 @@ export type NPCType = 'isabelle' | 'resetti';
 export interface InfoBubbleProps extends ButtonProps {
   npc?: NPCType;
   imageSize?: number;
+  title?: string;
 }

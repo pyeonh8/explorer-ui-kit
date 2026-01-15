@@ -7,6 +7,7 @@ import { BsFillCaretRightFill } from 'react-icons/bs';
 const ModalButton = ({
   children = '',
   className = '',
+  onClick,
   ...rest
 }: ButtonProps) => {
   const baseStyle =
@@ -14,8 +15,8 @@ const ModalButton = ({
   const finalClasses = twMerge(baseStyle, className);
 
   return (
-    <Button {...rest} className={finalClasses}>
-      <span className="flex h-[18px] w-4 overflow-hidden">
+    <Button {...rest} onClick={onClick} className={finalClasses}>
+      <span aria-hidden="true" className="flex h-[18px] w-4 overflow-hidden">
         <BsFillCaretRightFill className="w-6 group-hover:w-0" />
         <TbHandFingerRight className="w-0 opacity-0 transition-all duration-300 group-hover:w-6 group-hover:opacity-100" />
       </span>

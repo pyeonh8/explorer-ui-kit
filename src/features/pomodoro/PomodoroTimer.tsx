@@ -1,39 +1,57 @@
 import { useEffect, useState } from 'react';
-import { PomodoroTimerProps } from '@/types/features.type';
+import { LogEntry, PomodoroTimerProps } from '@/types/features.type';
 import useTimer from '@/shared/hooks/useTimer';
-import UseReward from './UseReward';
+import useReward from './useReward';
 import formatTime from '@/shared/utils/formatTime';
+import Button from '@/shared/ui/Button';
 import Modal from '@/shared/ui/modal/Modal';
 import ModalButton from '@/shared/ui/modal/ModalButton';
 import InfoBubble from '@/shared/ui/InfoBubble';
+import formatDate from '@/shared/utils/formatDate';
 import { ItemGrid, RewardCard } from '@/shared/ui/ItemGrid';
 import { FaRegStopCircle } from 'react-icons/fa';
 import { FaRegCirclePlay } from 'react-icons/fa6';
 import { LuAlarmClockCheck } from 'react-icons/lu';
+import { FaGift } from 'react-icons/fa6';
+import useSoundEffect from '@/shared/hooks/useSoundEffect';
 
 const POMODORO_TIMES = {
-  WORK: 0.2 * 60,
-  REST: 0.2 * 60,
+  WORK: 1 * 60,
+  REST: 0.5 * 60,
 };
 
 const PomodoroTimer = ({
-  timerTime: targetCycles = 1,
-  isStarted,
-  onStart,
+  goalRounds = 1,
+  isAdventureStarted,
+  onAdventureStart,
   collectibleItems,
   onTimerRunningChange,
-  isTimeOut,
-  setIsTimeOut,
+  isTimerFinished,
+  setIsTimerFinished,
+  setLogs,
 }: PomodoroTimerProps) => {
   const [mode, setMode] = useState<'WORK' | 'REST'>('WORK');
   const [currentCycles, setCurrentCycle] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
 
-  // 모험이 끝났을 때에 안내 변경!!!!!!!!!
-
   // 랜덤 보상 훅
   const { currentReward, generateReward, setCurrentReward } =
-    UseReward(collectibleItems);
+    useReward(collectibleItems);
+
+  // 타이머 시작 효과음
+  const { play: playWorkStartSfx } = useSoundEffect({
+    src: '/sounds/sfx-timer-start.mp3',
+  });
+
+  // 타이머 휴식 효과음
+  const { play: playRestStartSfx } = useSoundEffect({
+    src: '/sounds/sfx-timer-break.mp3',
+  });
+
+  // 타이머 완료 효과음
+  const { play: playFinishSfx } = useSoundEffect({
+    src: '/sounds/sfx-timer-finish.mp3',
+  });
 
   // 타이머 훅
   const { timerCount, isRunning, start, pause, reset } = useTimer({
@@ -41,133 +59,270 @@ const PomodoroTimer = ({
     onComplete: () => {
       if (mode === 'WORK') {
         setMode('REST');
-        reset();
-        start();
+        playRestStartSfx();
       } else {
-        if (currentCycles < targetCycles) {
+        if (currentCycles < goalRounds) {
           setCurrentCycle((prev) => prev + 1);
           setMode('WORK');
-          reset();
-          start();
+          playWorkStartSfx();
         } else {
-          // 타이머 종료
-          setModalOpen(true);
-          generateReward(3 * targetCycles);
+          // 타이머 종료일 떄
+          setTimeout(() => {
+            playFinishSfx();
+
+            // 타이머 끝남 true
+            setIsTimerFinished(true);
+
+            // 보상 모달 오픈
+            setModalOpen(true);
+
+            // 보상 아이템 랜덤 뽑기
+            generateReward(3 * goalRounds);
+
+            // 타이머 종료 안내 로그
+            setLogs((prev) => [
+              ...prev,
+              {
+                type: 'system',
+                text: '모험이 완료됐습니다.',
+                time: formatDate(),
+                borderStyle: 'bottom',
+              },
+            ]);
+          }, 0);
         }
       }
     },
   });
 
-  // isStarted true
-  useEffect(() => {
-    if (isStarted) start();
-  }, [isStarted, start]);
-
-  // isStarted false
-  useEffect(() => {
-    if (!isStarted) {
-      reset();
-      if (isStarted) setCurrentReward(null);
+  const handleToggleTimer = () => {
+    const msg: LogEntry[] = isRunning
+      ? [
+          {
+            type: 'system',
+            text: '모험을 중지합니다.',
+            time: formatDate(),
+            borderStyle: 'top',
+          },
+          {
+            type: 'npc',
+            name: 'resetti',
+            text: '휴식은 모험 끝낸 뒤에 하라고 말 안 했드나!',
+          },
+        ]
+      : [
+          {
+            type: 'system',
+            text: '모험을 재시작합니다.',
+            time: formatDate(),
+            borderStyle: 'bottom',
+          },
+        ];
+    if (isRunning) {
+      pause();
+    } else {
+      start();
     }
-  }, [isStarted, reset, setCurrentReward]);
+    setLogs((prev) => [...prev, ...msg]);
+  };
+
+  // 타이머 모드가 바뀌면 리셋 후 재시작
+  useEffect(() => {
+    if (isAdventureStarted && !isTimerFinished) {
+      reset();
+      start();
+    }
+  }, [mode, currentCycles, isAdventureStarted, isTimerFinished, reset, start]);
 
   // 타이머 실행 유무
   useEffect(() => {
     onTimerRunningChange(isRunning);
   }, [onTimerRunningChange, isRunning]);
 
-  // 타이머가 0일 때 true
+  // isStarted true
   useEffect(() => {
-    if (timerCount !== 0 && !isTimeOut) return;
-    setIsTimeOut(true);
-  }, [setIsTimeOut, timerCount, isTimeOut]);
+    if (isAdventureStarted) {
+      playWorkStartSfx();
+      start();
+    }
+  }, [isAdventureStarted, start, playWorkStartSfx]);
+
+  // isStarted false
+  useEffect(() => {
+    if (!isAdventureStarted) {
+      reset();
+      if (isAdventureStarted) setCurrentReward(null);
+    }
+  }, [isAdventureStarted, reset, setCurrentReward]);
 
   return (
-    <article>
-      {/* 안내 말풍선 */}
-      <aside className="py-2">
-        <InfoBubble className="text-center sm:py-3">
-          <h2 className="mt-1 text-[22px] font-black sm:text-2xl">
-            동물 친구들이{' '}
-            {isRunning ? (
+    <>
+      <article>
+        {/* 타이머 안내 */}
+        <section aria-labelledby="timer-info-title" className="py-2">
+          <InfoBubble className="text-center sm:py-3">
+            {!isTimerFinished ? (
               <>
-                <span className="text-(--color-accent)">
-                  {mode === 'WORK' ? '탐험' : '휴식'}
-                </span>{' '}
-                중에요!
+                <h3
+                  id="timer-info-title"
+                  className="mt-1 text-[22px] font-black sm:text-2xl"
+                >
+                  동물 친구들이{' '}
+                  {isRunning ? (
+                    <>
+                      <span className="text-(--color-accent)">
+                        {mode === 'WORK' ? '탐험' : '휴식'}
+                      </span>{' '}
+                      중에요!
+                    </>
+                  ) : (
+                    '모험을 기다려요!'
+                  )}
+                </h3>
+                <p className="mt-1 text-[13px] sm:text-[14px]">
+                  총 {goalRounds}회 탐험 중{' '}
+                  <span className="text-(--color-accent)">
+                    {' '}
+                    {currentCycles}회 진행
+                  </span>
+                  하고 있습니다.
+                </p>
               </>
             ) : (
-              '모험을 기다려요!'
+              <>
+                <h3
+                  id="timer-info-title"
+                  className="mt-1 text-[22px] font-black sm:text-2xl"
+                >
+                  다음 모험에서 다시 만나요!
+                </h3>
+                <p className="mt-1 text-[13px] sm:text-[14px]">
+                  총{' '}
+                  <span className="text-(--color-accent)">{goalRounds}회 </span>{' '}
+                  모험이 완료했습니다.
+                </p>
+              </>
             )}
-          </h2>
-          <p className="mt-1 text-[13px] sm:text-[14px]">
-            총 {targetCycles}회 탐험 중{' '}
-            <span className="text-(--color-accent)">
-              {' '}
-              {currentCycles}회 진행
-            </span>
-            하고 있습니다.
-          </p>
-        </InfoBubble>
-      </aside>
+          </InfoBubble>
+        </section>
 
-      {/* 타이머 */}
-      <section className="relative flex flex-col items-center pt-6 pb-3 sm:pt-8 sm:pb-4">
-        <time
-          className="relative z-10 text-6xl font-bold sm:text-7xl"
-          dateTime={`PT${timerCount}S`}
+        {/* 타이머 */}
+        <section
+          aria-labelledby="timer-title"
+          className={`relative flex flex-col items-center pb-2 sm:pb-3 ${isTimerFinished ? 'pt-2 sm:pt-3' : 'pt-4 sm:pt-6'}`}
         >
-          {formatTime(timerCount)}
-        </time>
-        {/* <p>{isRunning ? '실행 중' : '정지됨'}</p> */}
-        <div className="h-6 text-[20px] opacity-50 sm:text-2xl">
-          {!isTimeOut && (
-            <>
-              {isRunning ? (
-                <button onClick={pause} className="cursor-pointer">
-                  {/* 멈춤 */}
-                  <FaRegStopCircle />
-                </button>
-              ) : (
-                <button onClick={start} className="cursor-pointer">
-                  {/* 시작 */}
-                  <FaRegCirclePlay />
-                </button>
-              )}
-            </>
+          <h3 id="timer-title" className="sr-only">
+            타이머 시계
+          </h3>
+          <time
+            role="timer"
+            aria-live="off"
+            className="relative z-10 text-6xl font-bold sm:text-7xl"
+            dateTime={`PT${timerCount}S`}
+          >
+            {formatTime(timerCount)}
+          </time>
+          {!isTimerFinished && (
+            <div className="h-6 text-[20px] opacity-50 sm:text-2xl">
+              <Button
+                aria-label={isRunning ? '타이머 일시정지' : '타이머 재시작'}
+                variant="plain"
+                onClick={handleToggleTimer}
+              >
+                {isRunning ? (
+                  <FaRegStopCircle aria-hidden="true" />
+                ) : (
+                  <FaRegCirclePlay aria-hidden="true" />
+                )}
+              </Button>
+            </div>
           )}
-        </div>
-        <LuAlarmClockCheck className="absolute top-[43%] left-1/2 -translate-1/2 text-7xl text-(--color-primary) opacity-40 sm:text-8xl" />
-      </section>
+          <LuAlarmClockCheck
+            aria-hidden="true"
+            className="absolute top-[43%] left-1/2 -translate-1/2 text-7xl text-(--color-primary) opacity-40 sm:text-8xl"
+          />
+        </section>
 
-      {/* 모달 */}
+        {/* 보상 */}
+        <section
+          aria-labelledby="reward-states-title"
+          className="pb-4 text-center"
+        >
+          <div className="mb-2.5 flex items-center justify-center gap-2 text-[14px] sm:text-[16px]">
+            <FaGift aria-hidden="true" />
+            <h3 id="reward-states-title" className="translate-y-px">
+              {!isTimerFinished ? (
+                <>
+                  모험이 끝나면{' '}
+                  <span className="text-(--color-accent)">
+                    {' '}
+                    {3 * goalRounds}개의 선물
+                  </span>
+                  이 기다리고 있어요!
+                </>
+              ) : (
+                <>동물 친구들이 모험에서 선물을 가져왔어요!</>
+              )}
+            </h3>
+          </div>
+          <ItemGrid
+            className={`mx-auto w-fit h-[${60 * 3}px] ${
+              goalRounds === 1
+                ? 'grid-cols-3'
+                : goalRounds === 3
+                  ? 'grid-cols-5'
+                  : 'grid-cols-6'
+            }`}
+          >
+            {isTimerFinished && (
+              <>
+                {currentReward?.map((item, index) => (
+                  <RewardCard
+                    key={`${item.internalId}-${index} ${item.name}`}
+                    item={item}
+                    imageSize={40}
+                  />
+                ))}
+              </>
+            )}
+          </ItemGrid>
+        </section>
+      </article>
+
+      {/* 보상 안내 모달 */}
       <Modal
+        title="모험 종료 보상 안내 (타이머 종료 보상)"
         isOpen={modalOpen}
         actionButton={
           <ModalButton
             onClick={() => {
               setModalOpen(false);
-              onStart(false);
-              if (isStarted) setCurrentReward(null);
+              onAdventureStart(false);
+              setIsTimerFinished(false);
+              if (isAdventureStarted) setCurrentReward(null);
             }}
           >
-            되돌아가기
+            준비하러 돌아가기
           </ModalButton>
         }
       >
-        <div>
-          <p> 동물 친구들이 모험에서 돌아왔습니다!</p>
-          <ItemGrid>
-            {currentReward?.map((item, index) => (
-              <RewardCard
-                key={`${item.internalId}-${index} ${item.name}`}
-                item={item}
-              />
-            ))}
-          </ItemGrid>
+        <div className="flex flex-col items-center gap-3 pb-4">
+          <FaGift
+            aria-hidden="true"
+            className="text-3xl text-(--color-accent)"
+          />
+          <p id="modal-desc">동물 친구들이 모험에서 선물을 가져왔어요!</p>
         </div>
+        <ItemGrid aria-labelledby="modal-desc">
+          {currentReward?.map((item, index) => (
+            <RewardCard
+              key={`${item.internalId}-${index} ${item.name}`}
+              item={item}
+            />
+          ))}
+        </ItemGrid>
       </Modal>
-    </article>
+    </>
   );
 };
 

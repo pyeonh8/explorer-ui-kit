@@ -13,6 +13,8 @@ const Modal = ({
   hideCloseButton,
   isOpen: triggerOpen,
   className = '',
+  title,
+  role = 'dialog',
 }: ModalProps) => {
   const { isOpen, modalRef, open, close } = useModal();
   const isControlledMode = triggerOpen !== undefined;
@@ -43,6 +45,8 @@ const Modal = ({
         actionButton={actionButton}
         hideCloseButton={hideCloseButton}
         className={className}
+        title={title}
+        role={role}
       >
         {children}
       </ModalContent>
