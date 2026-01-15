@@ -16,8 +16,8 @@ import { FaGift } from 'react-icons/fa6';
 import useSoundEffect from '@/shared/hooks/useSoundEffect';
 
 const POMODORO_TIMES = {
-  WORK: 1 * 60,
-  REST: 0.5 * 60,
+  WORK: 25 * 60,
+  REST: 5 * 60,
 };
 
 const PomodoroTimer = ({
