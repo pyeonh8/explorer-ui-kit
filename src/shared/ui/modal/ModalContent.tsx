@@ -13,6 +13,8 @@ const ModalContent = ({
   actionButton,
   hideCloseButton = false,
   className = '',
+  title,
+  role,
 }: ModalContentProps) => {
   if (!isOpen) return null;
 
@@ -24,18 +26,31 @@ const ModalContent = ({
   return ReactDOM.createPortal(
     <div className="modal-overlay bg-opacity-50 fixed inset-0 z-9999 flex items-center justify-center bg-black/60">
       {/* 모달 */}
-      <div ref={modalRef} className="w-max">
+      <div
+        role={role}
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        ref={modalRef}
+        className="w-max"
+      >
         <div className={finalClass}>
           {/* 모달 컨텐츠 */}
-          <div className="text-center text-[18px]">{children}</div>
+          <div className="text-center text-[18px]">
+            {title && (
+              <h2 id="modal-title" className="sr-only">
+                {title}
+              </h2>
+            )}
+            {children}
+          </div>
           {/* 모달 버튼 */}
-          <div className="flex justify-center gap-3 pt-5!">
+          <footer className="flex justify-center gap-3 pt-5!">
             {actionButton}
 
             {!hideCloseButton && (
               <ModalButton onClick={close}>닫기</ModalButton>
             )}
-          </div>
+          </footer>
         </div>
       </div>
     </div>,

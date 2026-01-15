@@ -32,6 +32,7 @@ export interface UseSoundProps {
   src?: string;
   volume?: number;
   loop?: boolean;
+  autoPaly?: boolean;
 }
 
 // useTimer: 타이머 훅

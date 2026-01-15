@@ -3,13 +3,13 @@ import { creatures } from 'animal-crossing';
 import { Creature } from 'animal-crossing/lib/types/Creature';
 import Modal from '@/shared/ui/modal/Modal';
 import { ItemGrid, CollectionCard } from '@/shared/ui/ItemGrid';
+import Button from '@/shared/ui/Button';
 import IconButton from '@/shared/ui/IconButton';
+import SortButton from '@/shared/ui/SortButton';
 import getSavedStorageIds from '@/shared/utils/getSavedStorageIds';
 import useFilter from '@/shared/hooks/useFilter';
 import useSort from '@/shared/hooks/useSort';
-import { TbSortAscending } from 'react-icons/tb';
-import { TbSortDescending } from 'react-icons/tb';
-import { CREATURE_ATTRIBUTE } from '@/constants/creatureAttribute';
+import { CREATURE_ATTRIBUTES } from '@/constants/creatureAttributes';
 import { FaBook } from 'react-icons/fa';
 import { IoIosBug } from 'react-icons/io';
 import { IoFish } from 'react-icons/io5';
@@ -28,7 +28,11 @@ const CREATURE_ICON: Record<string, React.ReactNode> = {
   'Sea Creatures': <FaDisease />,
 };
 
-const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
+const CollectionsModal = ({
+  isAdventureStarted,
+}: {
+  isAdventureStarted: boolean;
+}) => {
   const [savedCollections, setSaveCollections] = useState<string[]>(() => {
     if (typeof window !== 'undefined') {
       const saved = getSavedStorageIds('my-treasure-box');
@@ -44,11 +48,11 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
       if (saved) setSaveCollections(saved);
     };
 
-    if (!isStarted) syncData();
-  }, [isStarted]);
+    if (!isAdventureStarted) syncData();
+  }, [isAdventureStarted]);
 
   // 필터
-  const filterKeys = Object.keys(CREATURE_ATTRIBUTE);
+  const filterKeys = Object.keys(CREATURE_ATTRIBUTES);
   const { filteredData, filterValue, setFilterValue } = useFilter(
     collection,
     'sourceSheet'
@@ -75,51 +79,59 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
 
   return (
     <Modal
+      title="My 도감"
       openButton={(open) => (
-        <IconButton onClick={open}>
-          <FaBook className="text-[20px]" />
-          <span className="text-[12px] font-bold whitespace-nowrap">도감</span>
+        <IconButton
+          aria-label="도감 열기"
+          aria-haspopup="dialog"
+          onClick={open}
+          className="gap-1.5 pl-2"
+        >
+          <FaBook aria-hidden="true" className="text-[18px] sm:text-[20px]" />
+          <span className="hidden text-[12px] font-bold whitespace-nowrap sm:block">
+            도감
+          </span>
         </IconButton>
       )}
     >
-      <span className="flex items-center justify-center gap-2 border-b-2 border-(--color-font)/20 pb-3 text-2xl">
+      {/* 모달 헤더 */}
+      <header className="flex items-center justify-center gap-2 border-b-2 border-(--color-font)/20 pb-3 text-2xl">
         <FaBook />
-        <h1 className="font-bold">My 도감</h1>
-      </span>
+        <h2 className="font-bold">My 도감</h2>
+      </header>
 
-      {/* 메뉴 */}
-      <ul className="flex justify-center gap-4 py-4">
-        {filterKeys.map((key) => (
-          <li key={key} className="flex w-18 justify-center text-[13px]">
-            <button
-              onClick={() => setFilterValue(key)}
-              className={`flex w-full cursor-pointer flex-col items-center rounded-2xl bg-(--color-foreground-inverse) pt-1.5 pb-1 text-(--color-font-secondary) transition-all hover:bg-(--color-accent) hover:text-white ${filterValue === key ? 'bg-(--color-accent)! text-white' : ''}`}
-            >
-              <span className="pb-0.5 text-[22px]">{CREATURE_ICON[key]}</span>
-              {CREATURE_ATTRIBUTE[key]}
-            </button>
-          </li>
-        ))}
-      </ul>
+      {/* 도감 메뉴 */}
+      <nav aria-label="도감 카테고리 선택">
+        <ul className="flex justify-center gap-4 py-4">
+          {filterKeys.map((key) => (
+            <li key={key} className="flex w-18 justify-center text-[13px]">
+              <Button
+                aria-pressed={filterValue === key}
+                onClick={() => setFilterValue(key)}
+                className={`flex w-full flex-col items-center rounded-2xl pt-1.5 pb-1 transition-all hover:border-(--color-primary) hover:bg-(--color-accent) hover:text-white ${filterValue === key ? 'border-(--color-primary) bg-(--color-accent)! text-white' : 'border-(--color-font-secondary) bg-(--color-foreground-inverse) text-(--color-font-secondary)'}`}
+              >
+                <span aria-hidden="true" className="pb-0.5 text-[22px]">
+                  {CREATURE_ICON[key]}
+                </span>
+                {CREATURE_ATTRIBUTES[key]}
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-      {/* 이름순 정렬 */}
+      {/* 정렬 버튼 */}
       <div className="pb-2">
-        <button
-          onClick={() => requestSort('kRko')}
-          className="flex cursor-pointer gap-1 text-[15px] font-bold"
-        >
-          <span className="text-[20px]">
-            {sortConfig.direction === 'asc' ? (
-              <TbSortAscending />
-            ) : (
-              <TbSortDescending />
-            )}
-          </span>
-          이름순
-        </button>
+        <SortButton
+          sortKey="kRko"
+          requestSort={requestSort}
+          sortConfig={sortConfig}
+        />
       </div>
 
-      <div
+      {/* 수집 가능한 생물 목록 */}
+      <article
+        aria-label="도감 목록"
         ref={scrollRef}
         className="custom-scroll max-h-[350px] overflow-hidden overflow-y-scroll"
       >
@@ -136,7 +148,7 @@ const CollectionsModal = ({ isStarted }: { isStarted: boolean }) => {
             );
           })}
         </ItemGrid>
-      </div>
+      </article>
     </Modal>
   );
 };

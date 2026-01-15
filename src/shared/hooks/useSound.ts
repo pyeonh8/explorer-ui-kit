@@ -11,8 +11,9 @@ import formatTime from '../utils/formatTime';
  *
  * @return isPlaying - 사운드 플레이 유무
  * @return play - 사운드 시작
- * @return pause - 사운드 중지
- * @return toggle - 사운드 토글 (시작/중지)
+ * @return pause - 사운드 일시중지
+ * @return toggle - 사운드 토글 (시작/일시중지)
+ * @return stop - 사운드 중지 (0초로 돌아감)
  * @return formattedCurrentTime - 현재 사운드 위치
  * @return formattedDuration - 사운드 총 길이
  */
@@ -23,18 +24,22 @@ const useSound = (options: UseSoundProps = {}) => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
-  console.log(duration);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // 재생
   const play = useCallback(() => setIsPlaying(true), []);
 
-  // 정지
+  // 일시정지
   const pause = useCallback(() => setIsPlaying(false), []);
 
   // 토글
   const toggle = useCallback(() => setIsPlaying((prev) => !prev), []);
 
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  // 정지
+  const stop = useCallback(() => {
+    setIsPlaying(false);
+    if (audioRef.current) audioRef.current.currentTime = 0;
+  }, []);
 
   // Audio 객체 초기화
   useEffect(() => {
@@ -100,6 +105,7 @@ const useSound = (options: UseSoundProps = {}) => {
     play,
     pause,
     toggle,
+    stop,
     formattedCurrentTime,
     formattedDuration,
   };

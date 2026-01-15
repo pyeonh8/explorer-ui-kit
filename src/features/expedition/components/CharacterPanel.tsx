@@ -1,17 +1,13 @@
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
-import { TranslateVillager } from '@/types/api.types';
-import { VILLAGERS_HEIGHT } from '@/constants/villagersHeight';
+import { CharacterPanelProps } from '@/types/features.type';
+import { CHARACTER_HEIGHT } from '@/constants/characterHeights';
 
 const CharacterPanel = ({
-  selectedAmiibo,
+  selectedCharacters,
   villagers,
   isTimerRunning,
-}: {
-  selectedAmiibo: string[];
-  villagers: TranslateVillager[];
-  isTimerRunning: boolean;
-}) => {
+}: CharacterPanelProps) => {
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
 
   const villagerMap = useMemo(
@@ -20,23 +16,29 @@ const CharacterPanel = ({
   );
 
   return (
-    <div className="relative h-[150px] w-[full] overflow-hidden rounded-[10px] sm:h-[200px]">
+    <figure
+      aria-labelledby="selected-character-panel"
+      className="relative h-[150px] w-[full] overflow-hidden rounded-[10px] sm:h-[170px]"
+    >
+      <h3 id="selected-character-panel" className="sr-only">
+        현재 선택된 캐릭터 화면
+      </h3>
       {/* 배경 */}
       <div className="absolute inset-0 scale-105 bg-[url('/images/character-bg01.jpg')] bg-cover bg-center opacity-80 blur-[3px]"></div>
 
       {/* 캐릭터 */}
-      <div className="relative z-10 flex h-full items-end justify-center gap-4 px-5">
-        {selectedAmiibo?.map((v, index) => {
+      <ul className="relative z-10 flex h-full items-end justify-center gap-4 px-5">
+        {selectedCharacters?.map((v, index) => {
           const target = villagerMap.get(v);
           if (!target?.image_url) return null;
 
           const isLoaded = loadedImages.has(target?.id || '');
-          const height = VILLAGERS_HEIGHT[target?.species || ''] || 120;
+          const height = CHARACTER_HEIGHT[target?.species || ''] || 120;
 
           return (
-            <div
+            <li
               key={target?.id}
-              className="relative bottom-3 flex items-end sm:bottom-7"
+              className="relative bottom-3 flex items-end sm:bottom-4.5"
               style={{
                 height: `${height}px`,
                 width: 'auto',
@@ -52,7 +54,7 @@ const CharacterPanel = ({
 
               <Image
                 src={target.image_url}
-                alt={target.name}
+                alt={target.koName}
                 width={70}
                 height={70}
                 className={`relative object-contain transition-opacity duration-300 ${
@@ -65,11 +67,11 @@ const CharacterPanel = ({
                 priority
                 unoptimized
               />
-            </div>
+            </li>
           );
         })}
-      </div>
-    </div>
+      </ul>
+    </figure>
   );
 };
 

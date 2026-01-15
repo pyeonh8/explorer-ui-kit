@@ -11,6 +11,7 @@ const InfoBubble = ({
   children = '',
   className = '',
   imageSize = 55,
+  title,
 }: InfoBubbleProps) => {
   const baseStyle =
     "relative rounded-3xl bg-[#fff4c5] px-6 py-3 text-[17px] after:absolute after:top-1/2 after:-left-6 after:-translate-y-1/2 after:border-12 after:border-r-20 after:border-transparent after:border-r-[#fff4c5] after:content-[''] sm:py-4";
@@ -20,14 +21,21 @@ const InfoBubble = ({
 
   return (
     currentNpcData?.iconImage && (
-      <div className="flex items-center justify-center gap-4">
+      <div
+        role="status"
+        aria-label="안내 메세지"
+        className="flex items-center justify-center gap-4"
+      >
         <Image
           src={currentNpcData.iconImage}
-          alt={currentNpcData.name}
+          alt={currentNpcData.translations.kRko}
           height={imageSize}
           width={imageSize}
         />
-        <div className={finalClasses}>{children}</div>
+        <div className={finalClasses}>
+          <h4 className="sr-only">{title}</h4>
+          <p>{children}</p>
+        </div>
       </div>
     )
   );

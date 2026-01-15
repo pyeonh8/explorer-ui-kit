@@ -2,28 +2,17 @@ import { useState } from 'react';
 import { Creature } from 'animal-crossing/lib/types/Creature';
 import { CreatureExtraInfo } from '@/types/features.type';
 import saveStorageId from '@/shared/utils/saveStorageIds';
+import { getRandomItems } from '@/shared/utils/random';
 
 // 보상 랜덤 뽑기
-const UseReward = (collectibleItems: Creature[]) => {
+const useReward = (collectibleItems: Creature[]) => {
   const [currentReward, setCurrentReward] = useState<
     CreatureExtraInfo[] | null
   >(null);
 
   // 아이템 랜덤 보상
   const generateReward = (count: number = 1) => {
-    const rewards = [];
-    const selectedIndices = new Set<number>();
-
-    // 원하는 count 만큼 채워질 때까지 뽑음
-    while (selectedIndices.size < count) {
-      const randomNumber = Math.floor(Math.random() * collectibleItems.length);
-
-      // 중복 제거
-      if (!selectedIndices.has(randomNumber)) {
-        selectedIndices.add(randomNumber);
-        rewards.push(collectibleItems[randomNumber]);
-      }
-    }
+    const rewards = getRandomItems(collectibleItems, count);
 
     // 얻은 보상 저장
     const previousIds = saveStorageId('my-treasure-box', rewards);
@@ -42,4 +31,4 @@ const UseReward = (collectibleItems: Creature[]) => {
   return { currentReward, generateReward, setCurrentReward };
 };
 
-export default UseReward;
+export default useReward;
