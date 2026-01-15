@@ -28,6 +28,7 @@ export default async function AmiiboPage() {
         <span>
           Built by{' '}
           <a
+            aria-label="제작자의 깃허브로 방문 (새 창)"
             href="https://github.com/pyeonh8/explorer-ui-kit"
             target="_blank"
             rel="noreferrer"
@@ -38,7 +39,9 @@ export default async function AmiiboPage() {
         </span>
         <div className="flex flex-wrap justify-center gap-x-1.5">
           <span className="opacity-80">Data from AmiiboAPI & Nookipedia</span>
-          <span className="hidden opacity-40 sm:inline">|</span>
+          <span aria-hidden="true" className="hidden opacity-40 sm:inline">
+            |
+          </span>
           <span className="opacity-80">
             Animal Crossing is a trademark of Nintendo.
           </span>
