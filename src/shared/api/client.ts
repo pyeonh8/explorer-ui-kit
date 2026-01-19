@@ -1,5 +1,5 @@
 // const AMIIBO_URL = 'https://www.amiiboapi.com/api/';
-const AMIIBO_URL = 'https://amiiboapi.onrender.com/api/'; // 임시
+const AMIIBO_URL = 'https://amiiboapi.org/api/';
 const NOOKIPEDIA_URL = 'https://api.nookipedia.com/';
 // const NOOKIPEDIA_URL = 'https://nookipedia.com/w/api.php'; // 임시
 
