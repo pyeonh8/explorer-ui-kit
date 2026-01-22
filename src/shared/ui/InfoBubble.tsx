@@ -34,7 +34,7 @@ const InfoBubble = ({
         />
         <div className={finalClasses}>
           <h4 className="sr-only">{title}</h4>
-          <p>{children}</p>
+          <div>{children}</div>
         </div>
       </div>
     )
