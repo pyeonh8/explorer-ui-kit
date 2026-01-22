@@ -163,7 +163,7 @@ const PomodoroTimer = ({
           <InfoBubble className="text-center sm:py-3">
             {!isTimerFinished ? (
               <>
-                <h3
+                <h5
                   id="timer-info-title"
                   className="mt-1 text-[22px] font-black sm:text-2xl"
                 >
@@ -178,7 +178,7 @@ const PomodoroTimer = ({
                   ) : (
                     '모험을 기다려요!'
                   )}
-                </h3>
+                </h5>
                 <p className="mt-1 text-[13px] sm:text-[14px]">
                   총 {goalRounds}회 탐험 중{' '}
                   <span className="text-(--color-accent)">
@@ -190,12 +190,12 @@ const PomodoroTimer = ({
               </>
             ) : (
               <>
-                <h3
+                <h5
                   id="timer-info-title"
                   className="mt-1 text-[22px] font-black sm:text-2xl"
                 >
                   다음 모험에서 다시 만나요!
-                </h3>
+                </h5>
                 <p className="mt-1 text-[13px] sm:text-[14px]">
                   총{' '}
                   <span className="text-(--color-accent)">{goalRounds}회 </span>{' '}
